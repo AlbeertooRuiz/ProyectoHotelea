@@ -6,4 +6,8 @@ public class Cliente {
 	private String dir;		//direccion del cliente
 	private String email;	//email del cliente
 	private String tlfn;	//telefono del cliente
+	
+	public Cliente() {
+		super();
+	}
 }
