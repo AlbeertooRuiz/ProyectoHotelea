@@ -35,11 +35,22 @@ public class HotelBD {
 	}
 	
 	public static void crearTablas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (Nombre String, Estrellas String, Ciudad String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, estrellas String, ciudad String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
 			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void insertarHotel(Connection con, String nombre, String estrellas, String ciudad) {
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+estrellas+"','"+ciudad+"')";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
