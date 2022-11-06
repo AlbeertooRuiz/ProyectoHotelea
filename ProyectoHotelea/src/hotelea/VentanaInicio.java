@@ -5,21 +5,25 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 
 public class VentanaInicio extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
-	private JTextField textFieldContrasenia;
+	private JPasswordField textFieldContrasenia;
 
 	/**
 	 * Launch the application.
@@ -58,6 +62,13 @@ public class VentanaInicio extends JFrame {
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
+		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
+		panelSur.add(btnIniciarSesion);
+		btnIniciarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
 		JLabel lblRegistro = new JLabel("\u00BFNo tienes cuenta?");
 		panelSur.add(lblRegistro);
 		
@@ -88,14 +99,14 @@ public class VentanaInicio extends JFrame {
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a:");
 		panelCentro.add(lblContrasenia);
 		
-		textFieldContrasenia = new JTextField();
+		textFieldContrasenia = new JPasswordField();
 		panelCentro.add(textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
-		//Nos conectamos con la base de datos
-				Connection con = HotelBD.initBD("hotelea.db");
-				//Creamos las tablas
-				HotelBD.crearTablas(con);
+		//Conexión con la base de datos
+		Connection con = BD.initBD("hotelea.db");
+		//Crear las tablas
+		BD.crearTablas(con);
 	}
 
 }

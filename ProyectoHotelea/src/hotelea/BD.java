@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class HotelBD {
+public class BD {
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
 		try {
