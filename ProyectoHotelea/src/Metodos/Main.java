@@ -1,4 +1,4 @@
-package Metodo;
+package Metodos;
 
 import Ventanas.VentanaInicio;
 
