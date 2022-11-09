@@ -34,7 +34,30 @@ public class BD {
 		}
 	}
 	
-	public static void crearTablas(Connection con) {
+	public static void crearTablaCliente(Connection con) {
+		String sql = "CREATE TABLE IF NOT EXISTS Cliente (nombre String, apellidos String, usuario String, contraseña string)";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void insertarHotel(Connection con, String nombre, String apellidos, String usuario, String contraseña) {
+		String sql = "INSERT INTO Cliente VALUES('"+nombre+"','"+apellidos+"','"+usuario+"','"+contraseña+"')";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void crearTablaHotel(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, estrellas String, ciudad String)";
 		try {
 			Statement st = con.createStatement();

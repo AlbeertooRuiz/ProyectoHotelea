@@ -116,10 +116,15 @@ public class VentanaInicio extends JFrame {
 		panelCentro.add(textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
-		//Conexión con la base de datos
-		Connection con = BD.initBD("hotelea.db");
+		//Conexión con la base de datos Cliente
+		Connection conClientes = BD.initBD("Clientes.db");
 		//Crear las tablas
-		BD.crearTablas(con);
+		BD.crearTablaCliente(conClientes);
+		
+		//Conexión con la base de datos Hotel
+		Connection conHoteles = BD.initBD("Hoteles.db");
+		//Crear las tablas
+		BD.crearTablaHotel(conHoteles);
 	}
 
 }
