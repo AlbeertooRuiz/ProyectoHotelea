@@ -19,8 +19,8 @@ public class VentanaRegistro extends JFrame {
 	private JFrame ventanaAnterior, ventanaActual;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellidos;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldUsuario;
+	private JTextField textFieldContrasenia;
 
 
 	/**
@@ -76,16 +76,16 @@ public class VentanaRegistro extends JFrame {
 		JLabel lblUsuario = new JLabel("Usuario");
 		panelCentro.add(lblUsuario);
 		
-		textField_2 = new JTextField();
-		panelCentro.add(textField_2);
-		textField_2.setColumns(10);
+		textFieldUsuario = new JTextField();
+		panelCentro.add(textFieldUsuario);
+		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a");
 		panelCentro.add(lblContrasenia);
 		
-		textField_3 = new JTextField();
-		panelCentro.add(textField_3);
-		textField_3.setColumns(10);
+		textFieldContrasenia = new JTextField();
+		panelCentro.add(textFieldContrasenia);
+		textFieldContrasenia.setColumns(10);
 		
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
