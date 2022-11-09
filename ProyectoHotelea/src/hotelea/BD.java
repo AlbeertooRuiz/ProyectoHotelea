@@ -35,7 +35,7 @@ public class BD {
 	}
 	
 	public static void crearTablaCliente(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Cliente (nombre String, apellidos String, usuario String, contraseña string)";
+		String sql = "CREATE TABLE IF NOT EXISTS Cliente (nombre String, apellidos String, usuario String, contraseï¿½a string)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -46,8 +46,8 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, String apellidos, String usuario, String contraseña) {
-		String sql = "INSERT INTO Cliente VALUES('"+nombre+"','"+apellidos+"','"+usuario+"','"+contraseña+"')";
+	public static void insertarHotel(Connection con, String nombre, String apellidos, String usuario, String contrasena) {
+		String sql = "INSERT INTO Cliente VALUES('"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasena+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
