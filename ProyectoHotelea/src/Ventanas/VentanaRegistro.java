@@ -1,10 +1,11 @@
-package hotelea;
+package Ventanas;
 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -40,14 +41,14 @@ public class VentanaRegistro extends JFrame {
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
-		JButton btnVolver = new JButton("Registrarse");
-		btnVolver.addActionListener(new ActionListener() {
+		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaActual.dispose();
 				ventanaAnterior.setVisible(true);
 			}
 		});
-		panelSur.add(btnVolver);
+		panelSur.add(btnRegistrarse);
 		
 		JPanel panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
@@ -93,6 +94,20 @@ public class VentanaRegistro extends JFrame {
 		JPanel panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		setVisible(true);
+		
+		btnRegistrarse.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaInicio vi= new VentanaInicio();
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
 	}
+	
+	
 
 }

@@ -1,4 +1,4 @@
-package hotelea;
+package Ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
+
+import Datos.BD;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -116,12 +119,12 @@ public class VentanaInicio extends JFrame {
 		panelCentro.add(textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
-		//Conexión con la base de datos Cliente
+		//Conexiï¿½n con la base de datos Cliente
 		Connection conClientes = BD.initBD("Clientes.db");
 		//Crear las tablas
 		BD.crearTablaCliente(conClientes);
 		
-		//Conexión con la base de datos Hotel
+		//Conexiï¿½n con la base de datos Hotel
 		Connection conHoteles = BD.initBD("Hoteles.db");
 		//Crear las tablas
 		BD.crearTablaHotel(conHoteles);

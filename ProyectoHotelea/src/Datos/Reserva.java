@@ -1,4 +1,4 @@
-package hotelea;
+package Datos;
 
 public class Reserva {
 	private String codH;		//codigo del hotel en el que se realiza la reserva

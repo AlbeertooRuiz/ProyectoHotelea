@@ -1,4 +1,4 @@
-package hotelea;
+package Datos;
 
 public class Cliente {
 	private String dni;		//DNI del cliente

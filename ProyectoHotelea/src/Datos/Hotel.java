@@ -1,4 +1,4 @@
-package hotelea;
+package Datos;
 
 public class Hotel {
 	private String codH;	//codigo del hotel
