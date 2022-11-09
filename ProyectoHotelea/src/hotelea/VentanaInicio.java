@@ -21,10 +21,11 @@ import java.awt.event.ActionEvent;
 
 public class VentanaInicio extends JFrame {
 
+	private JFrame ventanaActual;
 	private JPanel contentPane;
 	private JTextField textFieldUsuario;
 	private JPasswordField textFieldContrasenia;
-
+	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	/**
 	 * Launch the application.
 	 */
@@ -45,6 +46,7 @@ public class VentanaInicio extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaInicio() {
+		ventanaActual = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -53,39 +55,50 @@ public class VentanaInicio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panelNorte = new JPanel();
+		panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
 		
-		JPanel panelSur = new JPanel();
+		panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		panelSur.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
-		panelSur.add(btnIniciarSesion);
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
 		JLabel lblRegistro = new JLabel("\u00BFNo tienes cuenta?");
-		panelSur.add(lblRegistro);
 		
 		JButton btnNewButton = new JButton("\u00A1Registrate!");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new VentanaRegistro(ventanaActual);
+				ventanaActual.setVisible(false);
 			}
 		});
-		panelSur.add(btnNewButton);
 		
-		JPanel panelOeste = new JPanel();
+		panelArriba = new JPanel();
+		panelArriba.add(btnIniciarSesion);
+		
+		panelSur.add(panelArriba);
+		
+		panelAbajo = new JPanel();
+		panelAbajo.add(lblRegistro);
+		panelAbajo.add(btnNewButton);
+		
+		panelSur.add(panelAbajo);
+		
+		panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
 		
-		JPanel panelEste = new JPanel();
+		panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		
-		JPanel panelCentro = new JPanel();
+		panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(new GridLayout(2, 2, 0, 0));
 		
