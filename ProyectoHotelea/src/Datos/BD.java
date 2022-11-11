@@ -46,7 +46,7 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, String apellidos, String usuario, String contrasena) {
+	public static void insertarCliente(Connection con, String nombre, String apellidos, String usuario, String contrasena) {
 		String sql = "INSERT INTO Cliente VALUES('"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasena+"')";
 		try {
 			Statement st = con.createStatement();
