@@ -2,6 +2,7 @@ package Datos;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -35,7 +36,7 @@ public class BD {
 	}
 	
 	public static void crearTablaCliente(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Cliente (nombre String, apellidos String, usuario String, contrase�a string)";
+		String sql = "CREATE TABLE IF NOT EXISTS Cliente (DNI String, nombre String, apellidos String, usuario String, contrasenia String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -46,8 +47,8 @@ public class BD {
 		}
 	}
 	
-	public static void insertarCliente(Connection con, String nombre, String apellidos, String usuario, String contrasena) {
-		String sql = "INSERT INTO Cliente VALUES('"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasena+"')";
+	public static void insertarCliente(Connection con, String DNI, String nombre, String apellidos, String usuario, String contrasenia) {
+		String sql = "INSERT INTO Cliente VALUES('"+DNI+"''"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasenia+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -55,6 +56,24 @@ public class BD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static Cliente obtenerDatosCliente(Connection con, String usuario) {
+		String sql = "SELECT * FROM Cliente WHERE usuario='"+usuario+"'";
+		Cliente cliente = null;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if(rs.next()) {
+				String u = rs.getString("usuario");
+				String contr = rs.getString("contrasenia");
+				cliente = new Cliente(u, contr);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cliente;
 	}
 	
 	public static void crearTablaHotel(Connection con) {

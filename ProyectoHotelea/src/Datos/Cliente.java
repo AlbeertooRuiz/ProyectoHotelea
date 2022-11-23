@@ -1,23 +1,34 @@
 package Datos;
 
 public class Cliente {
-	private String dni;		//DNI del cliente
-	private String nom;		//nombre del cliente
-	private String dir;		//direccion del cliente
-	private String email;	//email del cliente
-	private String tlfn;	//telefono del cliente
+	private String dni;				//DNI del cliente
+	private String nom;				//nombre del cliente
+	private String dir;				//direccion del cliente
+	private String email;			//email del cliente
+	private String tlfn;			//telefono del cliente
+	private String usuario;			//usuario del cliente
+	private String contrasenia;		//contraseña del cliente
+	
 	
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(String dni, String nom, String dir, String email, String tlfn) {
+	public Cliente(String dni, String nom, String dir, String email, String tlfn, String usuario, String contrasenia) {
 		super();
 		this.dni = dni;
 		this.nom = nom;
 		this.dir = dir;
 		this.email = email;
 		this.tlfn = tlfn;
+		this.usuario = usuario;
+		this.contrasenia = contrasenia;
+	}
+
+	public Cliente(String usuario, String contrasenia) {
+		super();
+		this.usuario = usuario;
+		this.contrasenia = contrasenia;
 	}
 
 	public String getDni() {
@@ -58,6 +69,22 @@ public class Cliente {
 
 	public void setTlfn(String tlfn) {
 		this.tlfn = tlfn;
+	}
+	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getContrasenia() {
+		return contrasenia;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	@Override
