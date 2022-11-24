@@ -38,13 +38,12 @@ public class VentanaRegistro extends JFrame {
 		//Nos conectamos con la base de datos
 		Connection con = BD.initBD("Hotelea.db");
 		ventanaActual = this;
+		ventanaActual.setBounds(100, 100, 550, 550);
+		ventanaActual.setLayout(new BorderLayout());
+		ventanaActual.setLocationRelativeTo(null);
 		ventanaAnterior = va;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
-		setSize(anchoP, altoP);
-		setExtendedState(MAXIMIZED_BOTH);
-		setResizable(false);
+	
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
