@@ -9,10 +9,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import Datos.BD;
+import Datos.Hotel;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -33,7 +38,7 @@ public class VentanaUsuario extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaUsuario() {
-		con = BD.initBD("hotelea.db");
+		Connection con = BD.initBD("hotelea.db");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -101,10 +106,10 @@ public class VentanaUsuario extends JFrame {
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		
 		//Rellenamos el modelo con los datos de las personas
-		ArrayList<Persona> aPersonas = BD.obtenerListaPersonas(con); //Obtenemos la lista de personas de la BBDD
-		for(Persona p: aPersonas) { //Recorro cada Persona del ArrayList
-			String [] datos = {p.getDni(),p.getNom(),p.getFechaNacimiento(),p.getCon()};
-			modeloTablaPersona.addRow(datos); //Añadimos al modelo de la tabla la persona
+		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con); //Obtenemos la lista de personas de la BBDD
+		for(Hotel h: hoteles) { //Recorro cada Persona del ArrayList
+			Object [] datos = {h.getNombre(),h.getNumEstr(),h.getCiudad(), "Info adicional"};
+			modeloTablaHotel.addRow(datos); //Añadimos al modelo de la tabla la persona
 		}
 		//Le asignamos el modelo a la JTable
 		tablaPersona = new JTable(modeloTablaPersona);

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class BD {
 	public static Connection initBD(String nombreBD) {
@@ -77,7 +78,7 @@ public class BD {
 	}
 	
 	public static void crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, estrellas String, ciudad String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, estrellas int, ciudad String)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -97,5 +98,28 @@ public class BD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static ArrayList<Hotel> obtenerListaHoteles (Connection con) {
+		ArrayList<Hotel> hoteles= new ArrayList<>();
+		
+		try {
+			Statement st= con.createStatement();
+			String sql= "SELECT * FROM Hotel";
+			ResultSet rs= st.executeQuery(sql);
+			while(rs.next()) {
+				String nombre= rs.getString("nombre");
+				int estrellas=rs.getInt("estrellas");
+				String ciudad=rs.getString("ciudad");
+				Hotel h= new Hotel(nombre, estrellas,ciudad);
+				hoteles.add(h);
+			}
+			rs.close();
+			st.close();
+			}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return hoteles;
+		
 	}
 }
