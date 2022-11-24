@@ -84,9 +84,15 @@ public class VentanaInicio extends JFrame {
 				if(cliente == null) {
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
 				}else if(!cliente.getContrasenia().equals(c)) {
-					JOptionPane.showMessageDialog(null, "La contraseña no es correcta");
+					JOptionPane.showMessageDialog(null, "La contraseï¿½a no es correcta");
 				}else {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
+					VentanaUsuario vu= new VentanaUsuario();
+					vu.setVisible(true);
+				}
+				if(cliente.getUsuario()=="admin" && cliente.getContrasenia()=="hotelea") {
+					VentanaAdministrador va=new VentanaAdministrador() ;
+					va.setVisible(true);
 				}
 			}
 		});
