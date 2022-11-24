@@ -32,10 +32,7 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
-	/**
-	 * Launch the application.
-	 */
-
+	
 	/**
 	 * Create the frame.
 	 */

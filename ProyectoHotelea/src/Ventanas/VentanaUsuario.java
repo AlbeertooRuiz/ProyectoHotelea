@@ -5,21 +5,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JButton;
+import java.awt.FlowLayout;
 
 public class VentanaUsuario extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
+	private JTextField textFieldCiudad;
+	private JTextField textFieldEstrellas;
+	private JTextField textFieldCheckin;
+	private JTextField textFieldCheckout;
+	private JTable tablaPersona;
+	private DefaultTableModel modeloTablaPersona;
+	private JScrollPane scrollTabla;
 
 	/**
 	 * Create the frame.
@@ -34,51 +41,57 @@ public class VentanaUsuario extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(17, 67, 116, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Ciudad");
-		lblNewLabel.setBounds(17, 51, 61, 16);
-		contentPane.add(lblNewLabel);
+		contentPane.setLayout(new BorderLayout(0, 0));
+				
+		JPanel panelNorte = new JPanel();
+		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel_1 = new JLabel("ESCOJA LAS CARACTERISTICAS DEL HOTEL QUE BUSCA");
+		panelNorte.add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(30, 23, 399, 16);
-		contentPane.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(211, 67, 130, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		JPanel panelSur = new JPanel();
+		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
-		JLabel lblNewLabel_2 = new JLabel("Estrellas");
-		lblNewLabel_2.setBounds(211, 51, 61, 16);
-		contentPane.add(lblNewLabel_2);
+		JPanel panelOeste = new JPanel();
+		contentPane.add(panelOeste, BorderLayout.WEST);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(17, 147, 130, 26);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		JPanel panelEste = new JPanel();
+		contentPane.add(panelEste, BorderLayout.EAST);
 		
-		JLabel lblNewLabel_3 = new JLabel("Check-in");
-		lblNewLabel_3.setBounds(17, 130, 61, 16);
-		contentPane.add(lblNewLabel_3);
+		JPanel panelCentro = new JPanel();
+		contentPane.add(panelCentro, BorderLayout.CENTER);
+		panelCentro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(211, 147, 130, 26);
-		contentPane.add(textField_3);
-		textField_3.setColumns(10);
+		JLabel lblCiudad = new JLabel("Ciudad");
+		panelCentro.add(lblCiudad);
 		
-		JLabel lblNewLabel_4 = new JLabel("Check-out");
-		lblNewLabel_4.setBounds(211, 130, 108, 16);
-		contentPane.add(lblNewLabel_4);
+		textFieldCiudad = new JTextField();
+		panelCentro.add(textFieldCiudad);
+		textFieldCiudad.setColumns(10);
+		
+		JLabel lblEstrellas = new JLabel("Estrellas");
+		panelCentro.add(lblEstrellas);
+		
+		textFieldEstrellas = new JTextField();
+		panelCentro.add(textFieldEstrellas);
+		textFieldEstrellas.setColumns(10);
+		
+		JLabel lblCheckin = new JLabel("Check-in");
+		panelCentro.add(lblCheckin);
+		
+		textFieldCheckin = new JTextField();
+		panelCentro.add(textFieldCheckin);
+		textFieldCheckin.setColumns(10);
+		
+		JLabel lblCheckout = new JLabel("Check-out");
+		panelCentro.add(lblCheckout);
+		
+		textFieldCheckout = new JTextField();
+		panelCentro.add(textFieldCheckout);
+		textFieldCheckout.setColumns(10);
 		
 		JButton btnNewButton = new JButton("RESULTADOS\n");
-		btnNewButton.setBounds(155, 208, 117, 29);
-		contentPane.add(btnNewButton);
+		panelSur.add(btnNewButton);
 	}
 }
