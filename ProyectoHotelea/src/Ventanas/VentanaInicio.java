@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import Datos.BD;
+import Datos.Cliente;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,6 +31,7 @@ public class VentanaInicio extends JFrame {
 	private JTextField textFieldUsuario;
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
+	Connection con;
 	/**
 	 * Launch the application.
 	 */
@@ -76,6 +78,16 @@ public class VentanaInicio extends JFrame {
 		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String u = textFieldUsuario.getText();
+				String c = textFieldContrasenia.getText();
+				Cliente cliente = BD.obtenerDatosCliente(con, u);
+				if(cliente == null) {
+					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
+				}else if(!cliente.getContrasenia().equals(c)) {
+					JOptionPane.showMessageDialog(null, "La contraseña no es correcta");
+				}else {
+					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
+				}
 			}
 		});
 		
@@ -125,7 +137,7 @@ public class VentanaInicio extends JFrame {
 		textFieldContrasenia.setColumns(10);
 		
 		//Conexiï¿½n con la base de datos Cliente
-		Connection con = BD.initBD("Hotelea.db");
+		con = BD.initBD("Hotelea.db");
 		//Crear las tablas
 		BD.crearTablaCliente(con);
 		BD.crearTablaHotel(con);

@@ -48,7 +48,7 @@ public class BD {
 	}
 	
 	public static void insertarCliente(Connection con, String DNI, String nombre, String apellidos, String usuario, String contrasenia) {
-		String sql = "INSERT INTO Cliente VALUES('"+DNI+"''"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasenia+"')";
+		String sql = "INSERT INTO Cliente VALUES('"+DNI+"','"+nombre+"','"+apellidos+"','"+usuario+"','"+contrasenia+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
