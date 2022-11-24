@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -24,14 +25,15 @@ public class VentanaUsuario extends JFrame {
 	private JTextField textFieldEstrellas;
 	private JTextField textFieldCheckin;
 	private JTextField textFieldCheckout;
-	private JTable tablaPersona;
-	private DefaultTableModel modeloTablaPersona;
+	private JTable tablaHotel;
+	private DefaultTableModel modeloTablaHotel;
 	private JScrollPane scrollTabla;
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaUsuario() {
+		con = BD.initBD("hotelea.db");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -91,7 +93,29 @@ public class VentanaUsuario extends JFrame {
 		panelCentro.add(textFieldCheckout);
 		textFieldCheckout.setColumns(10);
 		
-		JButton btnNewButton = new JButton("RESULTADOS\n");
-		panelSur.add(btnNewButton);
+		JButton btnBuscar = new JButton("Buscar");
+		panelSur.add(btnBuscar);
+		
+		modeloTablaHotel = new DefaultTableModel();
+		String [] titulos = {};
+		modeloTablaHotel.setColumnIdentifiers(titulos);
+		
+		//Rellenamos el modelo con los datos de las personas
+		ArrayList<Persona> aPersonas = BD.obtenerListaPersonas(con); //Obtenemos la lista de personas de la BBDD
+		for(Persona p: aPersonas) { //Recorro cada Persona del ArrayList
+			String [] datos = {p.getDni(),p.getNom(),p.getFechaNacimiento(),p.getCon()};
+			modeloTablaPersona.addRow(datos); //Añadimos al modelo de la tabla la persona
+		}
+		//Le asignamos el modelo a la JTable
+		tablaPersona = new JTable(modeloTablaPersona);
+		scrollTabla  = new JScrollPane(tablaPersona);
+		//Añadir el scrollHorizontal
+		//scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		//scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		//Añado al panel el scroll que contiene la tabla
+		contentPane.add(scrollTabla, BorderLayout.CENTER);
+	}
 	}
 }
