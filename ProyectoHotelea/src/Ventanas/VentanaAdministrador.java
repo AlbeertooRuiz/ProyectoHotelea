@@ -18,31 +18,19 @@ public class VentanaAdministrador extends JFrame {
 
 	private JPanel contentPane;
 	
-	class FondoPanel extends JPanel {
-		private Image imagen;
-		
-		public void paint(Graphics g) {
-			imagen= new ImageIcon(getClass().getResource("/Imagenes/fondo-de-pantalla.jpg")).getImage();
-			g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-			setOpaque(false);
-			super.paint(g);
-			
-			
-		}
-	};
+	
 	
 	/**
 	 * Create the frame.
 	 */
-	public VentanaAdministrador() {
-		FondoPanel fondo= new FondoPanel();
-		this.setContentPane(fondo);
+	public VentanaAdministrador() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		
 		JLabel lblNewLabel = new JLabel("BIENVENIDO A LA VENTANA DE ADMINISTRADORES");
@@ -62,7 +50,11 @@ public class VentanaAdministrador extends JFrame {
 		lblNewLabel_3.setBounds(6, 71, 161, 16);
 		contentPane.add(lblNewLabel_3);
 		
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(null);
+		lblNewLabel_4.setBounds(0, 0, 450, 272);
+		contentPane.add(lblNewLabel_4);
+		
 		
 	}
-
 }

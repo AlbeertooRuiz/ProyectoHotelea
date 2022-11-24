@@ -19,6 +19,9 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class VentanaRegistro extends JFrame {
 
@@ -39,7 +42,7 @@ public class VentanaRegistro extends JFrame {
 		Connection con = BD.initBD("Hotelea.db");
 		ventanaActual = this;
 		ventanaActual.setBounds(100, 100, 550, 550);
-		ventanaActual.setLayout(new BorderLayout());
+		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		ventanaAnterior = va;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,41 +67,100 @@ public class VentanaRegistro extends JFrame {
 		
 		JPanel panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
-		panelCentro.setLayout(new GridLayout(5, 2, 0, 0));
+		GridBagLayout gbl_panelCentro = new GridBagLayout();
+		gbl_panelCentro.columnWidths = new int[]{253, 82, 0};
+		gbl_panelCentro.rowHeights = new int[]{89, 89, 89, 89, 89, 0};
+		gbl_panelCentro.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCentro.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panelCentro.setLayout(gbl_panelCentro);
 		
 		JLabel lblDNI = new JLabel("DNI");
-		panelCentro.add(lblDNI);
+		GridBagConstraints gbc_lblDNI = new GridBagConstraints();
+		gbc_lblDNI.anchor = GridBagConstraints.EAST;
+		gbc_lblDNI.fill = GridBagConstraints.VERTICAL;
+		gbc_lblDNI.insets = new Insets(0, 0, 5, 5);
+		gbc_lblDNI.gridx = 0;
+		gbc_lblDNI.gridy = 0;
+		panelCentro.add(lblDNI, gbc_lblDNI);
 		
 		textFieldDNI = new JTextField();
-		panelCentro.add(textFieldDNI);
+		GridBagConstraints gbc_textFieldDNI = new GridBagConstraints();
+		gbc_textFieldDNI.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldDNI.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldDNI.gridx = 1;
+		gbc_textFieldDNI.gridy = 0;
+		panelCentro.add(textFieldDNI, gbc_textFieldDNI);
 		textFieldDNI.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		panelCentro.add(lblNombre);
+		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
+		gbc_lblNombre.anchor = GridBagConstraints.EAST;
+		gbc_lblNombre.fill = GridBagConstraints.VERTICAL;
+		gbc_lblNombre.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNombre.gridx = 0;
+		gbc_lblNombre.gridy = 1;
+		panelCentro.add(lblNombre, gbc_lblNombre);
 		
 		textFieldNombre = new JTextField();
-		panelCentro.add(textFieldNombre);
+		GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
+		gbc_textFieldNombre.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldNombre.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldNombre.gridx = 1;
+		gbc_textFieldNombre.gridy = 1;
+		panelCentro.add(textFieldNombre, gbc_textFieldNombre);
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
-		panelCentro.add(lblApellidos);
+		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
+		gbc_lblApellidos.anchor = GridBagConstraints.EAST;
+		gbc_lblApellidos.fill = GridBagConstraints.VERTICAL;
+		gbc_lblApellidos.insets = new Insets(0, 0, 5, 5);
+		gbc_lblApellidos.gridx = 0;
+		gbc_lblApellidos.gridy = 2;
+		panelCentro.add(lblApellidos, gbc_lblApellidos);
 		
 		textFieldApellidos = new JTextField();
-		panelCentro.add(textFieldApellidos);
+		GridBagConstraints gbc_textFieldApellidos = new GridBagConstraints();
+		gbc_textFieldApellidos.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldApellidos.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldApellidos.gridx = 1;
+		gbc_textFieldApellidos.gridy = 2;
+		panelCentro.add(textFieldApellidos, gbc_textFieldApellidos);
 		textFieldApellidos.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
-		panelCentro.add(lblUsuario);
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.fill = GridBagConstraints.VERTICAL;
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuario.gridx = 0;
+		gbc_lblUsuario.gridy = 3;
+		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
-		panelCentro.add(textFieldUsuario);
+		GridBagConstraints gbc_textFieldUsuario = new GridBagConstraints();
+		gbc_textFieldUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_textFieldUsuario.gridx = 1;
+		gbc_textFieldUsuario.gridy = 3;
+		panelCentro.add(textFieldUsuario, gbc_textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a");
-		panelCentro.add(lblContrasenia);
+		GridBagConstraints gbc_lblContrasenia = new GridBagConstraints();
+		gbc_lblContrasenia.anchor = GridBagConstraints.EAST;
+		gbc_lblContrasenia.fill = GridBagConstraints.VERTICAL;
+		gbc_lblContrasenia.insets = new Insets(0, 0, 0, 5);
+		gbc_lblContrasenia.gridx = 0;
+		gbc_lblContrasenia.gridy = 4;
+		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JTextField();
-		panelCentro.add(textFieldContrasenia);
+		GridBagConstraints gbc_textFieldContrasenia = new GridBagConstraints();
+		gbc_textFieldContrasenia.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldContrasenia.gridx = 1;
+		gbc_textFieldContrasenia.gridy = 4;
+		panelCentro.add(textFieldContrasenia, gbc_textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
 		
 		JPanel panelOeste = new JPanel();
