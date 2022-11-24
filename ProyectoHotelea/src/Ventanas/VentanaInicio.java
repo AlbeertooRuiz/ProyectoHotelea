@@ -23,6 +23,9 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class VentanaInicio extends JFrame {
 
@@ -32,28 +35,27 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
-	
+
+	private JPanel panel_1;
+	private JPanel panel_2;
+	private JPanel panel_3;
 	/**
 	 * Create the frame.
 	 */
 	public VentanaInicio() {
 		ventanaActual = this;
 		ventanaActual.setBounds(100, 100, 550, 550);
-		ventanaActual.setLayout(new BorderLayout());
+		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		
+	
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		panelNorte = new JPanel();
-		contentPane.add(panelNorte, BorderLayout.NORTH);
-		
-		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
-		panelNorte.add(lblBienvenido);
 		
 		
 		panelSur = new JPanel();
@@ -106,26 +108,68 @@ public class VentanaInicio extends JFrame {
 		panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
 		
+		panel_2 = new JPanel();
+		panelOeste.add(panel_2);
+		
+		panel_3 = new JPanel();
+		panelOeste.add(panel_3);
+		
+		panel_1 = new JPanel();
+		panelOeste.add(panel_1);
+		
 		panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		
 		panelCentro = new JPanel();
 		contentPane.add(panelCentro, BorderLayout.CENTER);
-		panelCentro.setLayout(new GridLayout(2, 2, 0, 0));
+		GridBagLayout gbl_panelCentro = new GridBagLayout();
+		gbl_panelCentro.columnWidths = new int[]{155, 80, 80, -45, 155, 0};
+		gbl_panelCentro.rowHeights = new int[]{206, 206, 0};
+		gbl_panelCentro.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCentro.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		panelCentro.setLayout(gbl_panelCentro);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
-		panelCentro.add(lblUsuario);
+		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
+		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.fill = GridBagConstraints.VERTICAL;
+		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsuario.gridx = 1;
+		gbc_lblUsuario.gridy = 0;
+		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
-		panelCentro.add(textFieldUsuario);
+		GridBagConstraints gbc_textFieldUsuario = new GridBagConstraints();
+		gbc_textFieldUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldUsuario.gridx = 2;
+		gbc_textFieldUsuario.gridy = 0;
+		panelCentro.add(textFieldUsuario, gbc_textFieldUsuario);
 		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a:");
-		panelCentro.add(lblContrasenia);
+		GridBagConstraints gbc_lblContrasenia = new GridBagConstraints();
+		gbc_lblContrasenia.anchor = GridBagConstraints.EAST;
+		gbc_lblContrasenia.fill = GridBagConstraints.VERTICAL;
+		gbc_lblContrasenia.insets = new Insets(0, 0, 0, 5);
+		gbc_lblContrasenia.gridx = 1;
+		gbc_lblContrasenia.gridy = 1;
+		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JPasswordField();
-		panelCentro.add(textFieldContrasenia);
+		GridBagConstraints gbc_textFieldContrasenia = new GridBagConstraints();
+		gbc_textFieldContrasenia.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldContrasenia.insets = new Insets(0, 0, 0, 5);
+		gbc_textFieldContrasenia.gridx = 2;
+		gbc_textFieldContrasenia.gridy = 1;
+		panelCentro.add(textFieldContrasenia, gbc_textFieldContrasenia);
 		textFieldContrasenia.setColumns(10);
+		
+		panelNorte = new JPanel();
+		contentPane.add(panelNorte, BorderLayout.NORTH);
+		
+		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
+		panelNorte.add(lblBienvenido);
 		
 		//Conexi�n con la base de datos Cliente
 		con = BD.initBD("Hotelea.db");
