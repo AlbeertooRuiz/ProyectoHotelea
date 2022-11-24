@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
+import java.awt.ScrollPane;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -101,9 +102,13 @@ public class VentanaUsuario extends JFrame {
 		JButton btnBuscar = new JButton("Buscar");
 		panelSur.add(btnBuscar);
 		
+		
 		modeloTablaHotel = new DefaultTableModel();
 		String [] titulos = {};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
+		JTable tablaHotel=new JTable(modeloTablaHotel);
+		scrollTabla= new JScrollPane(tablaHotel);
+		
 		
 		//Rellenamos el modelo con los datos de las personas
 		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con); //Obtenemos la lista de personas de la BBDD
@@ -112,8 +117,7 @@ public class VentanaUsuario extends JFrame {
 			modeloTablaHotel.addRow(datos); //Añadimos al modelo de la tabla la persona
 		}
 		//Le asignamos el modelo a la JTable
-		tablaPersona = new JTable(modeloTablaPersona);
-		scrollTabla  = new JScrollPane(tablaPersona);
+		
 		//Añadir el scrollHorizontal
 		//scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		//scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -123,4 +127,4 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
 	}
 	}
-}
+
