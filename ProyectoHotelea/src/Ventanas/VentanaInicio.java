@@ -32,6 +32,7 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
+	Cliente admin= new Cliente("ADMIN", "hotelea");
 	/**
 	 * Launch the application.
 	 */
@@ -71,17 +72,27 @@ public class VentanaInicio extends JFrame {
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
 				if(cliente == null) {
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
+					dispose();
+					VentanaInicio vi= new VentanaInicio();
+					vi.setVisible(true);
+					
 				}else if(!cliente.getContrasenia().equals(c)) {
 					JOptionPane.showMessageDialog(null, "La contrase�a no es correcta");
+					dispose();
+					VentanaInicio vi= new VentanaInicio();
+					vi.setVisible(true);
+				}else if(cliente.getUsuario().equals(admin.getUsuario()) && cliente.getContrasenia().equals(admin.getContrasenia())) {
+					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
+					dispose();
+					VentanaAdministrador va=new VentanaAdministrador() ;
+					va.setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
+					dispose();
 					VentanaUsuario vu= new VentanaUsuario();
 					vu.setVisible(true);
 				}
-				if(cliente.getUsuario()=="admin" && cliente.getContrasenia()=="hotelea") {
-					VentanaAdministrador va=new VentanaAdministrador() ;
-					va.setVisible(true);
-				}
+				
 			}
 		});
 		
