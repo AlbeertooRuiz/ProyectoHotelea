@@ -35,30 +35,17 @@ public class VentanaInicio extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaInicio frame = new VentanaInicio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaInicio() {
 		ventanaActual = this;
+		ventanaActual.setBounds(100, 100, 550, 550);
+		ventanaActual.setLayout(new BorderLayout());
+		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
-		setSize(anchoP, altoP);
-		setExtendedState(MAXIMIZED_BOTH);
-		setResizable(false);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -70,6 +57,7 @@ public class VentanaInicio extends JFrame {
 		
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
+		
 		
 		panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
