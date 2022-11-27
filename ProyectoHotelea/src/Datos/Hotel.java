@@ -1,7 +1,7 @@
 package Datos;
 
 public class Hotel {
-	private String nombre;
+	private String nombre;	//nombre del hotel
 	private String codH;	//codigo del hotel
 	private String dir;		//direccion del hotel
 	private String ciudad;	//ciudad en la que se ubica el hotel
@@ -31,6 +31,14 @@ public class Hotel {
 		this.ciudad = ciudad;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public String getCodH() {
 		return codH;
 	}
@@ -77,15 +85,6 @@ public class Hotel {
 
 	public void setNumHab(int numHab) {
 		this.numHab = numHab;
-	}
-	
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 
 	@Override

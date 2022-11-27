@@ -48,11 +48,16 @@ public class VentanaInicio extends JFrame {
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Conexion con la base de datos
+		con = BD.initBD("Hotelea.db");
+		//Crear las tablas si no existen
+		BD.crearTablaCliente(con);
+		BD.crearTablaHotel(con);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-	
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -68,18 +73,17 @@ public class VentanaInicio extends JFrame {
 				String u = textFieldUsuario.getText();
 				String c = textFieldContrasenia.getText();
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
-				if(cliente == null) {
+				if(u=="admin" && c=="hotelea") {
+					VentanaAdministrador va=new VentanaAdministrador() ;
+					va.setVisible(true);
+				}else if(cliente == null) {
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
 				}else if(!cliente.getContrasenia().equals(c)) {
-					JOptionPane.showMessageDialog(null, "La contraseï¿½a no es correcta");
+					JOptionPane.showMessageDialog(null, "La contraseña no es correcta");
 				}else {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
 					VentanaUsuario vu= new VentanaUsuario();
 					vu.setVisible(true);
-				}
-				if(cliente.getUsuario()=="admin" && cliente.getContrasenia()=="hotelea") {
-					VentanaAdministrador va=new VentanaAdministrador() ;
-					va.setVisible(true);
 				}
 			}
 		});
@@ -171,11 +175,6 @@ public class VentanaInicio extends JFrame {
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
 		
-		//Conexiï¿½n con la base de datos Cliente
-		con = BD.initBD("Hotelea.db");
-		//Crear las tablas
-		BD.crearTablaCliente(con);
-		BD.crearTablaHotel(con);
 	}
 
 }

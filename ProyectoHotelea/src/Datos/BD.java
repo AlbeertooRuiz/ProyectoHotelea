@@ -116,7 +116,7 @@ public class BD {
 			}
 			rs.close();
 			st.close();
-			}catch(SQLException e) {
+			} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return hoteles;
