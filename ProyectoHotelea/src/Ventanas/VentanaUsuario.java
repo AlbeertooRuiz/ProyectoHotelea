@@ -110,7 +110,7 @@ public class VentanaUsuario extends JFrame {
 		panelSur.add(btnBuscar);
 		
 		modeloTablaHotel = new DefaultTableModel();
-		String [] titulos = {};
+		String [] titulos = {"Nombre", "Estrella(s)", "Valoración", "Precio"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		
 		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
