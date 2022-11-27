@@ -115,7 +115,7 @@ public class VentanaUsuario extends JFrame {
 		
 		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
 		for(Hotel h: hoteles) {
-			Object [] datos = {h.getNombre(),h.getNumEstr(),h.getCiudad(), "Info adicional"};
+			Object [] datos = {h.getNombre(),h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
 		}
 		

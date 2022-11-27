@@ -32,6 +32,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField textFieldUsuario;
 	private JTextField textFieldContrasenia;
 	private JTextField textFieldDNI;
+	Connection conn;
 
 
 	/**
@@ -58,6 +59,16 @@ public class VentanaRegistro extends JFrame {
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
 		panelSur.add(btnRegistrarse);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio vi= new VentanaInicio();
+				vi.setVisible(true);
+				dispose();
+			}
+		});
+		panelSur.add(btnVolver);
 		
 		JPanel panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);

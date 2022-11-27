@@ -35,10 +35,6 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
-
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3;
 	/**
 	 * Create the frame.
 	 */
@@ -84,6 +80,7 @@ public class VentanaInicio extends JFrame {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
 					VentanaUsuario vu= new VentanaUsuario();
 					vu.setVisible(true);
+					dispose();
 				}
 			}
 		});
@@ -111,15 +108,6 @@ public class VentanaInicio extends JFrame {
 		
 		panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
-		
-		panel_2 = new JPanel();
-		panelOeste.add(panel_2);
-		
-		panel_3 = new JPanel();
-		panelOeste.add(panel_3);
-		
-		panel_1 = new JPanel();
-		panelOeste.add(panel_1);
 		
 		panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);

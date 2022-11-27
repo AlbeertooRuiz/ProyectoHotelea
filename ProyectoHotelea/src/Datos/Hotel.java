@@ -73,7 +73,7 @@ public class Hotel {
 		return estrellas;
 	}
 
-	public void setNumEstr(int numEstr) {
+	public void setEstrellas(int estrellas) {
 		this.estrellas = estrellas;
 	}
 
@@ -91,6 +91,23 @@ public class Hotel {
 
 	public void setNumHab(int numHab) {
 		this.numHab = numHab;
+	}
+	
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+
+	public int getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(int valoracion) {
+		this.valoracion = valoracion;
 	}
 
 	@Override
