@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class VentanaAñadirHotel extends JFrame{
 	private JTextField textField;
