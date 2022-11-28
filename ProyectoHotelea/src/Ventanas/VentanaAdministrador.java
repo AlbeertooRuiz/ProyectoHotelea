@@ -13,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 public class VentanaAdministrador extends JFrame {
 
@@ -35,25 +36,24 @@ public class VentanaAdministrador extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("BIENVENIDO A LA VENTANA DE ADMINISTRADORES");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel.setBounds(6, 6, 438, 16);
+		lblNewLabel.setBounds(6, 35, 438, 16);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("La empresa Hotelea proporciona a sus administradores una serie de ");
-		lblNewLabel_1.setBounds(6, 34, 438, 16);
+		lblNewLabel_1.setBounds(6, 119, 438, 16);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("datos y estadisticas mostrados a continuación para facilitar el uso");
-		lblNewLabel_2.setBounds(6, 51, 438, 16);
+		JLabel lblNewLabel_2 = new JLabel("opciones que espera que puedan aprovechar. ¿Qué desea hacer?");
+		lblNewLabel_2.setBounds(6, 137, 438, 16);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("de la plataforma");
-		lblNewLabel_3.setBounds(6, 71, 161, 16);
-		contentPane.add(lblNewLabel_3);
+		JButton btnNewButton = new JButton("<<Ver Estadisticas");
+		btnNewButton.setBounds(0, 237, 154, 29);
+		contentPane.add(btnNewButton);
 		
-		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(null);
-		lblNewLabel_4.setBounds(0, 0, 450, 272);
-		contentPane.add(lblNewLabel_4);
+		JButton btnNewButton_1 = new JButton("Añadir nuevo hotel>>");
+		btnNewButton_1.setBounds(271, 237, 173, 29);
+		contentPane.add(btnNewButton_1);
 		
 		
 	}
