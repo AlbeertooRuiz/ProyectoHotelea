@@ -12,6 +12,9 @@ import Datos.BD;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
@@ -32,6 +35,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField textFieldUsuario;
 	private JTextField textFieldContrasenia;
 	private JTextField textFieldDNI;
+	Connection conn;
 
 
 	/**
@@ -59,6 +63,16 @@ public class VentanaRegistro extends JFrame {
 		JButton btnRegistrarse = new JButton("Registrarse");
 		panelSur.add(btnRegistrarse);
 		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaInicio vi= new VentanaInicio();
+				vi.setVisible(true);
+				dispose();
+			}
+		});
+		panelSur.add(btnVolver);
+		
 		JPanel panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
@@ -74,7 +88,7 @@ public class VentanaRegistro extends JFrame {
 		gbl_panelCentro.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panelCentro.setLayout(gbl_panelCentro);
 		
-		JLabel lblDNI = new JLabel("DNI");
+		JLabel lblDNI = new JLabel("DNI (sin letra)");
 		GridBagConstraints gbc_lblDNI = new GridBagConstraints();
 		gbc_lblDNI.anchor = GridBagConstraints.EAST;
 		gbc_lblDNI.fill = GridBagConstraints.VERTICAL;
@@ -84,6 +98,15 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblDNI, gbc_lblDNI);
 		
 		textFieldDNI = new JTextField();
+		textFieldDNI.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				char teclapresionada=arg0.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnRegistrarse.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldDNI = new GridBagConstraints();
 		gbc_textFieldDNI.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldDNI.insets = new Insets(0, 0, 5, 0);
@@ -102,6 +125,15 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblNombre, gbc_lblNombre);
 		
 		textFieldNombre = new JTextField();
+		textFieldNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnRegistrarse.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldNombre = new GridBagConstraints();
 		gbc_textFieldNombre.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNombre.insets = new Insets(0, 0, 5, 0);
@@ -120,6 +152,15 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblApellidos, gbc_lblApellidos);
 		
 		textFieldApellidos = new JTextField();
+		textFieldApellidos.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnRegistrarse.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldApellidos = new GridBagConstraints();
 		gbc_textFieldApellidos.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldApellidos.insets = new Insets(0, 0, 5, 0);
@@ -138,6 +179,15 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
+		textFieldUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnRegistrarse.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldUsuario = new GridBagConstraints();
 		gbc_textFieldUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldUsuario.insets = new Insets(0, 0, 5, 0);
@@ -156,6 +206,15 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JTextField();
+		textFieldContrasenia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnRegistrarse.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldContrasenia = new GridBagConstraints();
 		gbc_textFieldContrasenia.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldContrasenia.gridx = 1;
@@ -195,7 +254,7 @@ public class VentanaRegistro extends JFrame {
 									vi.setVisible(true);
 									dispose();
 								} else {
-									JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Contraseña - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Contraseï¿½a - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
 								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Usuario - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -212,6 +271,10 @@ public class VentanaRegistro extends JFrame {
 			}
 			
 		});
+		
+		
+			
+		
 	}
 	
 	

@@ -26,6 +26,8 @@ import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaInicio extends JFrame {
 
@@ -35,16 +37,6 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
-	Cliente admin= new Cliente("ADMIN", "hotelea");
-	/**
-	 * Launch the application.
-	 */
-
-
-
-	private JPanel panel_1;
-	private JPanel panel_2;
-	private JPanel panel_3;
 	/**
 	 * Create the frame.
 	 */
@@ -54,11 +46,16 @@ public class VentanaInicio extends JFrame {
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Conexion con la base de datos
+		con = BD.initBD("Hotelea.db");
+		//Crear las tablas si no existen
+		BD.crearTablaCliente(con);
+		BD.crearTablaHotel(con);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
-	
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -74,29 +71,19 @@ public class VentanaInicio extends JFrame {
 				String u = textFieldUsuario.getText();
 				String c = textFieldContrasenia.getText();
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
-				if(cliente == null) {
-					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
-					dispose();
-					VentanaInicio vi= new VentanaInicio();
-					vi.setVisible(true);
-					
-				}else if(!cliente.getContrasenia().equals(c)) {
-					JOptionPane.showMessageDialog(null, "La contrase�a no es correcta");
-					dispose();
-					VentanaInicio vi= new VentanaInicio();
-					vi.setVisible(true);
-				}else if(cliente.getUsuario().equals(admin.getUsuario()) && cliente.getContrasenia().equals(admin.getContrasenia())) {
-					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
-					dispose();
+				if(u=="admin" && c=="hotelea") {
 					VentanaAdministrador va=new VentanaAdministrador() ;
 					va.setVisible(true);
+				}else if(cliente == null) {
+					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
+				}else if(!cliente.getContrasenia().equals(c)) {
+					JOptionPane.showMessageDialog(null, "La contrase�a no es correcta");
 				}else {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
-					dispose();
 					VentanaUsuario vu= new VentanaUsuario();
 					vu.setVisible(true);
+					dispose();
 				}
-				
 			}
 		});
 		
@@ -124,15 +111,6 @@ public class VentanaInicio extends JFrame {
 		panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
 		
-		panel_2 = new JPanel();
-		panelOeste.add(panel_2);
-		
-		panel_3 = new JPanel();
-		panelOeste.add(panel_3);
-		
-		panel_1 = new JPanel();
-		panelOeste.add(panel_1);
-		
 		panelEste = new JPanel();
 		contentPane.add(panelEste, BorderLayout.EAST);
 		
@@ -155,6 +133,15 @@ public class VentanaInicio extends JFrame {
 		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
+		textFieldUsuario.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnIniciarSesion.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldUsuario = new GridBagConstraints();
 		gbc_textFieldUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldUsuario.insets = new Insets(0, 0, 5, 5);
@@ -173,6 +160,15 @@ public class VentanaInicio extends JFrame {
 		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JPasswordField();
+		textFieldContrasenia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnIniciarSesion.doClick();
+				}
+			}
+		});
 		GridBagConstraints gbc_textFieldContrasenia = new GridBagConstraints();
 		gbc_textFieldContrasenia.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldContrasenia.insets = new Insets(0, 0, 0, 5);
@@ -187,11 +183,6 @@ public class VentanaInicio extends JFrame {
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
 		
-		//Conexi�n con la base de datos Cliente
-		con = BD.initBD("Hotelea.db");
-		//Crear las tablas
-		BD.crearTablaCliente(con);
-		BD.crearTablaHotel(con);
 	}
 
 }

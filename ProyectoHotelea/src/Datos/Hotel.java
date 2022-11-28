@@ -1,36 +1,50 @@
 package Datos;
 
 public class Hotel {
-	private String nombre;
+	private String nombre;	//nombre del hotel
 	private String codH;	//codigo del hotel
 	private String dir;		//direccion del hotel
 	private String ciudad;	//ciudad en la que se ubica el hotel
-	private int numEstr;	//numero de estrellas del hotel
+	private int estrellas;	//numero de estrellas del hotel
 	private String tlfn;	//numero de telefono del hotel
 	private int numHab;		//numero de habitaciones del hotel
+	private int precio;		//precio por habitacion del hotel
+	private int valoracion; //valoracion del hotel
 	
 	public Hotel() {
 		super();
 	}
 
-	public Hotel(String nombre,String codH, String dir, String ciudad, int numEstr, String tlfn, int numHab) {
+	public Hotel(String nombre, String codH, String dir, String ciudad, int estrellas, String tlfn, int numHab,
+			int precio, int valoracion) {
 		super();
-		this.nombre=nombre;
+		this.nombre = nombre;
 		this.codH = codH;
 		this.dir = dir;
 		this.ciudad = ciudad;
-		this.numEstr = numEstr;
+		this.estrellas = estrellas;
 		this.tlfn = tlfn;
 		this.numHab = numHab;
-	}
-	
-	public Hotel(String nombre, int numEstr, String ciudad) {
-		super();
-		this.nombre=nombre;
-		this.numEstr = numEstr;
-		this.ciudad = ciudad;
+		this.precio = precio;
+		this.valoracion = valoracion;
 	}
 
+	public Hotel(String nombre, int estrellas, int precio, int valoracion) {
+		super();
+		this.nombre = nombre;
+		this.estrellas = estrellas;
+		this.precio = precio;
+		this.valoracion = valoracion;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public String getCodH() {
 		return codH;
 	}
@@ -55,12 +69,12 @@ public class Hotel {
 		this.ciudad = ciudad;
 	}
 
-	public int getNumEstr() {
-		return numEstr;
+	public int getEstrellas() {
+		return estrellas;
 	}
 
-	public void setNumEstr(int numEstr) {
-		this.numEstr = numEstr;
+	public void setEstrellas(int estrellas) {
+		this.estrellas = estrellas;
 	}
 
 	public String getTlfn() {
@@ -80,17 +94,25 @@ public class Hotel {
 	}
 	
 
-	public String getNombre() {
-		return nombre;
+	public int getPrecio() {
+		return precio;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+
+	public int getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(int valoracion) {
+		this.valoracion = valoracion;
 	}
 
 	@Override
 	public String toString() {
-		return "Hotel [nombre=" + nombre + ",codH=" + codH + ", dir=" + dir + ", ciudad=" + ciudad + ", numEstr=" + numEstr + ", tlfn=" + tlfn
+		return "Hotel [nombre=" + nombre + ",codH=" + codH + ", dir=" + dir + ", ciudad=" + ciudad + ", estrellas=" + estrellas + ", tlfn=" + tlfn
 				+ ", numHab=" + numHab + "]";
 	}
 }
