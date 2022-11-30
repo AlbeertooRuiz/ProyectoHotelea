@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import Datos.BD;
 import Datos.Cliente;
+import Datos.Hotel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -182,6 +183,8 @@ public class VentanaInicio extends JFrame {
 		
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
+		
+		BD.insertarHotel(con, "Hotel Melia", 5, "Bilbao", 9, 90);
 		
 	}
 
