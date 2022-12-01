@@ -184,8 +184,6 @@ public class VentanaInicio extends JFrame {
 		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
 		panelNorte.add(lblBienvenido);
 		
-		BD.insertarHotel(con, "Hotel Melia", 5, "Bilbao", 9, 90);
-		
 	}
 
 }
