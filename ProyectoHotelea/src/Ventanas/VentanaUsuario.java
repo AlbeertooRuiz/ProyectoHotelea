@@ -12,6 +12,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Datos.BD;
 import Datos.Hotel;
+import examen.parc202112.Compra;
+import examen.parc202112.Producto;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -23,7 +25,10 @@ import java.awt.ScrollPane;
 import java.awt.GridLayout;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -179,6 +184,31 @@ public class VentanaUsuario extends JFrame {
 		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
+	}
+	public static void getReservasEntreFechas( ArrayList<Producto> productos, java.util.Date fechaIni, java.util.Date fechaFin ) {
+		try (Statement statement = conexion.createStatement()) {
+			ArrayList<Compra> ret = new ArrayList<>();
+			String sent = "select * from compra where fecha>=" + fechaIni.getTime() + " and fecha<=" + fechaFin.getTime() + " order by idProducto;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				int id = rs.getInt("id");
+				long fecha = rs.getLong("fecha");
+				String cliente = rs.getString("cliente");
+				int cantidad = rs.getInt("cantidad");
+				int idProd = rs.getInt("idProducto");
+				for (Producto p : productos) {
+					if (p.getId() == idProd) {
+						ret.add( new Compra( id, fecha, cliente, cantidad, p ) );
+						break;
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			
+		}
 	}
 
 	}
