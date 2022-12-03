@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import Datos.BD;
 import Datos.Cliente;
+import Datos.Hotel;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
