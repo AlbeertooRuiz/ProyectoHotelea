@@ -9,11 +9,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import Datos.BD;
 import Datos.Hotel;
 
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
@@ -40,6 +42,7 @@ public class VentanaUsuario extends JFrame {
 	private JTextField textFieldEstrellas;
 	private JTextField textFieldCheckin;
 	private JTextField textFieldCheckout;
+	private TableRowSorter<DefaultTableModel> sorter;
 
 	/**
 	 * Create the frame.
@@ -119,11 +122,8 @@ public class VentanaUsuario extends JFrame {
 		
 		textFieldCiudad.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
-				char teclapresionada=e.getKeyChar();
-				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
-				}
+			public void keyReleased(KeyEvent e) {
+				filtrar();
 			}
 		});
 		
@@ -159,15 +159,18 @@ public class VentanaUsuario extends JFrame {
 		
 		
 		modeloTablaHotel = new DefaultTableModel();
-		String [] titulos = {"Nombre", "Estrella(s)", "Valoraci�n", "Precio"};
+		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		JTable tablaHotel=new JTable(modeloTablaHotel);
 		scrollTabla= new JScrollPane(tablaHotel);
+		tablaHotel.setAutoCreateRowSorter(true);
+		sorter = new TableRowSorter<>(modeloTablaHotel);
+		tablaHotel.setRowSorter(sorter);			
 		
 		
 		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
 		for(Hotel h: hoteles) {
-			Object [] datos = {h.getNombre(),h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
 		}
 
@@ -181,6 +184,15 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
 	}
 
+	private void filtrar() {
+		try {
+			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText(),1));
+		} catch (Exception e) {
+			
+		}
+	}
+	
+	
 	}
 
 

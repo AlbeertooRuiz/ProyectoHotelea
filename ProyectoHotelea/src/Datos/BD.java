@@ -78,7 +78,7 @@ public class BD {
 	}
 	
 	public static void crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, estrellas int, ciudad String, valoracion int, precio int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -89,8 +89,8 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, int estrellas, String ciudad, int valoracion, int precio) {
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+estrellas+"','"+ciudad+"','"+valoracion+"','"+precio+"')";
+	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio) {
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -108,11 +108,12 @@ public class BD {
 			String sql= "SELECT * FROM Hotel";
 			ResultSet rs= st.executeQuery(sql);
 			while(rs.next()) {
-				String nombre= rs.getString("nombre");
+				String nombre = rs.getString("nombre");
+				String ciudad = rs.getString("ciudad");
 				int estrellas=rs.getInt("estrellas");
 				int valoracion=rs.getInt("valoracion");
 				int precio=rs.getInt("precio");
-				Hotel h= new Hotel(nombre, estrellas, valoracion, precio);
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio);
 				hoteles.add(h);
 			}
 			rs.close();

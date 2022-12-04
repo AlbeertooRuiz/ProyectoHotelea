@@ -29,7 +29,7 @@ public class Hotel {
 		this.valoracion = valoracion;
 	}
 
-	public Hotel(String nombre, int estrellas, String ciudad, int valoracion, int precio) {
+	public Hotel(String nombre, String ciudad, int estrellas, int valoracion, int precio) {
 		super();
 		this.nombre = nombre;
 		this.estrellas = estrellas;
@@ -38,13 +38,6 @@ public class Hotel {
 		this.precio = precio;
 	}
 	
-	public Hotel(String nombre, int estrellas, int valoracion, int precio) {
-		super();
-		this.nombre = nombre;
-		this.estrellas = estrellas;
-		this.valoracion = valoracion;
-		this.precio = precio;
-	}
 
 	public String getNombre() {
 		return nombre;
