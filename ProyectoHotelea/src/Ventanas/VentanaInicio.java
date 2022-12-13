@@ -72,14 +72,16 @@ public class VentanaInicio extends JFrame {
 				String u = textFieldUsuario.getText();
 				String c = textFieldContrasenia.getText();
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
-				if(u=="admin" && c=="hotelea") {
+				if(u.equals("admin") && c.equals("hotelea")) {
 					VentanaAdministrador va=new VentanaAdministrador() ;
 					va.setVisible(true);
+					dispose();
 				}else if(cliente == null) {
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
 				}else if(!cliente.getContrasenia().equals(c)) {
 					JOptionPane.showMessageDialog(null, "La contrase�a no es correcta");
 				}else {
+					BD.closeBD(con);
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
 					VentanaUsuario vu= new VentanaUsuario();
 					vu.setVisible(true);

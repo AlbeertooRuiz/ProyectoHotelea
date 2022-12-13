@@ -43,12 +43,11 @@ public class VentanaUsuario extends JFrame {
 	private JTextField textFieldCheckin;
 	private JTextField textFieldCheckout;
 	private TableRowSorter<DefaultTableModel> sorter;
-
+	private ArrayList<Hotel> hoteles;
 	/**
 	 * Create the frame.
 	 */
 	public VentanaUsuario() {
-		Connection con = BD.initBD("hotelea.db");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -163,12 +162,14 @@ public class VentanaUsuario extends JFrame {
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		JTable tablaHotel=new JTable(modeloTablaHotel);
 		scrollTabla= new JScrollPane(tablaHotel);
-		tablaHotel.setAutoCreateRowSorter(true);
-		sorter = new TableRowSorter<>(modeloTablaHotel);
-		tablaHotel.setRowSorter(sorter);			
 		
+		//tablaHotel.setAutoCreateRowSorter(true);
+		//sorter = new TableRowSorter<>(modeloTablaHotel);
+		//tablaHotel.setRowSorter(sorter);			
 		
-		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
+		Connection con = BD.initBD("hotelea.db");
+		hoteles = BD.obtenerListaHoteles(con);
+		BD.closeBD(con);
 		for(Hotel h: hoteles) {
 			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
@@ -185,10 +186,21 @@ public class VentanaUsuario extends JFrame {
 	}
 
 	private void filtrar() {
-		try {
-			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText(),1));
+		/*try {
+			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText()));
 		} catch (Exception e) {
 			
+		}*/
+		while(modeloTablaHotel.getRowCount()>0) {
+			modeloTablaHotel.removeRow(0);
+		}
+		for(Hotel h: hoteles) {
+			//if(h.getCiudad().equals(textFieldCiudad.getText())) {
+			int ne = Integer.parseInt(textFieldEstrellas.getText());
+			if(h.getCiudad().startsWith(textFieldCiudad.getText()) || h.getEstrellas()==ne) {
+				Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+				modeloTablaHotel.addRow(datos);
+			}
 		}
 	}
 	
