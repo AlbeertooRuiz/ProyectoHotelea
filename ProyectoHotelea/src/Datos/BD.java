@@ -97,7 +97,7 @@ public class BD {
 		ArrayList<Hotel> hoteles = new ArrayList<>();
 	    Connection con = BD.initBD("Hotelea.db");
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("Hotelea"));
+			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
 			String  linea = br.readLine();
 				while(linea != br.readLine()) {
 					linea= br.readLine();
