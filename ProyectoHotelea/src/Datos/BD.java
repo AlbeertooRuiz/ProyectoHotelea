@@ -114,7 +114,7 @@ public class BD {
 				int valoracion=rs.getInt("valoracion");
 				int precio=rs.getInt("precio");
 				int numHab = rs.getInt("numHab");
-				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio);
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
 				hoteles.add(h);
 			}
 			rs.close();
@@ -124,5 +124,17 @@ public class BD {
 		}
 		return hoteles;
 		
+	}
+	
+	public static void reservaHotel(Connection con) {
+		String sql = "UPDATE Hotel SET ";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

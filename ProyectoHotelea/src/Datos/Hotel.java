@@ -29,7 +29,7 @@ public class Hotel {
 		this.valoracion = valoracion;
 	}
 
-	public Hotel(String nombre, String ciudad, int estrellas, int valoracion, int precio) {
+	public Hotel(String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
 		super();
 		this.nombre = nombre;
 		this.estrellas = estrellas;

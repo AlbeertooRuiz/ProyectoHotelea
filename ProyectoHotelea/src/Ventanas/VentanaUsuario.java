@@ -31,6 +31,8 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class VentanaUsuario extends JFrame {
 
@@ -40,15 +42,16 @@ public class VentanaUsuario extends JFrame {
 	private JScrollPane scrollTabla;
 	private JTextField textFieldCiudad;
 	private JTextField textFieldEstrellas;
-	private JTextField textFieldCheckin;
-	private JTextField textFieldCheckout;
+	private JTextField textFieldValoracion;
 	private TableRowSorter<DefaultTableModel> sorter;
 	private ArrayList<Hotel> hoteles;
+	private JFrame ventana;
 	Connection con;
 	/**
 	 * Create the frame.
 	 */
 	public VentanaUsuario() {
+		ventana = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -90,19 +93,12 @@ public class VentanaUsuario extends JFrame {
 		panelAbajo.add(textFieldCiudad);
 		textFieldCiudad.setColumns(10);
 		
-		JLabel lblCheckin = new JLabel("Check-in");
-		panelAbajo.add(lblCheckin);
+		JLabel lblValoracion = new JLabel("Valoracion");
+		panelAbajo.add(lblValoracion);
 		
-		textFieldCheckin = new JTextField();
-		panelAbajo.add(textFieldCheckin);
-		textFieldCheckin.setColumns(10);
-		
-		JLabel lblCheckout = new JLabel("Check-out");
-		panelAbajo.add(lblCheckout);
-		
-		textFieldCheckout = new JTextField();
-		panelAbajo.add(textFieldCheckout);
-		textFieldCheckout.setColumns(10);
+		textFieldValoracion = new JTextField();
+		panelAbajo.add(textFieldValoracion);
+		textFieldValoracion.setColumns(10);
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
@@ -127,7 +123,7 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		
-		textFieldCheckout.addKeyListener(new KeyAdapter() {
+		textFieldValoracion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char teclapresionada=e.getKeyChar();
@@ -135,16 +131,9 @@ public class VentanaUsuario extends JFrame {
 					btnBuscar.doClick();
 				}
 			}
-		});
-		
-		textFieldCheckin.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
-				char teclapresionada=e.getKeyChar();
-				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
-				}
-			}
+			public void keyReleased(KeyEvent e) {
+				filtrar();			}
 		});
 		
 		textFieldEstrellas.addKeyListener(new KeyAdapter() {
@@ -161,11 +150,18 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		
-		modeloTablaHotel = new DefaultTableModel();
+		modeloTablaHotel = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		
+		tablaHotel = new JTable(modeloTablaHotel);
+		
 		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
-		JTable tablaHotel=new JTable(modeloTablaHotel);
-		scrollTabla= new JScrollPane(tablaHotel);
+		
+		tablaHotel.getTableHeader().setReorderingAllowed(false);
 		
 		//tablaHotel.setAutoCreateRowSorter(true);
 		//sorter = new TableRowSorter<>(modeloTablaHotel);
@@ -180,13 +176,52 @@ public class VentanaUsuario extends JFrame {
 		}
 
 		
-		tablaHotel = new JTable(modeloTablaHotel);
 		scrollTabla  = new JScrollPane(tablaHotel);
 		
 		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
+		
+		tablaHotel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount() == 2) {
+					int fila = tablaHotel.rowAtPoint(e.getPoint());
+					System.out.println(fila);
+					String nombre = (String)modeloTablaHotel.getValueAt(fila, 0);
+					VentanaReserva vr = new VentanaReserva(nombre);
+					vr.setVisible(true);
+					ventana.dispose();
+				}
+			}
+		});
 	}
 
 	private void filtrar() {
@@ -200,8 +235,19 @@ public class VentanaUsuario extends JFrame {
 		}
 		for(Hotel h: hoteles) {
 			//if(h.getCiudad().equals(textFieldCiudad.getText())) {
-			int ne = Integer.parseInt(textFieldEstrellas.getText());
-			if(h.getCiudad().startsWith(textFieldCiudad.getText()) && h.getEstrellas()==ne) {
+			int numEstr;
+			int valoracion;
+			if(textFieldEstrellas.getText().equals("")) {
+				numEstr = 0;
+			}else {
+				numEstr = Integer.parseInt(textFieldEstrellas.getText());
+			}
+			if(textFieldValoracion.getText().equals("")) {
+				valoracion = 0;
+			}else {
+				valoracion = Integer.parseInt(textFieldValoracion.getText());		
+			}
+			if(h.getCiudad().startsWith(textFieldCiudad.getText()) && h.getEstrellas()>=numEstr && h.getValoracion()>=valoracion) {
 				Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 				modeloTablaHotel.addRow(datos);
 //				if( || h.getEstrellas()==ne) {
