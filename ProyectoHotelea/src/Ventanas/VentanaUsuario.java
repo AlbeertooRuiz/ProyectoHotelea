@@ -44,6 +44,7 @@ public class VentanaUsuario extends JFrame {
 	private JTextField textFieldCheckout;
 	private TableRowSorter<DefaultTableModel> sorter;
 	private ArrayList<Hotel> hoteles;
+	Connection con;
 	/**
 	 * Create the frame.
 	 */
@@ -73,6 +74,14 @@ public class VentanaUsuario extends JFrame {
 		panelArriba.add(lblTitulo);
 		lblTitulo.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		
+		JLabel lblNewLabel = new JLabel("Estrellas");
+		panelAbajo.add(lblNewLabel);
+		
+		textFieldEstrellas = new JTextField();
+		
+		panelAbajo.add(textFieldEstrellas);
+		textFieldEstrellas.setColumns(10);
+		
 		JLabel lblCiudad = new JLabel("Ciudad");
 		panelAbajo.add(lblCiudad);
 		
@@ -80,14 +89,6 @@ public class VentanaUsuario extends JFrame {
 		
 		panelAbajo.add(textFieldCiudad);
 		textFieldCiudad.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Estrellas");
-		panelAbajo.add(lblNewLabel);
-		
-		textFieldEstrellas = new JTextField();
-	
-		panelAbajo.add(textFieldEstrellas);
-		textFieldEstrellas.setColumns(10);
 		
 		JLabel lblCheckin = new JLabel("Check-in");
 		panelAbajo.add(lblCheckin);
@@ -126,16 +127,6 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		
-		textFieldEstrellas.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char teclapresionada=e.getKeyChar();
-				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
-				}
-			}
-		});
-		
 		textFieldCheckout.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -156,6 +147,19 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		
+		textFieldEstrellas.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnBuscar.doClick();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtrar();
+			}
+		});
 		
 		modeloTablaHotel = new DefaultTableModel();
 		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
@@ -197,9 +201,14 @@ public class VentanaUsuario extends JFrame {
 		for(Hotel h: hoteles) {
 			//if(h.getCiudad().equals(textFieldCiudad.getText())) {
 			int ne = Integer.parseInt(textFieldEstrellas.getText());
-			if(h.getCiudad().startsWith(textFieldCiudad.getText()) || h.getEstrellas()==ne) {
+			if(h.getCiudad().startsWith(textFieldCiudad.getText()) && h.getEstrellas()==ne) {
 				Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 				modeloTablaHotel.addRow(datos);
+//				if( || h.getEstrellas()==ne) {
+//					int ne = Integer.parseInt(textFieldEstrellas.getText());
+//					Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+//					modeloTablaHotel.addRow(datos);
+//				}
 			}
 		}
 	}

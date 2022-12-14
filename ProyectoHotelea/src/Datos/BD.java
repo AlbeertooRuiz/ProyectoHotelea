@@ -78,7 +78,7 @@ public class BD {
 	}
 	
 	public static void crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -89,8 +89,8 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio) {
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"')";
+	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"', '"+numHab+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -113,6 +113,7 @@ public class BD {
 				int estrellas=rs.getInt("estrellas");
 				int valoracion=rs.getInt("valoracion");
 				int precio=rs.getInt("precio");
+				int numHab = rs.getInt("numHab");
 				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio);
 				hoteles.add(h);
 			}

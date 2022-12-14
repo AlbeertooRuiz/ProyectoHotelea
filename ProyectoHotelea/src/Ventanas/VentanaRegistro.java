@@ -35,6 +35,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField textFieldUsuario;
 	private JTextField textFieldContrasenia;
 	private JTextField textFieldDNI;
+	Connection con;
 
 
 	/**

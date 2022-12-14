@@ -73,6 +73,7 @@ public class VentanaInicio extends JFrame {
 				String c = textFieldContrasenia.getText();
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
 				if(u.equals("admin") && c.equals("hotelea")) {
+					BD.closeBD(con);
 					VentanaAdministrador va=new VentanaAdministrador() ;
 					va.setVisible(true);
 					dispose();
