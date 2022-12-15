@@ -1,6 +1,7 @@
 package Datos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -78,7 +79,7 @@ public class BD {
 	}
 	
 	public static void crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -89,8 +90,31 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio) {
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"')";
+	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"'"+numHab+"')";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void crearTablaReserva(Connection con) {
+		String sql = "CREATE TABLE IF NOT EXISTS Reserva (nombrehotel String, nombreusuario String, checkin Date, checkout Date)";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void insertarReserva(Connection con, String nombrehotel, String nombreusuario, Date checkin, Date checkout) {
+		String sql = "INSERT INTO Reserva VALUES('"+nombrehotel+"','"+nombreusuario+"','"+checkin+"','"+checkout+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -124,4 +148,30 @@ public class BD {
 		return hoteles;
 		
 	}
+	
+	public static ArrayList<Hotel> buscarHoteles (Connection con, String ciudad, int estrellas, int checkin, int checkout ) {
+		ArrayList<Hotel> hoteles= new ArrayList<>();
+		
+		try {
+			Statement st= con.createStatement();
+			String sql= "SELECT * FROM Hotel WHERE ciudad ='"+ciudad+"'AND estrellas='"+estrellas+"'AND checkin='"+checkin+"'AND checkout='"+checkout+"';";
+			ResultSet rs= st.executeQuery(sql);
+			while(rs.next()) {
+				String nom = rs.getString("nombre");
+				String ci = rs.getString("ciudad");
+				int estr=rs.getInt("estrellas");
+				int valoracio=rs.getInt("valoracion");
+				int preci=rs.getInt("precio");
+				Hotel h= new Hotel(nom, ci, estr, valoracio, preci);
+				hoteles.add(h);
+			}
+			rs.close();
+			st.close();
+			} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return hoteles;
+		
+	}
+	
 }

@@ -13,8 +13,6 @@ import javax.swing.table.TableRowSorter;
 
 import Datos.BD;
 import Datos.Hotel;
-import examen.parc202112.Compra;
-import examen.parc202112.Producto;
 
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
@@ -34,6 +32,8 @@ import java.util.logging.Level;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -42,6 +42,7 @@ public class VentanaUsuario extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaHotel;
 	private DefaultTableModel modeloTablaHotel;
+	private DefaultTableModel modeloTablaBusqueda;
 	private JScrollPane scrollTabla;
 	private JTextField textFieldCiudad;
 	private JTextField textFieldEstrellas;
@@ -164,13 +165,15 @@ public class VentanaUsuario extends JFrame {
 		
 		
 		modeloTablaHotel = new DefaultTableModel();
-		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
+		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio", "Numero Habitaciones"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		JTable tablaHotel=new JTable(modeloTablaHotel);
 		scrollTabla= new JScrollPane(tablaHotel);
 		tablaHotel.setAutoCreateRowSorter(true);
 		sorter = new TableRowSorter<>(modeloTablaHotel);
-		tablaHotel.setRowSorter(sorter);			
+		tablaHotel.setRowSorter(sorter);	
+		
+		
 		
 		
 		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
@@ -187,32 +190,36 @@ public class VentanaUsuario extends JFrame {
 		scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
-	}
-	public static void getReservasEntreFechas( ArrayList<Producto> productos, java.util.Date fechaIni, java.util.Date fechaFin ) {
-		try (Statement statement = conexion.createStatement()) {
-			ArrayList<Compra> ret = new ArrayList<>();
-			String sent = "select * from compra where fecha>=" + fechaIni.getTime() + " and fecha<=" + fechaFin.getTime() + " order by idProducto;";
-			logger.log( Level.INFO, "Statement: " + sent );
-			ResultSet rs = statement.executeQuery( sent );
-			while( rs.next() ) { // Leer el resultset
-				int id = rs.getInt("id");
-				long fecha = rs.getLong("fecha");
-				String cliente = rs.getString("cliente");
-				int cantidad = rs.getInt("cantidad");
-				int idProd = rs.getInt("idProducto");
-				for (Producto p : productos) {
-					if (p.getId() == idProd) {
-						ret.add( new Compra( id, fecha, cliente, cantidad, p ) );
-						break;
-					}
+		
+		
+		btnBuscar.addActionListener(new ActionListener() {
+
+			@Override
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				modeloTablaBusqueda = new DefaultTableModel();
+				String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
+				modeloTablaBusqueda.setColumnIdentifiers(titulos);
+				
+				ArrayList<Hotel> hotelesbuscar = BD.buscarHoteles(con,textFieldCiudad.getText(), Integer.parseInt(textFieldEstrellas.getText()), Integer.parseInt(textFieldCheckin.getText()), Integer.parseInt(textFieldCheckout.getText()));
+				for(Hotel h: hotelesbuscar) {
+					Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+					modeloTablaBusqueda.addRow(datos);
 				}
+				
+				
+				
+				scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+				scrollTabla.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+				
+				contentPane.add(scrollTabla, BorderLayout.CENTER);
 			}
 			
-		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			
-		}
+		});;
 	}
+	
+	
 
 	private void filtrar() {
 		try {

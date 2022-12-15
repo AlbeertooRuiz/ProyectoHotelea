@@ -118,43 +118,7 @@ public class VentanaAñadirHotel extends JFrame{
 		}
 	
 	
-	botonanyadir.addActionListener(new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			String erNombre = "[A-Za-z]{1,}";
-			String nombre = textFieldNombre.getText();
-			int erEstrellas = "[1-5]";
-			int estrellas = Integer.parseInt(textFieldEstrellas.getText());
-			String erciudad = "[A-Za-z0-9]{1,}";
-			String ciudad = textFieldCiudad.getText();
-			int erprecio = "[1-5]";
-			int precio = Integer.parseInt(textFieldPrecio.getText());
-			if(Pattern.matches(erNombre, nombre)) {
-				if(erEstrellas==estrellas) {
-					if(erprecio==precio) {
-						if(Pattern.matches(erciudad,ciudad)) {
-								BD.insertarHotel(con, nombre, estrellas, ciudad,0, precio);
-								VentanaAñadirHotel va= new VentanaAñadirHotel();
-								va.setVisible(true);
-								dispose();
-							} else {
-								JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Contrase�a - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
-							}
-						} else {
-							JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Usuario - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Apellidos - Solo letras)", "ERROR", JOptionPane.ERROR_MESSAGE);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Nombre - Solo letras)", "ERROR", JOptionPane.ERROR_MESSAGE);
-				}
-			} 
-		
-		
-	});
+	
 
 	}
 }
