@@ -33,6 +33,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaUsuario extends JFrame {
 
@@ -45,13 +47,14 @@ public class VentanaUsuario extends JFrame {
 	private JTextField textFieldValoracion;
 	private TableRowSorter<DefaultTableModel> sorter;
 	private ArrayList<Hotel> hoteles;
-	private JFrame ventana;
+	private JFrame ventanaAnterior, ventanaActual;
 	Connection con;
 	/**
 	 * Create the frame.
 	 */
-	public VentanaUsuario() {
-		ventana = this;
+	public VentanaUsuario(JFrame va) {
+		ventanaActual = this;
+		ventanaAnterior = va;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -77,14 +80,6 @@ public class VentanaUsuario extends JFrame {
 		panelArriba.add(lblTitulo);
 		lblTitulo.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		
-		JLabel lblNewLabel = new JLabel("Estrellas");
-		panelAbajo.add(lblNewLabel);
-		
-		textFieldEstrellas = new JTextField();
-		
-		panelAbajo.add(textFieldEstrellas);
-		textFieldEstrellas.setColumns(10);
-		
 		JLabel lblCiudad = new JLabel("Ciudad");
 		panelAbajo.add(lblCiudad);
 		
@@ -93,7 +88,22 @@ public class VentanaUsuario extends JFrame {
 		panelAbajo.add(textFieldCiudad);
 		textFieldCiudad.setColumns(10);
 		
-		JLabel lblValoracion = new JLabel("Valoracion");
+		textFieldCiudad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtrar();
+			}
+		});
+		
+		JLabel lblNewLabel = new JLabel("Estrellas(min)");
+		panelAbajo.add(lblNewLabel);
+		
+		textFieldEstrellas = new JTextField();
+		
+		panelAbajo.add(textFieldEstrellas);
+		textFieldEstrellas.setColumns(10);
+		
+		JLabel lblValoracion = new JLabel("Valoracion(min)");
 		panelAbajo.add(lblValoracion);
 		
 		textFieldValoracion = new JTextField();
@@ -113,22 +123,21 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnBuscar = new JButton("Buscar");
-		panelSur.add(btnBuscar);
-		
-		textFieldCiudad.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				filtrar();
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaActual.dispose();
+				ventanaAnterior.setVisible(true);
 			}
 		});
+		panelSur.add(btnCerrarSesion);
 		
 		textFieldValoracion.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char teclapresionada=e.getKeyChar();
 				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
+					btnCerrarSesion.doClick();
 				}
 			}
 			@Override
@@ -141,7 +150,7 @@ public class VentanaUsuario extends JFrame {
 			public void keyTyped(KeyEvent e) {
 				char teclapresionada=e.getKeyChar();
 				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
+					btnCerrarSesion.doClick();
 				}
 			}
 			@Override
@@ -218,7 +227,7 @@ public class VentanaUsuario extends JFrame {
 					String nombre = (String)modeloTablaHotel.getValueAt(fila, 0);
 					VentanaReserva vr = new VentanaReserva(nombre);
 					vr.setVisible(true);
-					ventana.dispose();
+					ventanaActual.dispose();
 				}
 			}
 		});

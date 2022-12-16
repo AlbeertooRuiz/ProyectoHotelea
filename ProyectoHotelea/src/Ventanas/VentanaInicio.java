@@ -43,7 +43,7 @@ public class VentanaInicio extends JFrame {
 	 */
 	public VentanaInicio() {
 		ventanaActual = this;
-		ventanaActual.setBounds(100, 100, 550, 550);
+		ventanaActual.setSize(550, 550);
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,9 +84,10 @@ public class VentanaInicio extends JFrame {
 				}else {
 					BD.closeBD(con);
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
-					VentanaUsuario vu= new VentanaUsuario();
+					VentanaUsuario vu= new VentanaUsuario(ventanaActual);
 					vu.setVisible(true);
-					dispose();
+					ventanaActual.setVisible(false);
+					
 				}
 			}
 		});

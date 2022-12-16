@@ -64,9 +64,8 @@ public class VentanaRegistro extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaInicio vi= new VentanaInicio();
-				vi.setVisible(true);
-				dispose();
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
 			}
 		});
 		panelSur.add(btnVolver);
