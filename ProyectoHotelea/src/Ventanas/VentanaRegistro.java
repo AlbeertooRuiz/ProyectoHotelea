@@ -35,15 +35,13 @@ public class VentanaRegistro extends JFrame {
 	private JTextField textFieldUsuario;
 	private JTextField textFieldContrasenia;
 	private JTextField textFieldDNI;
-	Connection conn;
+	Connection con;
 
 
 	/**
 	 * Create the frame.
 	 */
 	public VentanaRegistro(JFrame va) {
-		//Nos conectamos con la base de datos
-		Connection con = BD.initBD("Hotelea.db");
 		ventanaActual = this;
 		ventanaActual.setBounds(100, 100, 550, 550);
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
@@ -66,9 +64,8 @@ public class VentanaRegistro extends JFrame {
 		JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaInicio vi= new VentanaInicio();
-				vi.setVisible(true);
-				dispose();
+				ventanaAnterior.setVisible(true);
+				ventanaActual.dispose();
 			}
 		});
 		panelSur.add(btnVolver);
@@ -249,7 +246,10 @@ public class VentanaRegistro extends JFrame {
 						if(Pattern.matches(erApellidos, apellidos)) {
 							if(Pattern.matches(erUsuario, usuario)) {
 								if(Pattern.matches(erContrasenia, contrasenia)) {
+									//Nos conectamos con la base de datos
+									Connection con = BD.initBD("Hotelea.db");
 									BD.insertarCliente(con, dni, nombre, apellidos, usuario, contrasenia);
+									BD.closeBD(con);
 									VentanaInicio vi= new VentanaInicio();
 									vi.setVisible(true);
 									dispose();

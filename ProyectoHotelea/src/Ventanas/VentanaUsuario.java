@@ -36,6 +36,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaUsuario extends JFrame {
 
@@ -46,15 +50,17 @@ public class VentanaUsuario extends JFrame {
 	private JScrollPane scrollTabla;
 	private JTextField textFieldCiudad;
 	private JTextField textFieldEstrellas;
-	private JTextField textFieldCheckin;
-	private JTextField textFieldCheckout;
+	private JTextField textFieldValoracion;
 	private TableRowSorter<DefaultTableModel> sorter;
-
+	private ArrayList<Hotel> hoteles;
+	private JFrame ventanaAnterior, ventanaActual;
+	Connection con;
 	/**
 	 * Create the frame.
 	 */
-	public VentanaUsuario() {
-		Connection con = BD.initBD("hotelea.db");
+	public VentanaUsuario(JFrame va) {
+		ventanaActual = this;
+		ventanaAnterior = va;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
 		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
@@ -88,27 +94,27 @@ public class VentanaUsuario extends JFrame {
 		panelAbajo.add(textFieldCiudad);
 		textFieldCiudad.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Estrellas");
+		textFieldCiudad.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				filtrar();
+			}
+		});
+		
+		JLabel lblNewLabel = new JLabel("Estrellas(min)");
 		panelAbajo.add(lblNewLabel);
 		
 		textFieldEstrellas = new JTextField();
-	
+		
 		panelAbajo.add(textFieldEstrellas);
 		textFieldEstrellas.setColumns(10);
 		
-		JLabel lblCheckin = new JLabel("Check-in");
-		panelAbajo.add(lblCheckin);
+		JLabel lblValoracion = new JLabel("Valoracion(min)");
+		panelAbajo.add(lblValoracion);
 		
-		textFieldCheckin = new JTextField();
-		panelAbajo.add(textFieldCheckin);
-		textFieldCheckin.setColumns(10);
-		
-		JLabel lblCheckout = new JLabel("Check-out");
-		panelAbajo.add(lblCheckout);
-		
-		textFieldCheckout = new JTextField();
-		panelAbajo.add(textFieldCheckout);
-		textFieldCheckout.setColumns(10);
+		textFieldValoracion = new JTextField();
+		panelAbajo.add(textFieldValoracion);
+		textFieldValoracion.setColumns(10);
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
@@ -123,14 +129,26 @@ public class VentanaUsuario extends JFrame {
 		contentPane.add(panelCentro, BorderLayout.CENTER);
 		panelCentro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnBuscar = new JButton("Buscar");
-		panelSur.add(btnBuscar);
+		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaActual.dispose();
+				ventanaAnterior.setVisible(true);
+			}
+		});
+		panelSur.add(btnCerrarSesion);
 		
-		textFieldCiudad.addKeyListener(new KeyAdapter() {
+		textFieldValoracion.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char teclapresionada=e.getKeyChar();
+				if(teclapresionada==KeyEvent.VK_ENTER) {
+					btnCerrarSesion.doClick();
+				}
+			}
 			@Override
 			public void keyReleased(KeyEvent e) {
-				filtrar();
-			}
+				filtrar();			}
 		});
 		
 		textFieldEstrellas.addKeyListener(new KeyAdapter() {
@@ -138,35 +156,31 @@ public class VentanaUsuario extends JFrame {
 			public void keyTyped(KeyEvent e) {
 				char teclapresionada=e.getKeyChar();
 				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
+					btnCerrarSesion.doClick();
 				}
 			}
-		});
-		
-		textFieldCheckout.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyTyped(KeyEvent e) {
-				char teclapresionada=e.getKeyChar();
-				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
-				}
+			public void keyReleased(KeyEvent e) {
+				filtrar();
 			}
 		});
 		
-		textFieldCheckin.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyTyped(KeyEvent e) {
-				char teclapresionada=e.getKeyChar();
-				if(teclapresionada==KeyEvent.VK_ENTER) {
-					btnBuscar.doClick();
-				}
+		modeloTablaHotel = new DefaultTableModel() {
+			public boolean isCellEditable(int row, int column) {
+				return false;
 			}
-		});
+		};
 		
+		tablaHotel = new JTable(modeloTablaHotel);
 		
+
 		modeloTablaHotel = new DefaultTableModel();
 		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio", "Numero Habitaciones"};
+
+		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
+ 
 		modeloTablaHotel.setColumnIdentifiers(titulos);
+
 		JTable tablaHotel=new JTable(modeloTablaHotel);
 		scrollTabla= new JScrollPane(tablaHotel);
 		tablaHotel.setAutoCreateRowSorter(true);
@@ -174,16 +188,23 @@ public class VentanaUsuario extends JFrame {
 		tablaHotel.setRowSorter(sorter);	
 		
 		
+
 		
+		tablaHotel.getTableHeader().setReorderingAllowed(false);
 		
-		ArrayList<Hotel> hoteles = BD.obtenerListaHoteles(con);
+		//tablaHotel.setAutoCreateRowSorter(true);
+		//sorter = new TableRowSorter<>(modeloTablaHotel);
+		//tablaHotel.setRowSorter(sorter);			
+		
+		Connection con = BD.initBD("hotelea.db");
+		hoteles = BD.obtenerListaHoteles(con);
+		BD.closeBD(con);
 		for(Hotel h: hoteles) {
 			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
 		}
 
 		
-		tablaHotel = new JTable(modeloTablaHotel);
 		scrollTabla  = new JScrollPane(tablaHotel);
 		
 		scrollTabla.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -191,6 +212,7 @@ public class VentanaUsuario extends JFrame {
 		
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
 		
+
 		
 		btnBuscar.addActionListener(new ActionListener() {
 
@@ -217,15 +239,83 @@ public class VentanaUsuario extends JFrame {
 			}
 			
 		});;
+
+		tablaHotel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getClickCount() == 2) {
+					int fila = tablaHotel.rowAtPoint(e.getPoint());
+					System.out.println(fila);
+					String nombre = (String)modeloTablaHotel.getValueAt(fila, 0);
+					VentanaReserva vr = new VentanaReserva(nombre);
+					vr.setVisible(true);
+					ventanaActual.dispose();
+				}
+			}
+		});
+
 	}
 	
 	
 
 	private void filtrar() {
-		try {
-			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText(),1));
+		/*try {
+			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText()));
 		} catch (Exception e) {
 			
+		}*/
+		while(modeloTablaHotel.getRowCount()>0) {
+			modeloTablaHotel.removeRow(0);
+		}
+		for(Hotel h: hoteles) {
+			//if(h.getCiudad().equals(textFieldCiudad.getText())) {
+			int numEstr;
+			int valoracion;
+			if(textFieldEstrellas.getText().equals("")) {
+				numEstr = 0;
+			}else {
+				numEstr = Integer.parseInt(textFieldEstrellas.getText());
+			}
+			if(textFieldValoracion.getText().equals("")) {
+				valoracion = 0;
+			}else {
+				valoracion = Integer.parseInt(textFieldValoracion.getText());		
+			}
+			if(h.getCiudad().startsWith(textFieldCiudad.getText()) && h.getEstrellas()>=numEstr && h.getValoracion()>=valoracion) {
+				Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+				modeloTablaHotel.addRow(datos);
+//				if( || h.getEstrellas()==ne) {
+//					int ne = Integer.parseInt(textFieldEstrellas.getText());
+//					Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+//					modeloTablaHotel.addRow(datos);
+//				}
+			}
 		}
 	}
 	

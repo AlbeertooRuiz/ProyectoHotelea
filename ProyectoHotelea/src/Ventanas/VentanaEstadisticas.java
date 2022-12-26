@@ -2,6 +2,7 @@ package Ventanas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JButton;
 
 public class VentanaEstadisticas extends JFrame{
 	public VentanaEstadisticas() {
@@ -22,6 +23,17 @@ public class VentanaEstadisticas extends JFrame{
 		JLabel lblNewLabel_3 = new JLabel("administradores/as:");
 		lblNewLabel_3.setBounds(6, 83, 156, 16);
 		getContentPane().add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Consultar datos por:");
+		lblNewLabel_4.setBounds(145, 103, 204, 16);
+		getContentPane().add(lblNewLabel_4);
+		
+		JButton btnNewButton = new JButton("Ciudades");
+		btnNewButton.setBounds(45, 131, 117, 29);
+		getContentPane().add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Fechas ");
+		btnNewButton_1.setBounds(245, 131, 117, 29);
+		getContentPane().add(btnNewButton_1);
 	}
-
 }

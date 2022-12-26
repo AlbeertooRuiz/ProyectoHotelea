@@ -43,7 +43,7 @@ public class VentanaInicio extends JFrame {
 	 */
 	public VentanaInicio() {
 		ventanaActual = this;
-		ventanaActual.setBounds(100, 100, 550, 550);
+		ventanaActual.setSize(550, 550);
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,18 +72,22 @@ public class VentanaInicio extends JFrame {
 				String u = textFieldUsuario.getText();
 				String c = textFieldContrasenia.getText();
 				Cliente cliente = BD.obtenerDatosCliente(con, u);
-				if(u=="admin" && c=="hotelea") {
+				if(u.equals("admin") && c.equals("hotelea")) {
+					BD.closeBD(con);
 					VentanaAdministrador va=new VentanaAdministrador() ;
 					va.setVisible(true);
+					dispose();
 				}else if(cliente == null) {
 					JOptionPane.showMessageDialog(null, "El nombre de usuario no es correcto");
 				}else if(!cliente.getContrasenia().equals(c)) {
 					JOptionPane.showMessageDialog(null, "La contrase�a no es correcta");
 				}else {
+					BD.closeBD(con);
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
-					VentanaUsuario vu= new VentanaUsuario();
+					VentanaUsuario vu= new VentanaUsuario(ventanaActual);
 					vu.setVisible(true);
-					dispose();
+					ventanaActual.setVisible(false);
+					
 				}
 			}
 		});

@@ -91,6 +91,7 @@ public class BD {
 	}
 	
 	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
+
 		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"'"+numHab+"')";
 		try {
 			Statement st = con.createStatement();
@@ -115,6 +116,9 @@ public class BD {
 	
 	public static void insertarReserva(Connection con, String nombrehotel, String nombreusuario, Date checkin, Date checkout) {
 		String sql = "INSERT INTO Reserva VALUES('"+nombrehotel+"','"+nombreusuario+"','"+checkin+"','"+checkout+"')";
+
+		
+
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -137,7 +141,8 @@ public class BD {
 				int estrellas=rs.getInt("estrellas");
 				int valoracion=rs.getInt("valoracion");
 				int precio=rs.getInt("precio");
-				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio);
+				int numHab = rs.getInt("numHab");
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
 				hoteles.add(h);
 			}
 			rs.close();
@@ -149,6 +154,7 @@ public class BD {
 		
 	}
 	
+
 	public static ArrayList<Hotel> buscarHoteles (Connection con, String ciudad, int estrellas, int checkin, int checkout ) {
 		ArrayList<Hotel> hoteles= new ArrayList<>();
 		
@@ -174,4 +180,17 @@ public class BD {
 		
 	}
 	
+
+	public static void reservaHotel(Connection con) {
+		String sql = "UPDATE Hotel SET ";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }
