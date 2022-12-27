@@ -103,6 +103,7 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+	
 	public void insertarCSV(ActionEvent e) {
 		ArrayList<Hotel> hoteles = new ArrayList<>();
 	    Connection con = BD.initBD("Hotelea.db");
@@ -186,13 +187,23 @@ public class BD {
 	}
 	
 	public static void crearTablaReservas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Reservas (Hotel String, ciudad String, apellidos String, usuario String, contrasenia String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
 		try {
-			
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
 			st.close();
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public static void insertarReserva(Connection con, String hotel, String fecha, int reservas) {
+		String sql = "INSERT INTO Hotel VALUES('"+hotel+"','"+fecha+"','"+reservas+"')";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

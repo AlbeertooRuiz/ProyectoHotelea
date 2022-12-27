@@ -53,6 +53,7 @@ public class VentanaInicio extends JFrame {
 		//Crear las tablas si no existen
 		BD.crearTablaCliente(con);
 		BD.crearTablaHotel(con);
+		BD.crearTablaReservas(con);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

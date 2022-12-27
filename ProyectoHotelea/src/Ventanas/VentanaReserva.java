@@ -9,6 +9,9 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaReserva extends JFrame {
 
@@ -66,6 +69,16 @@ public class VentanaReserva extends JFrame {
 		
 		JPanel panelSur = new JPanel();
 		contentPane.add(panelSur, BorderLayout.SOUTH);
+		
+		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
+		btnConfirmarReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String hotel = nombre;
+				String fecha = textFieldCheckin.getText();
+				//Int reservas =
+			}
+		});
+		panelSur.add(btnConfirmarReserva);
 		
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);
