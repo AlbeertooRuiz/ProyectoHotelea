@@ -186,11 +186,13 @@ public class BD {
 	}
 	
 	public static void crearTablaReservas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Reservas (DNI String, nombre String, apellidos String, usuario String, contrasenia String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Reservas (DNI String, ciudad String, apellidos String, usuario String, contrasenia String)";
 		try {
+			
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
 			st.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
