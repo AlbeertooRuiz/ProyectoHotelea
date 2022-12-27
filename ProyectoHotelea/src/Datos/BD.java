@@ -168,7 +168,7 @@ public class BD {
 				int estr=rs.getInt("estrellas");
 				int valoracio=rs.getInt("valoracion");
 				int preci=rs.getInt("precio");
-				Hotel h= new Hotel(nom, ci, estr, valoracio, preci);
+				Hotel h= new Hotel(nom, ci, estr, preci, valoracio);
 				hoteles.add(h);
 			}
 			rs.close();
