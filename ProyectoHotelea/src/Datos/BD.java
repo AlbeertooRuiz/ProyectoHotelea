@@ -186,7 +186,7 @@ public class BD {
 	}
 	
 	public static void crearTablaReservas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Reservas (DNI String, ciudad String, apellidos String, usuario String, contrasenia String)";
+		String sql = "CREATE TABLE IF NOT EXISTS Reservas (Hotel String, ciudad String, apellidos String, usuario String, contrasenia String)";
 		try {
 			
 			Statement st = con.createStatement();
