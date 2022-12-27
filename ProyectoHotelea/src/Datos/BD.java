@@ -1,5 +1,9 @@
 package Datos;
 
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -89,8 +93,8 @@ public class BD {
 		}
 	}
 	
-	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"', '"+numHab+"')";
+	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio) {
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -99,7 +103,50 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+	public void insertarCSV(ActionEvent e) {
+		ArrayList<Hotel> hoteles = new ArrayList<>();
+	    Connection con = BD.initBD("Hotelea.db");
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
+			String  linea = br.readLine();
+				while(linea != br.readLine()) {
+					linea= br.readLine();
+					String []  elementos =  linea.split(",");
+					//Hotel hotel = new Hotel(elementos[0], elementos[1], Integer.parseInt(elementos[2]),Integer.parseInt(elementos[3]), Integer.parseInt(elementos[4]));
+					
+					String Nombre = elementos[0];
+					String Ciudad = elementos[1];
+					int Estrellas = Integer.parseInt(elementos[2]);
+					int Valoracion = Integer.parseInt(elementos[3]);
+					int Precio = Integer.parseInt(elementos[4]);
+					
+					//hoteles.add(hotel);
+					insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
+				}
+		} catch (IOException e1) {
+			System.out.println("Falla fichero");
+		
+	}
+};
 	
+	public void cargarBD(ActionEvent e) {
+		String texto="";
+		ArrayList<String> lista = new ArrayList<>();
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Hoteles"));
+			String  linea = br.readLine();
+				while(linea != br.readLine()) {
+					texto=texto+linea+"\n";
+					lista.add(linea);
+					linea= br.readLine();
+					
+				}
+		} catch (IOException e1) {
+			System.out.println("Falla fichero");
+		}
+		
+		
+};
 	public static ArrayList<Hotel> obtenerListaHoteles (Connection con) {
 		ArrayList<Hotel> hoteles= new ArrayList<>();
 		
