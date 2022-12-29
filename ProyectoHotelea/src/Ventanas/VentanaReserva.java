@@ -5,12 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Datos.BD;
+
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 
 public class VentanaReserva extends JFrame {
@@ -20,6 +25,8 @@ public class VentanaReserva extends JFrame {
 	private JTextField textFieldNumPer;
 	private JTextField textFieldCheckin;
 	private JTextField textFieldCheckout;
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	Connection con;
 
 	/**
 	 * Create the frame.
@@ -35,6 +42,9 @@ public class VentanaReserva extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		//Conexion con la base de datos
+		con = BD.initBD("Hotelea.db");
 		
 		JPanel panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
@@ -73,9 +83,10 @@ public class VentanaReserva extends JFrame {
 		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
 		btnConfirmarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String hotel = nombre;
-				String fecha = textFieldCheckin.getText();
-				//Int reservas =
+				String hotel = nombreHotel;
+				//String fecha = textFieldCheckin.getText();
+				Integer reservas = 1;
+				BD.insertarReserva(con, hotel, "a", reservas);
 			}
 		});
 		panelSur.add(btnConfirmarReserva);

@@ -128,7 +128,7 @@ public class BD {
 			System.out.println("Falla fichero");
 		
 	}
-};
+}
 	
 	public void cargarBD(ActionEvent e) {
 		String texto="";
@@ -144,10 +144,9 @@ public class BD {
 				}
 		} catch (IOException e1) {
 			System.out.println("Falla fichero");
-		}
-		
-		
-};
+		}	
+	}
+	
 	public static ArrayList<Hotel> obtenerListaHoteles (Connection con) {
 		ArrayList<Hotel> hoteles= new ArrayList<>();
 		
@@ -174,18 +173,6 @@ public class BD {
 		
 	}
 	
-	public static void reservaHotel(Connection con) {
-		String sql = "UPDATE Hotel SET ";
-		try {
-			Statement st = con.createStatement();
-			st.executeUpdate(sql);
-			st.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
 	public static void crearTablaReservas(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
 		try {
@@ -200,7 +187,7 @@ public class BD {
 	}
 	
 	public static void insertarReserva(Connection con, String hotel, String fecha, int reservas) {
-		String sql = "INSERT INTO Hotel VALUES('"+hotel+"','"+fecha+"','"+reservas+"')";
+		String sql = "INSERT INTO Reservas VALUES('"+hotel+"','"+fecha+"','"+reservas+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -209,4 +196,16 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void AumentarReserva(Connection con, String hotel, String fecha) {
+		String sql = "UPDATE Reservas SET Hotel=" + hotel + "WHERE reservas=reservas+1";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
