@@ -2,15 +2,20 @@ package Datos;
 
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.csvreader.CsvReader;
 
 public class BD {
 	
@@ -237,5 +242,72 @@ public class BD {
 			e.printStackTrace();
 		}
 	}
-	
+    public static List<Hotel> importarCSV() {
+        List<Hotel> Hoteles = new ArrayList<Hotel>();
+        
+        try {
+            CsvReader leerHoteles = new CsvReader("Hoteles.csv");
+            leerHoteles.readHeaders();
+            
+            while(leerHoteles.readRecord()) {
+                String nombre = leerHoteles.get(0);
+                String ciudad = leerHoteles.get(1);
+                int estrellas = Integer.parseInt(leerHoteles.get(2));
+                int valoracion = Integer.parseInt(leerHoteles.get(3));
+                int precio = Integer.parseInt(leerHoteles.get(4));
+                int numHab = Integer.parseInt(leerHoteles.get(5));
+                
+                
+                Hoteles.add(new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab));
+            }
+            
+            leerHoteles.close();
+            
+            System.out.println("LISTA DE Hoteles DEL CSV\n");
+            for(Hotel user : Hoteles) {
+                System.out.println(
+                        user.getNombre()+", "+
+                        user.getCiudad()+", "+
+                        user.getEstrellas()+", "+
+                        user.getValoracion()+", "+
+                        user.getPrecio()+", "+
+                        user.getNumHab()
+                );
+            }
+        } catch(FileNotFoundException e) {
+            e.printStackTrace();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        
+        return Hoteles;
+        
+    }
+    
+    public static void insertarBD(List<Hotel> Hoteles) {
+        System.out.println("\nSE VAN A INSERTA: "+Hoteles.size()+" REGISTROS\n");
+        
+        Connection con = initBD("Hotelea.db");
+        
+        String query = "INSERT INTO Hoteles(nombre, ciudad, estrellas, valoracion, precio, numHab) VALUES(?,?,?,?,?,?)";
+        
+        try {
+        	 PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+            
+            for(int i = 0 ; i < Hoteles.size() ; i++) {
+                ps.setString(1, Hoteles.get(i).getNombre());
+                ps.setString(2, Hoteles.get(i).getCiudad());
+                ps.setInt(3, Hoteles.get(i).getEstrellas());
+                ps.setInt(4, Hoteles.get(i).getValoracion());
+                ps.setInt(5, Hoteles.get(i).getPrecio());
+                ps.setInt(6, Hoteles.get(i).getNumHab());
+                
+                ps.executeUpdate();
+                
+                System.out.println("Se ha insertado el elemento: "+(i+1)+"/"+Hoteles.size());
+            }
+            ps.close();
+           closeBD(con);
+        } catch(SQLException e) {
 }
+}}
