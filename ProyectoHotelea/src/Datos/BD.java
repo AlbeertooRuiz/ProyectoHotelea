@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,10 +104,10 @@ public class BD {
 		}
 	}
 	
-	
 	//Metodo que inserta un hotel dentro de la tabla Hotel
-	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio) {
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"')";
+	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
+
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"','"+estrellas+"','"+valoracion+"','"+precio+"'"+numHab+"')";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
@@ -116,6 +117,7 @@ public class BD {
 		}
 	}
 	
+
 	public void insertarCSV(ActionEvent e) {
 		ArrayList<Hotel> hoteles = new ArrayList<>();
 	    Connection con = BD.initBD("Hotelea.db");
@@ -134,7 +136,7 @@ public class BD {
 					int Precio = Integer.parseInt(elementos[4]);
 					
 					//hoteles.add(hotel);
-					insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
+					//insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
 				}
 		} catch (IOException e1) {
 			System.out.println("Falla fichero");
@@ -185,10 +187,22 @@ public class BD {
 		
 	}
 	
-	
 	//Metodo que crea la tabla Reservas
 	public static void crearTablaReservas(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
+		try {
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			st.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+
+	public static void reservaHotel(Connection con) {
+		String sql = "UPDATE Hotel SET ";
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);

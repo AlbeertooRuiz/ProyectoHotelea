@@ -25,10 +25,15 @@ import java.awt.ScrollPane;
 import java.awt.GridLayout;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -41,6 +46,7 @@ public class VentanaUsuario extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaHotel;
 	private DefaultTableModel modeloTablaHotel;
+	private DefaultTableModel modeloTablaBusqueda;
 	private JScrollPane scrollTabla;
 	private JTextField textFieldCiudad;
 	private JTextField textFieldEstrellas;
@@ -167,8 +173,17 @@ public class VentanaUsuario extends JFrame {
 		
 		tablaHotel = new JTable(modeloTablaHotel);
 		
-		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
+
+		modeloTablaHotel = new DefaultTableModel();
+		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio", "Numero Habitaciones"};
+ 
 		modeloTablaHotel.setColumnIdentifiers(titulos);
+
+		JTable tablaHotel=new JTable(modeloTablaHotel);
+		scrollTabla= new JScrollPane(tablaHotel);
+		tablaHotel.setAutoCreateRowSorter(true);
+		sorter = new TableRowSorter<>(modeloTablaHotel);
+		tablaHotel.setRowSorter(sorter);	
 		
 		tablaHotel.getTableHeader().setReorderingAllowed(false);
 		
@@ -192,6 +207,7 @@ public class VentanaUsuario extends JFrame {
 		
 		contentPane.add(scrollTabla, BorderLayout.CENTER);
 		
+
 		tablaHotel.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -231,7 +247,10 @@ public class VentanaUsuario extends JFrame {
 				}
 			}
 		});
+
 	}
+	
+	
 
 	private void filtrar() {
 		/*try {

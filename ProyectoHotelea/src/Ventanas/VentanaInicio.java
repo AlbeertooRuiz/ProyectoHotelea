@@ -125,8 +125,8 @@ public class VentanaInicio extends JFrame {
 		GridBagLayout gbl_panelCentro = new GridBagLayout();
 		gbl_panelCentro.columnWidths = new int[]{155, 80, 80, -45, 155, 0};
 		gbl_panelCentro.rowHeights = new int[]{206, 206, 0};
-		gbl_panelCentro.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panelCentro.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCentro.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panelCentro.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panelCentro.setLayout(gbl_panelCentro);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
