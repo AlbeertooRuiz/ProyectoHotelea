@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
+
 public class VentanaEstadisticasCiudades extends JFrame{
 	public VentanaEstadisticasCiudades() {
 		getContentPane().setLayout(null);

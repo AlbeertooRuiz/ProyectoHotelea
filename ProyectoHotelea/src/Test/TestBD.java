@@ -1,4 +1,4 @@
-package Datos;
+package Test;
 
 public class TestBD {
 

@@ -1,9 +1,11 @@
-package Datos;
+package Test;
 
 import static org.junit.Assert.assertEquals;
 
 
 import org.junit.Test;
+
+import Datos.Cliente;
 
 public class TestCliente {
 	
