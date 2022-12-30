@@ -34,6 +34,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -177,9 +179,27 @@ public class VentanaUsuario extends JFrame {
 		//sorter = new TableRowSorter<>(modeloTablaHotel);
 		//tablaHotel.setRowSorter(sorter);			
 		
-		Connection con = BD.initBD("hotelea.db");
-		hoteles = BD.obtenerListaHoteles(con);
-		BD.closeBD(con);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("Hotel.csv"));
+			String linea = br.readLine();
+			ArrayList<Hotel> hoteles= new ArrayList<>();
+			while(linea!=null) {
+				String [] datos = linea.split(";");
+				String nombre = datos[1];
+				String ciudad = datos[2];
+				int estrellas = Integer.parseInt(datos[3]);
+				int valoracion = Integer.parseInt(datos[4]);
+				int precio = Integer.parseInt(datos[5]);
+				int numHab = Integer.parseInt(datos[6]);
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				hoteles.add(h);
+				linea = br.readLine();
+			}
+			br.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		for(Hotel h: hoteles) {
 			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
@@ -268,7 +288,6 @@ public class VentanaUsuario extends JFrame {
 			}
 		}
 	}
-	
 	
 	}
 
