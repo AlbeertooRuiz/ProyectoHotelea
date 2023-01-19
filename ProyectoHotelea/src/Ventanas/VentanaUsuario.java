@@ -203,7 +203,7 @@ public class VentanaUsuario extends JFrame {
 			// TODO: handle exception
 		}
 		
-		hoteles = BD.obtenerListaHoteles(con);
+		hoteles = BD.cargarHotelesTablaCsv();
 		for(Hotel h: hoteles) {
 			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);

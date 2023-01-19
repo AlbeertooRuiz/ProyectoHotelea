@@ -1,9 +1,14 @@
 package Datos;
 
+import static org.junit.Assert.fail;
+
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
@@ -77,7 +82,7 @@ public class BD {
 		}
 	}
 	
-	//Metodo que devuelve usuario y contraseña de un cliente de la tabla Cliente mediante la busqueda por usuario
+	//Metodo que devuelve usuario y contraseï¿½a de un cliente de la tabla Cliente mediante la busqueda por usuario
 	public static Cliente obtenerDatosCliente(Connection con, String usuario) {
 		String sql = "SELECT * FROM Cliente WHERE usuario='"+usuario+"'";
 		Cliente cliente = null;
@@ -107,6 +112,37 @@ public class BD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
+	}
+	
+	public static ArrayList<Hotel> cargarHotelesTablaCsv() {
+		ArrayList<Hotel> hoteles= new ArrayList<>();
+		String input="Hoteles.csv";
+		try(BufferedReader br= new BufferedReader(new FileReader(input))) {
+			String line=null;
+			while((line=br.readLine())!=null) {
+				String[]datos=line.split(",");
+				String nombre=datos[0];
+				String ciudad=datos[1];
+				int estrellas=Integer.valueOf(datos[2]);
+				int valoracion=Integer.valueOf(datos[3]);
+				int precio=Integer.valueOf(datos[4]);
+				int numHab=Integer.valueOf(datos[5]);
+				
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				hoteles.add(h);				
+			}
+			br.close();
+			return hoteles;
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			fail("No se han podido cargar los datos de el fichero"+input);
+			return null;
+		}
+		
 	}
 	
 	//Metodo que inserta un hotel dentro de la tabla Hotel

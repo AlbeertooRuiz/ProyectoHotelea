@@ -1,6 +1,7 @@
 package Datos;
 
 public class Hostel extends Hotel{
+	
 	private int camasPorHab;
 	
 	public Hostel() {
