@@ -35,5 +35,13 @@ public class VentanaEstadisticas extends JFrame{
 		JButton btnNewButton_1 = new JButton("Fechas ");
 		btnNewButton_1.setBounds(245, 131, 117, 29);
 		getContentPane().add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Dias de la semana con mas reservas");
+		btnNewButton_2.setBounds(45, 185, 264, 29);
+		getContentPane().add(btnNewButton_2);
+		
+		
 	}
+	
+	
 }
