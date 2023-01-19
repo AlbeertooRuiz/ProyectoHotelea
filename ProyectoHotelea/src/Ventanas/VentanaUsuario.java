@@ -68,6 +68,9 @@ public class VentanaUsuario extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		//Conexion con la base de datos
+		con = BD.initBD("Hotelea.db");
 				
 		JPanel panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
@@ -200,6 +203,7 @@ public class VentanaUsuario extends JFrame {
 			// TODO: handle exception
 		}
 		
+		hoteles = BD.obtenerListaHoteles(con);
 		for(Hotel h: hoteles) {
 			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 			modeloTablaHotel.addRow(datos);
