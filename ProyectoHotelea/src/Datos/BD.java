@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 
 import com.csvreader.CsvReader;
 
+
+
 public class BD {
 	
 	private static Logger logger = Logger.getLogger( "BD" );
@@ -60,17 +62,19 @@ public class BD {
 	}
 
 	// Metodo que crea la tabla Cliente
-	public static void crearTablaCliente(Connection con) {
+	public static boolean crearTablaCliente(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Cliente (DNI String, nombre String, apellidos String, usuario String, contrasenia String)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
 			st.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
+			
 		}
 	}
 
@@ -105,6 +109,7 @@ public class BD {
 				String u = rs.getString("usuario");
 				String contr = rs.getString("contrasenia");
 				cliente = new Cliente(u, contr);
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -115,17 +120,19 @@ public class BD {
 	}
 
 	// Metodo que crea la tabla Hotel
-	public static void crearTablaHotel(Connection con) {
+	public static boolean crearTablaHotel(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
 			st.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 
 	}
@@ -160,7 +167,7 @@ public class BD {
 	}
 
 	// Metodo que inserta un hotel dentro de la tabla Hotel
-	public static void insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion,
+	public static boolean insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion,
 			int precio, int numHab) {
 
 		String sql = "INSERT INTO Hotel VALUES('" + nombre + "','" + ciudad + "','" + estrellas + "','" + valoracion
@@ -170,9 +177,12 @@ public class BD {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 	}
 
@@ -242,6 +252,7 @@ public class BD {
 			}
 			rs.close();
 			st.close();
+			
 		} catch (SQLException e) {
 			logger.log( Level.SEVERE, "Excepción", e );
 		}
@@ -250,30 +261,34 @@ public class BD {
 	}
 
 	// Metodo que crea la tabla Reservas
-	public static void crearTablaReservas(Connection con) {
+	public static boolean crearTablaReservas(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 	}
 
-	public static void reservaHotel(Connection con) {
+	public static boolean reservaHotel(Connection con) {
 		String sql = "UPDATE Hotel SET ";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
+			return true;
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 	}
 
@@ -312,7 +327,7 @@ public class BD {
 
 	}
 
-	public static void insertarBD(List<Hotel> Hoteles) {
+	public static boolean insertarBD(List<Hotel> Hoteles) {
 		System.out.println("\nSE VAN A INSERTA: " + Hoteles.size() + " REGISTROS\n");
 
 		Connection con = initBD("Hotelea.db");
@@ -337,8 +352,10 @@ public class BD {
 			}
 			ps.close();
 			closeBD(con);
+			return true;
 		} catch (SQLException e) {
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 	}
 
@@ -363,7 +380,7 @@ public class BD {
 		return resul;
 	}
 
-	public static void modificarReserva(String nom, String fecha) {
+	public static boolean modificarReserva(String nom, String fecha) {
 		String sql = "UPDATE Reservas SET reservas=reservas+1 WHERE hotel='" + nom + "' AND fecha='" + fecha + "'";
 		Connection con = initBD("Hotelea.db");
 		try {
@@ -371,15 +388,18 @@ public class BD {
 			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 		closeBD(con);
+		return true;
 	}
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
-	public static void insertarReserva(String hotel, String fecha, int reservas) {
+	public static boolean insertarReserva(String hotel, String fecha, int reservas) {
 		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + ")";
 		Connection con = initBD("Hotelea.db");
 		
@@ -388,10 +408,15 @@ public class BD {
 			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 		closeBD(con);
+		return true;
 	}
+	
+	
 }
