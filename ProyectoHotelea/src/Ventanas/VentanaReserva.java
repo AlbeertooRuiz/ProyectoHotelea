@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import Datos.BD;
 
@@ -15,7 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 
 public class VentanaReserva extends JFrame {
@@ -83,10 +87,32 @@ public class VentanaReserva extends JFrame {
 		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
 		btnConfirmarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("ENTRA");
 				String hotel = nombreHotel;
-				//String fecha = textFieldCheckin.getText();
-				Integer reservas = 1;
-				BD.insertarReserva(con, hotel, "a", reservas);
+				String fechaE = textFieldCheckin.getText();
+				String fechaS = textFieldCheckout.getText();
+				int numP = Integer.parseInt(textFieldNumPer.getText());
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					Date fe = sdf.parse(fechaE);
+					Date fs = sdf.parse(fechaS);
+					do{
+						String fecha = sdf.format(fe);
+						System.out.println(fecha);
+						if(BD.existeReserva(hotel, fecha)) {
+							BD.modificarReserva(hotel, fecha);
+						}else {
+							BD.insertarReserva(hotel, fecha, 1);
+						}
+						fe.setTime(fe.getTime()+24*60*60*1000);
+					}while(!fe.equals(fs));
+					
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
 			}
 		});
 		panelSur.add(btnConfirmarReserva);
