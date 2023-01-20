@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class VentanaAñadirHotel extends JFrame{
+public class VentanaAnyadirHotel extends JFrame{
 	private static JTextField textFieldNombre;
 	private static JTextField textFieldEstrellas;
 	private static JTextField textFieldPrecio;
@@ -26,7 +26,7 @@ public class VentanaAñadirHotel extends JFrame{
 	private static JTextField textFieldTelefono;
 	private static JTextField textFieldNumHab;
 	private static JButton botonanyadir;
-	public VentanaAñadirHotel() {
+	public VentanaAnyadirHotel() {
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("INTRODUZCA LOS DATOS DEL HOTEL");

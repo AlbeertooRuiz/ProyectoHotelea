@@ -19,25 +19,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.csvreader.CsvReader;
 
 public class BD {
+	
+	private static Logger logger = Logger.getLogger( "BD" );
 
 	// Metodo que realiza la conexion con la base de datos
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
 		try {
+			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:" + nombreBD);
 
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			
+			logger.log( Level.SEVERE, "Excepción", e );
+		} 
 
 		return con;
 	}
@@ -46,10 +49,12 @@ public class BD {
 	public static void closeBD(Connection con) {
 		if (con != null) {
 			try {
+				logger.log( Level.INFO, "Cerrando conexión" );
 				con.close();
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.log( Level.SEVERE, "Excepción", e );
 			}
 		}
 	}
@@ -59,25 +64,31 @@ public class BD {
 		String sql = "CREATE TABLE IF NOT EXISTS Cliente (DNI String, nombre String, apellidos String, usuario String, contrasenia String)";
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 	}
 
 	// Metodo que inserta un cliente dentro de la tabla Cliente
-	public static void insertarCliente(Connection con, String DNI, String nombre, String apellidos, String usuario,
+	public static boolean insertarCliente(Connection con, String DNI, String nombre, String apellidos, String usuario,
 			String contrasenia) {
 		String sql = "INSERT INTO Cliente VALUES('" + DNI + "','" + nombre + "','" + apellidos + "','" + usuario + "','"
 				+ contrasenia + "')";
+		logger.log( Level.INFO, "Statement: " + sql );
 		try {
 			Statement st = con.createStatement();
 			st.executeUpdate(sql);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.SEVERE, "Excepción", e );
+			return false;
 		}
 	}
 
@@ -88,6 +99,7 @@ public class BD {
 		Cliente cliente = null;
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement: " + sql );
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
 				String u = rs.getString("usuario");
@@ -96,7 +108,8 @@ public class BD {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		return cliente;
 	}
@@ -106,11 +119,13 @@ public class BD {
 		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 
 	}
@@ -137,7 +152,7 @@ public class BD {
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 			fail("No se han podido cargar los datos de el fichero" + input);
 			return null;
 		}
@@ -150,12 +165,14 @@ public class BD {
 
 		String sql = "INSERT INTO Hotel VALUES('" + nombre + "','" + ciudad + "','" + estrellas + "','" + valoracion
 				+ "','" + precio + "'" + numHab + "')";
+		
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement: " + sql );
 			st.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 	}
 
@@ -182,6 +199,7 @@ public class BD {
 				// insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
 			}
 		} catch (IOException e1) {
+			logger.log( Level.SEVERE, "Excepción", e );
 			System.out.println("Falla fichero");
 
 		}
@@ -210,6 +228,7 @@ public class BD {
 		try {
 			Statement st = con.createStatement();
 			String sql = "SELECT * FROM Hotel";
+			logger.log( Level.INFO, "Statement:", sql );
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
 				String nombre = rs.getString("nombre");
@@ -224,7 +243,7 @@ public class BD {
 			rs.close();
 			st.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		return hoteles;
 
@@ -235,11 +254,12 @@ public class BD {
 		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 	}
 
@@ -247,12 +267,13 @@ public class BD {
 		String sql = "UPDATE Hotel SET ";
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 	}
 
@@ -282,9 +303,9 @@ public class BD {
 						+ user.getValoracion() + ", " + user.getPrecio() + ", " + user.getNumHab());
 			}
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 
 		return Hoteles;
@@ -300,6 +321,7 @@ public class BD {
 
 		try {
 			PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
+			logger.log( Level.INFO, "Statement:", query );
 
 			for (int i = 0; i < Hoteles.size(); i++) {
 				ps.setString(1, Hoteles.get(i).getNombre());
@@ -316,6 +338,7 @@ public class BD {
 			ps.close();
 			closeBD(con);
 		} catch (SQLException e) {
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 	}
 
@@ -325,6 +348,7 @@ public class BD {
 		Connection con = initBD("Hotelea.db");
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
 			ResultSet rs = st.executeQuery(sql);
 			if (rs.next()) {
 				resul = true;
@@ -333,7 +357,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		closeBD(con);
 		return resul;
@@ -344,11 +368,12 @@ public class BD {
 		Connection con = initBD("Hotelea.db");
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		closeBD(con);
 	}
@@ -360,10 +385,12 @@ public class BD {
 		
 		try {
 			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
 			st.executeUpdate(sql);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		closeBD(con);
 	}
