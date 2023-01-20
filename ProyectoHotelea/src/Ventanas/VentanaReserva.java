@@ -12,6 +12,7 @@ import Datos.BD;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -90,7 +91,7 @@ public class VentanaReserva extends JFrame {
 				String hotel = nombreHotel;
 				String fechaE = textFieldCheckin.getText();
 				String fechaS = textFieldCheckout.getText();
-				int numP = Integer.parseInt(textFieldNumPer.getText());
+//				int numP = Integer.parseInt(textFieldNumPer.getText());
 				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				try {
 					Date fe = sdf.parse(fechaE);
@@ -99,16 +100,20 @@ public class VentanaReserva extends JFrame {
 						String fecha = sdf.format(fe);
 						if(BD.existeReserva(hotel, fecha)) {
 							BD.modificarReserva(hotel, fecha);
+							JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 						}else {
 							BD.insertarReserva(hotel, fecha, 1);
+							JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 						}
 						fe.setTime(fe.getTime()+24*60*60*1000);
 					}while(!fe.equals(fs));
 					String fecha = sdf.format(fe);
 					if(BD.existeReserva(hotel, fecha)) {
 						BD.modificarReserva(hotel, fecha);
+						JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 					}else {
 						BD.insertarReserva(hotel, fecha, 1);
+						JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 					}
 			
 				} catch (ParseException e1) {
