@@ -106,7 +106,13 @@ public class VentanaReserva extends JFrame {
 						}
 						fe.setTime(fe.getTime()+24*60*60*1000);
 					}while(!fe.equals(fs));
-					
+					String fecha = sdf.format(fe);
+					if(BD.existeReserva(hotel, fecha)) {
+						BD.modificarReserva(hotel, fecha);
+					}else {
+						BD.insertarReserva(hotel, fecha, 1);
+					}
+			
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
