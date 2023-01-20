@@ -25,8 +25,6 @@ import java.util.logging.Logger;
 
 import com.csvreader.CsvReader;
 
-import examen.ext202202.Inquilino;
-
 
 
 public class BD {

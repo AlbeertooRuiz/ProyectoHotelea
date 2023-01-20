@@ -29,7 +29,7 @@ public class VentanaBienvenida extends JFrame{
 		getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/Users/jonayo/Downloads/hotelea.png"));
+		lblNewLabel.setIcon(new ImageIcon("img//hotelea.png"));
 		lblNewLabel.setBounds(-353, 6, 903, 522);
 		getContentPane().add(lblNewLabel);
 		
