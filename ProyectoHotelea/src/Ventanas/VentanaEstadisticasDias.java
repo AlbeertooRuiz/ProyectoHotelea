@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -16,6 +18,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import Datos.Reserva;
 
 public class VentanaEstadisticasDias extends JFrame{
 	public VentanaEstadisticasDias() {
@@ -49,6 +53,9 @@ public class VentanaEstadisticasDias extends JFrame{
 		panel.setBounds(103, 151, 250, 115);
 		getContentPane().add(panel);
 		
+		Map<String, Reserva> mapafechareserva= new HashMap<>();
+		
+		
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -70,6 +77,7 @@ public class VentanaEstadisticasDias extends JFrame{
 			}
 			
 		});
+		
 	}
 	
 

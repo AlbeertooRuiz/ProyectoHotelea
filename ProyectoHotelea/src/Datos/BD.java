@@ -17,6 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,11 +25,14 @@ import java.util.logging.Logger;
 
 import com.csvreader.CsvReader;
 
+import examen.ext202202.Inquilino;
+
 
 
 public class BD {
 	
 	private static Logger logger = Logger.getLogger( "BD" );
+	SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
 
 	// Metodo que realiza la conexion con la base de datos
 	public static Connection initBD(String nombreBD) {
@@ -292,40 +296,8 @@ public class BD {
 		}
 	}
 
-	public static List<Hotel> importarCSV() {
-		List<Hotel> Hoteles = new ArrayList<Hotel>();
-
-		try {
-			CsvReader leerHoteles = new CsvReader("Hoteles.csv");
-			leerHoteles.readHeaders();
-
-			while (leerHoteles.readRecord()) {
-				String nombre = leerHoteles.get(0);
-				String ciudad = leerHoteles.get(1);
-				int estrellas = Integer.parseInt(leerHoteles.get(2));
-				int valoracion = Integer.parseInt(leerHoteles.get(3));
-				int precio = Integer.parseInt(leerHoteles.get(4));
-				int numHab = Integer.parseInt(leerHoteles.get(5));
-
-				Hoteles.add(new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab));
-			}
-
-			leerHoteles.close();
-
-			System.out.println("LISTA DE Hoteles DEL CSV\n");
-			for (Hotel user : Hoteles) {
-				System.out.println(user.getNombre() + ", " + user.getCiudad() + ", " + user.getEstrellas() + ", "
-						+ user.getValoracion() + ", " + user.getPrecio() + ", " + user.getNumHab());
-			}
-		} catch (FileNotFoundException e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-		} catch (IOException e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-		}
-
-		return Hoteles;
-
-	}
+	
+	
 
 	public static boolean insertarBD(List<Hotel> Hoteles) {
 		System.out.println("\nSE VAN A INSERTA: " + Hoteles.size() + " REGISTROS\n");
@@ -335,6 +307,7 @@ public class BD {
 		String query = "INSERT INTO Hoteles(nombre, ciudad, estrellas, valoracion, precio, numHab) VALUES(?,?,?,?,?,?)";
 
 		try {
+			
 			PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
 			logger.log( Level.INFO, "Statement:", query );
 
@@ -416,6 +389,23 @@ public class BD {
 		}
 		closeBD(con);
 		return true;
+	}
+	
+	public static ArrayList<Reserva> getReservas() {
+		Connection con = initBD("Hotelea.db");
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Reserva> ret = new ArrayList<>();
+			String sent = "select * from Reservas;";
+			ResultSet rs = statement.executeQuery( sent );
+			while(rs.next()) {
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 	
 	
