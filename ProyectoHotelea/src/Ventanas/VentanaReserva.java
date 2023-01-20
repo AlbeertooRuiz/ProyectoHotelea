@@ -87,7 +87,6 @@ public class VentanaReserva extends JFrame {
 		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
 		btnConfirmarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ENTRA");
 				String hotel = nombreHotel;
 				String fechaE = textFieldCheckin.getText();
 				String fechaS = textFieldCheckout.getText();
@@ -98,7 +97,6 @@ public class VentanaReserva extends JFrame {
 					Date fs = sdf.parse(fechaS);
 					do{
 						String fecha = sdf.format(fe);
-						System.out.println(fecha);
 						if(BD.existeReserva(hotel, fecha)) {
 							BD.modificarReserva(hotel, fecha);
 						}else {
