@@ -1,25 +1,25 @@
-Barcelo,Huelva,4,8,67,230
-Melia,Madrid,4,9,123,300
-Gran Via,Madrid,5,8,178,340
-Las Callonas,Valencia,4,9,295,345
-Las Calles,Barcelona,3,4,198,245
-Los Pinedos,Casilla de Flores,2,7,156,189
-Kiko,Tenerife,4,7,12,145
-La Tinada,Santander,2,5,100,200
-Los Tirones,Murcia,3,8,98,390
-La Quinaja,Barcelona,3,7,133,204
-La Malasaña,Madrid,2,6,80,200
-Barcelo,Madrid,4,8,60,200
-Melia,Huelva,4,6,145,310
-Barcelo,Valencia,5,9,200,400
-Barcelo,Gran Canaria,4,8,67,230
-Melia,Cadiz,4,9,123,300
-Gran Vista,Huelva,5,8,178,340
-L'a Filic,Valencia,6,10,145,235
-Las Calles,Santander,3,4,198,245
-Los Pinedos,Fuentealvilla,2,7,156,189
-Kiko,Tenerife,4,7,12,145
-La Tinada,Murcia,2,4,78,210
-Los Tirones,Cadiz,3,8,98,390
-La Quinaja,Valladolid,3,7,133,204
-La Malasaña,Murcia,2,6,80,200
+Barcelo,Huelva,4,8,67,230,Hotel
+Melia,Madrid,4,9,123,300,Hotel
+Gran Via,Madrid,5,8,178,340,Motel
+Las Callonas,Valencia,4,9,295,345,Hostel
+Las Calles,Barcelona,3,4,198,245,Motel
+Los Pinedos,Casilla de Flores,2,7,156,189,Hotel
+Kiko,Tenerife,4,7,12,145,Hotel
+La Tinada,Santander,2,5,100,200,Motel
+Los Tirones,Murcia,3,8,98,390,Motel
+La Quinaja,Barcelona,3,7,133,204,Hostel
+La Malasaña,Madrid,2,6,80,200,Motel
+Barcelo,Madrid,4,8,60,200,Motel
+Melia,Huelva,4,6,145,310,Hostel
+Barcelo,Valencia,5,9,200,400,Hotel
+Barcelo,Gran Canaria,4,8,67,230,Motel
+Melia,Cadiz,4,9,123,300,Motel
+Gran Vista,Huelva,5,8,178,340,Hostel
+L'a Filic,Valencia,6,10,145,235,Hotel
+Las Calles,Santander,3,4,198,245,Hotel
+Los Pinedos,Fuentealvilla,2,7,156,189,Motel
+Kiko,Tenerife,4,7,12,145,Motel
+La Tinada,Murcia,2,4,78,210,Hostel
+Los Tirones,Cadiz,3,8,98,390,Hostel
+La Quinaja,Valladolid,3,7,133,204,Motel
+La Malasaña,Murcia,2,6,80,200,Hotel
