@@ -3,13 +3,15 @@ package Ventanas;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+
+
+import javax.swing.JTextField;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
-
-import javax.swing.JTextField;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -66,26 +68,26 @@ public class VentanaEstadisticasCiudades extends JFrame{
 		lblNewLabel_5.setBounds(102, 90, 196, 16);
 		getContentPane().add(lblNewLabel_5);
 		
-//		btnNewButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				DefaultCategoryDataset datos=new DefaultCategoryDataset();
-//				
-//				
-//				JFreeChart grafico_barras=ChartFactory.createBarChart3D("Estadisticas por ciudad","Ciudades","Numero reservas",datos,PlotOrientation.VERTICAL,true,true,false);
-//				ChartPanel panel= new ChartPanel(grafico_barras);
-//				panel.setMouseWheelEnabled(true);
-//				panel.setPreferredSize(new Dimension(400,200));
-//				
-//				panela.setLayout(new BorderLayout());
-//				panela.add(panel,BorderLayout.NORTH);
-//				
-//				pack();
-//				repaint();
-//			}
-//			
-//		});
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				DefaultCategoryDataset datos=new DefaultCategoryDataset();
+				
+				
+				JFreeChart grafico_barras=ChartFactory.createBarChart3D("Estadisticas por ciudad","Ciudades","Numero reservas",datos,PlotOrientation.VERTICAL,true,true,false);
+				ChartPanel panel= new ChartPanel(grafico_barras);
+				panel.setMouseWheelEnabled(true);
+				panel.setPreferredSize(new Dimension(400,200));
+				
+				panela.setLayout(new BorderLayout());
+				panela.add(panel,BorderLayout.NORTH);
+				
+				pack();
+				repaint();
+			}
+			
+		});
 	}
 }

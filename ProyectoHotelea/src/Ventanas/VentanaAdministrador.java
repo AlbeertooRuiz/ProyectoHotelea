@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -56,6 +58,18 @@ public class VentanaAdministrador extends JFrame {
 		JButton btnNewButton_1 = new JButton("Añadir nuevo hotel>>");
 		btnNewButton_1.setBounds(271, 237, 173, 29);
 		contentPane.add(btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaAnyadirHotel va=new VentanaAnyadirHotel() ;
+				va.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		
 	}

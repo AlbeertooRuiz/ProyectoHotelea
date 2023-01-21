@@ -6,18 +6,30 @@ public class Reserva {
 	private String	fechaE;		//fecha de entreda	
 	private String	fechaS;		//fecha de salida
 	private int numHab;			//numero de habitaciones que se reservan
+	private int reservas;		//numero de reservas
+	private int fechahoy;		//numero del dia de la semana de la reserva
 	
 	public Reserva() {
 		super();
 	}
 
-	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab) {
+	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab, int reservas, int fechahoy) {
 		super();
 		this.codH = codH;
 		this.dni = dni;
 		this.fechaE = fechaE;
 		this.fechaS = fechaS;
 		this.numHab = numHab;
+		this.reservas = reservas;
+		this.fechahoy = fechahoy;
+	}
+	
+	public Reserva(String codH,String fechaE,int reservas,int fechahoy) {
+		super();
+		this.codH=codH;
+		this.fechaE = fechaE;
+		this.reservas = reservas;
+		this.fechahoy = fechahoy;
 	}
 
 	public String getCodH() {
@@ -58,6 +70,24 @@ public class Reserva {
 
 	public void setNumHab(int numHab) {
 		this.numHab = numHab;
+	}
+	
+	
+
+	public int getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(int reservas) {
+		this.reservas = reservas;
+	}
+
+	public int getFechahoy() {
+		return fechahoy;
+	}
+
+	public void setFechahoy(int fechahoy) {
+		this.fechahoy = fechahoy;
 	}
 
 	@Override

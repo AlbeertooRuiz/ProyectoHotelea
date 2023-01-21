@@ -7,8 +7,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,9 +22,19 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import Datos.BD;
 import Datos.Reserva;
 
 public class VentanaEstadisticasDias extends JFrame{
+	int lunes=0;
+	int martes=0;
+	int miercoles=0;
+	int jueves=0;
+	int viernes=0;
+	int sabado=0;
+	int domingo=0;
+	
+	
 	public VentanaEstadisticasDias() {
 		getContentPane().setLayout(null);
 		
@@ -53,7 +66,32 @@ public class VentanaEstadisticasDias extends JFrame{
 		panel.setBounds(103, 151, 250, 115);
 		getContentPane().add(panel);
 		
-		Map<String, Reserva> mapafechareserva= new HashMap<>();
+		ArrayList<Reserva> reservas= BD.getReservas();
+		Map<Integer, Reserva> mapafechareserva= new HashMap<>();
+		
+		for(Reserva r:reservas) {
+			mapafechareserva.putIfAbsent(r.getFechahoy(), null);
+			mapafechareserva.put(r.getFechahoy(), r);
+		}
+		
+		for(Entry<Integer, Reserva> e:mapafechareserva.entrySet()) {
+			if(e.getKey()==0) {
+				domingo++;
+			}else if(e.getKey()==1) {
+				lunes++;
+			}else if(e.getKey()==2) {
+				martes++;
+			}else if(e.getKey()==3) {
+				miercoles++;
+			}else if(e.getKey()==4) {
+				jueves++;
+			}else if(e.getKey()==5) {
+				viernes++;
+			}else if(e.getKey()==6) {
+				sabado++;
+			}
+		}
+		
 		
 		
 		btnNewButton.addActionListener(new ActionListener() {
@@ -62,6 +100,14 @@ public class VentanaEstadisticasDias extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				DefaultCategoryDataset datos=new DefaultCategoryDataset();
+				
+				datos.setValue(lunes, "Dias", "Lunes");
+				datos.setValue(martes, "Dias", "Martes");
+				datos.setValue(miercoles, "Dias", "Miercoles");
+				datos.setValue(jueves, "Dias", "Jueves");
+				datos.setValue(viernes, "Dias", "Viernes");
+				datos.setValue(sabado, "Dias", "Sabado");
+				datos.setValue(domingo, "Dias", "Domingo");
 				
 				
 				JFreeChart grafico_barras=ChartFactory.createBarChart3D("Estadisticas por dia","Dias","Numero reservas",datos,PlotOrientation.VERTICAL,true,true,false);

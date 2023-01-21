@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,18 +93,18 @@ public class TestBD {
 	
 	@Test
 	public void testModificarReserva() {
-		bd.insertarReserva("Barcleo", "12/02/03", 1);
+		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay());
 		assertTrue(bd.modificarReserva("Barcleo", "12/02/03"));
 	}
 	
 	@Test
 	public void testInsertarReserva() {
-		assertTrue(bd.insertarReserva("Barcleo", "12/02/03", 1));
+		assertTrue(bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay()));
 	}
 	
 	@Test
 	public void testExistereserva() {
-		bd.insertarReserva("Barcleo", "12/02/03", 1);
+		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay());
 		assertTrue(bd.existeReserva("Barcleo", "12/02/03"));
 	}
 

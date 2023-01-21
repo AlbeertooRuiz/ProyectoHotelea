@@ -264,7 +264,7 @@ public class BD {
 
 	// Metodo que crea la tabla Reservas
 	public static boolean crearTablaReservas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int, fechahoy int)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement:", sql );
@@ -370,8 +370,8 @@ public class BD {
 	}
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
-	public static boolean insertarReserva(String hotel, String fecha, int reservas) {
-		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + ")";
+	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day) {
+		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "'," + day + ")";
 		Connection con = initBD("Hotelea.db");
 		
 		try {
@@ -394,13 +394,18 @@ public class BD {
 		try (Statement statement = con.createStatement()) {
 			ArrayList<Reserva> ret = new ArrayList<>();
 			String sent = "select * from Reservas;";
+			logger.log( Level.INFO, "Statement:", sent );
 			ResultSet rs = statement.executeQuery( sent );
 			while(rs.next()) {
-				
+				String hotel=rs.getString("hotel");
+				String fecha=rs.getString("fecha");
+				int reservas=rs.getInt("reservas");
+				int fechahoy=rs.getInt("fechahoy");
+				ret.add(new Reserva(hotel, fecha, reservas, fechahoy));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.log( Level.SEVERE, "Excepción", e );
 		}
 		return null;
 		
