@@ -1,6 +1,8 @@
 package Datos;
 
-public class Hotel {
+import java.util.List;
+
+public class Hotel implements Combinaciones{
 	private String nombre;	//nombre del hotel
 	private String codH;	//codigo del hotel
 	private String dir;		//direccion del hotel
@@ -129,6 +131,13 @@ public class Hotel {
 		return "Hotel [nombre=" + nombre + ", codH=" + codH + ", dir=" + dir + ", ciudad=" + ciudad + ", estrellas="
 				+ estrellas + ", tlfn=" + tlfn + ", numHab=" + numHab + ", precio=" + precio + ", valoracion="
 				+ valoracion + ", tipo=" + tipo + "]";
+	}
+	String a = "Hotel";
+
+	@Override
+	public List<List<Integer>> combinacionesRecursivas() {
+		
+		return null;
 	}
 
 
