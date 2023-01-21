@@ -10,13 +10,14 @@ public class Hotel {
 	private int numHab;		//numero de habitaciones del hotel
 	private int precio;		//precio por habitacion del hotel
 	private int valoracion; //valoracion del hotel
+	private String tipo;
 	
 	public Hotel() {
 		super();
 	}
 
 	public Hotel(String nombre, String codH, String dir, String ciudad, int estrellas, String tlfn, int numHab,
-			int precio, int valoracion) {
+			int precio, int valoracion, String tipo) {
 		super();
 		this.nombre = nombre;
 		this.codH = codH;
@@ -27,15 +28,17 @@ public class Hotel {
 		this.numHab = numHab;
 		this.precio = precio;
 		this.valoracion = valoracion;
+		this.tipo = tipo;
 	}
 
-	public Hotel(String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab) {
+	public Hotel(String nombre, String ciudad, int estrellas, int valoracion, int precio, int numHab, String tipo) {
 		super();
 		this.nombre = nombre;
 		this.estrellas = estrellas;
 		this.ciudad = ciudad;
 		this.valoracion = valoracion;
 		this.precio = precio;
+		this.tipo = tipo;
 	}
 	
 
@@ -111,10 +114,22 @@ public class Hotel {
 	public void setValoracion(int valoracion) {
 		this.valoracion = valoracion;
 	}
+	
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 
 	@Override
 	public String toString() {
-		return "Hotel [nombre=" + nombre + ",codH=" + codH + ", dir=" + dir + ", ciudad=" + ciudad + ", estrellas=" + estrellas + ", tlfn=" + tlfn
-				+ ", numHab=" + numHab + "]";
+		return "Hotel [nombre=" + nombre + ", codH=" + codH + ", dir=" + dir + ", ciudad=" + ciudad + ", estrellas="
+				+ estrellas + ", tlfn=" + tlfn + ", numHab=" + numHab + ", precio=" + precio + ", valoracion="
+				+ valoracion + ", tipo=" + tipo + "]";
 	}
+
+
 }

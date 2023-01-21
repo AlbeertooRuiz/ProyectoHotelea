@@ -121,7 +121,7 @@ public class BD {
 
 	// Metodo que crea la tabla Hotel
 	public static boolean crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int, tipo String)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement: " + sql );
@@ -150,8 +150,9 @@ public class BD {
 				int valoracion = Integer.valueOf(datos[3]);
 				int precio = Integer.valueOf(datos[4]);
 				int numHab = Integer.valueOf(datos[5]);
-
-				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				String tipo = datos[6];
+				
+				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
 				hoteles.add(h);
 			}
 			br.close();
@@ -200,7 +201,9 @@ public class BD {
 				int valoracion = rs.getInt("valoracion");
 				int precio = rs.getInt("precio");
 				int numHab = rs.getInt("numHab");
-				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				String tipo = rs.getString("tipo");
+				
+				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
 				hoteles.add(h);
 			}
 			rs.close();

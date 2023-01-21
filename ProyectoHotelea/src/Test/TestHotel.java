@@ -8,7 +8,7 @@ import Datos.Hotel;
 
 public class TestHotel {
 	
-	Hotel h= new Hotel("Melia", "111", "Deusto", "Bilbao", 3, "678901234", 250, 40, 8);
+	Hotel h= new Hotel("Melia", "111", "Deusto", "Bilbao", 3, "678901234", 250, 40, 8, "Hostel");
 	Hotel h2= new Hotel();
 	
 	@Test

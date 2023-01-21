@@ -173,7 +173,7 @@ public class VentanaUsuario extends JFrame {
 		
 		tablaHotel = new JTable(modeloTablaHotel);
 		
-		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio"};
+		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio", "Tipo"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		
 		tablaHotel.getTableHeader().setReorderingAllowed(false);
@@ -183,7 +183,7 @@ public class VentanaUsuario extends JFrame {
 		//tablaHotel.setRowSorter(sorter);			
 		
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("Hotel.csv"));
+			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
 			String linea = br.readLine();
 			ArrayList<Hotel> hoteles= new ArrayList<>();
 			while(linea!=null) {
@@ -194,7 +194,9 @@ public class VentanaUsuario extends JFrame {
 				int valoracion = Integer.parseInt(datos[4]);
 				int precio = Integer.parseInt(datos[5]);
 				int numHab = Integer.parseInt(datos[6]);
-				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				String tipo = datos[7];
+				
+				Hotel h= new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
 				hoteles.add(h);
 				linea = br.readLine();
 			}
@@ -205,7 +207,7 @@ public class VentanaUsuario extends JFrame {
 		
 		hoteles = BD.cargarHotelesTablaCsv();
 		for(Hotel h: hoteles) {
-			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
+			Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio(), h.getTipo()};
 			modeloTablaHotel.addRow(datos);
 		}
 
