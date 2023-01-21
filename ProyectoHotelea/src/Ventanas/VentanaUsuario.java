@@ -136,7 +136,20 @@ public class VentanaUsuario extends JFrame {
 				ventanaAnterior.setVisible(true);
 			}
 		});
+		
+		JButton btnCombinaciones = new JButton("COMBINACIONES");
+		panelSur.add(btnCombinaciones);
 		panelSur.add(btnCerrarSesion);
+		
+		btnCombinaciones.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaCombinaciones r = new VentanaCombinaciones();
+				ventanaActual.dispose();
+				
+			}
+		});
 		
 		textFieldValoracion.addKeyListener(new KeyAdapter() {
 			@Override

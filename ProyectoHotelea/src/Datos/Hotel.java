@@ -2,6 +2,8 @@ package Datos;
 
 import java.util.List;
 
+import Ventanas.VentanaCombinaciones;
+
 public class Hotel implements Combinaciones{
 	private String nombre;	//nombre del hotel
 	private String codH;	//codigo del hotel

@@ -314,7 +314,7 @@ public class BD {
 		
 	}
 	
-	public static ArrayList<Integer> getPreciosEbFuncionDelTipo(String tipo) {
+	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
 		Connection con = initBD("Hotelea.db");
 		try (Statement statement = con.createStatement()) {
 			ArrayList<Integer> pre = new ArrayList<>();
