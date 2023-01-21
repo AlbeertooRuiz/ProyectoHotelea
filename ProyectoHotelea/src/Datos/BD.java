@@ -166,54 +166,7 @@ public class BD {
 
 	}
 
-	// Metodo que inserta un hotel dentro de la tabla Hotel
-	public static boolean insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion,
-			int precio, int numHab) {
 
-		String sql = "INSERT INTO Hotel VALUES('" + nombre + "','" + ciudad + "','" + estrellas + "','" + valoracion
-				+ "','" + precio + "'" + numHab + "')";
-		
-		try {
-			Statement st = con.createStatement();
-			logger.log( Level.INFO, "Statement: " + sql );
-			st.executeUpdate(sql);
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
-
-	public void insertarCSV(ActionEvent e) {
-		ArrayList<Hotel> hoteles = new ArrayList<>();
-		Connection con = BD.initBD("Hotelea.db");
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
-			String linea = br.readLine();
-			while (linea != br.readLine()) {
-				linea = br.readLine();
-				String[] elementos = linea.split(",");
-				// Hotel hotel = new Hotel(elementos[0], elementos[1],
-				// Integer.parseInt(elementos[2]),Integer.parseInt(elementos[3]),
-				// Integer.parseInt(elementos[4]));
-
-				String Nombre = elementos[0];
-				String Ciudad = elementos[1];
-				int Estrellas = Integer.parseInt(elementos[2]);
-				int Valoracion = Integer.parseInt(elementos[3]);
-				int Precio = Integer.parseInt(elementos[4]);
-
-				// hoteles.add(hotel);
-				// insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
-			}
-		} catch (IOException e1) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			System.out.println("Falla fichero");
-
-		}
-	}
 
 	public void cargarBD(ActionEvent e) {
 		String texto = "";
@@ -275,58 +228,7 @@ public class BD {
 			return false;
 		}
 	}
-
-	public static boolean reservaHotel(Connection con) {
-		String sql = "UPDATE Hotel SET ";
-		try {
-			Statement st = con.createStatement();
-			logger.log( Level.INFO, "Statement:", sql );
-			st.executeUpdate(sql);
-			st.close();
-			return true;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
-
 	
-	
-
-	public static boolean insertarBD(List<Hotel> Hoteles) {
-		System.out.println("\nSE VAN A INSERTA: " + Hoteles.size() + " REGISTROS\n");
-
-		Connection con = initBD("Hotelea.db");
-
-		String query = "INSERT INTO Hoteles(nombre, ciudad, estrellas, valoracion, precio, numHab) VALUES(?,?,?,?,?,?)";
-
-		try {
-			
-			PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
-			logger.log( Level.INFO, "Statement:", query );
-
-			for (int i = 0; i < Hoteles.size(); i++) {
-				ps.setString(1, Hoteles.get(i).getNombre());
-				ps.setString(2, Hoteles.get(i).getCiudad());
-				ps.setInt(3, Hoteles.get(i).getEstrellas());
-				ps.setInt(4, Hoteles.get(i).getValoracion());
-				ps.setInt(5, Hoteles.get(i).getPrecio());
-				ps.setInt(6, Hoteles.get(i).getNumHab());
-
-				ps.executeUpdate();
-
-				System.out.println("Se ha insertado el elemento: " + (i + 1) + "/" + Hoteles.size());
-			}
-			ps.close();
-			closeBD(con);
-			return true;
-		} catch (SQLException e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
 
 	public static boolean existeReserva(String nom, String fecha) {
 		boolean resul = false;
@@ -369,7 +271,7 @@ public class BD {
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
 	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day) {
-		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "'," + day + ")";
+		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "," + day + ")";
 		Connection con = initBD("Hotelea.db");
 		
 		try {

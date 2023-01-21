@@ -88,40 +88,63 @@ public class VentanaReserva extends JFrame {
 		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
 		btnConfirmarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String hotel = nombreHotel;
-				String fechaE = textFieldCheckin.getText();
-				String fechaS = textFieldCheckout.getText();
-//				int numP = Integer.parseInt(textFieldNumPer.getText());
-				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-				try {
-					Date fe = sdf.parse(fechaE);
-					Date fs = sdf.parse(fechaS);
-					do{
-						String fecha = sdf.format(fe);
-						if(BD.existeReserva(hotel, fecha)) {
-							BD.modificarReserva(hotel, fecha);
-							JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
-						}else {
-							BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
-							JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+				if(textFieldNumPer.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Debe introducir el numero de personas");
+				} else {
+					int numP = Integer.parseInt(textFieldNumPer.getText());
+					if (numP>4) {
+						JOptionPane.showMessageDialog(null, "El maximo de personas por habitacion es de 4");
+					} else {
+						String fechaE = textFieldCheckin.getText();
+						if(textFieldCheckin.getText().equals("")) {
+							JOptionPane.showMessageDialog(null, "Debe introducir la fecha de check-in");
+						} else {
+							String fechaS = textFieldCheckout.getText();
+							if(textFieldCheckout.getText().equals("")) {
+								JOptionPane.showMessageDialog(null, "Debe introducir la fecha de check-out");
+							} else {
+								String hotel = nombreHotel;
+								SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+								try {
+									Date fe = sdf.parse(fechaE);
+									Date fs = sdf.parse(fechaS);
+									do{
+										String fecha = sdf.format(fe);
+										if(textFieldCheckin.getText().equals(textFieldCheckout.getText())) {
+											if(BD.existeReserva(hotel, fecha)) {
+												BD.modificarReserva(hotel, fecha);
+												JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+											} else {
+												BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
+												JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+											}
+										}
+										if(BD.existeReserva(hotel, fecha)) {
+											BD.modificarReserva(hotel, fecha);
+											JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+										}else {
+											BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
+											JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+										}
+										fe.setTime(fe.getTime()+24*60*60*1000);
+									}while(!fe.equals(fs));
+									String fecha = sdf.format(fe);
+									if(BD.existeReserva(hotel, fecha)) {
+										BD.modificarReserva(hotel, fecha);
+										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+									}else {
+										BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
+										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+									}
+							
+								} catch (ParseException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
 						}
-						fe.setTime(fe.getTime()+24*60*60*1000);
-					}while(!fe.equals(fs));
-					String fecha = sdf.format(fe);
-					if(BD.existeReserva(hotel, fecha)) {
-						BD.modificarReserva(hotel, fecha);
-						JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
-					}else {
-						BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
-						JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 					}
-			
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
+				};
 			}
 		});
 		panelSur.add(btnConfirmarReserva);
