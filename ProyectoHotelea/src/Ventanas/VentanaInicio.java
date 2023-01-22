@@ -23,6 +23,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 import java.awt.event.ActionEvent;
 import java.awt.GridBagLayout;
@@ -33,7 +36,7 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class VentanaInicio extends JFrame {
+public class VentanaInicio extends JFrame implements Runnable {
 
 	private JFrame ventanaActual;
 	private JPanel contentPane;
@@ -41,6 +44,14 @@ public class VentanaInicio extends JFrame {
 	private JPasswordField textFieldContrasenia;
 	private JPanel panelNorte, panelSur, panelEste, panelOeste, panelCentro, panelArriba, panelAbajo;
 	Connection con;
+	private JPanel panelReloj;
+	private JPanel panelBienvenido;
+	private JLabel lblBienvenido;
+	private JLabel lblReloj;
+	
+	String hora,minutos,segundos,ampm;
+	Calendar calendario;    
+	Thread h1;
 	/**
 	 * Create the frame.
 	 */
@@ -191,11 +202,55 @@ public class VentanaInicio extends JFrame {
 		
 		panelNorte = new JPanel();
 		contentPane.add(panelNorte, BorderLayout.NORTH);
+		panelNorte.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
-		panelNorte.add(lblBienvenido);
+		panelReloj = new JPanel();
+		panelNorte.add(panelReloj);
+		
+		lblReloj = new JLabel("Reloj");
+		panelReloj.add(lblReloj);
+		
+		panelBienvenido = new JPanel();
+		panelNorte.add(panelBienvenido);
+		
+		lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
+		panelBienvenido.add(lblBienvenido);
+		
+		h1 = new Thread(this);
+		h1.start();
 		
 		
 	}
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		Thread ct = Thread.currentThread();
+		while(ct == h1) {   
+			calcula();
+			lblReloj.setText(hora + ":" + minutos + ":" + segundos + " "+ampm);
+		try {
+			Thread.sleep(1000);
+		}catch(InterruptedException e) {}
+		 }
+	}
 
+	public void calcula () {        
+		Calendar calendario = new GregorianCalendar();
+		Date fechaHoraActual = new Date();
+
+
+		calendario.setTime(fechaHoraActual);
+		ampm = calendario.get(Calendar.AM_PM)==Calendar.AM?"AM":"PM";
+
+		if(ampm.equals("PM")){
+		 int h = calendario.get(Calendar.HOUR_OF_DAY)-12;
+		 hora = h>9?""+h:"0"+h;
+		}else{
+			hora = calendario.get(Calendar.HOUR_OF_DAY)>9?""+calendario.get(Calendar.HOUR_OF_DAY):"0"+calendario.get(Calendar.HOUR_OF_DAY); 
+		}
+		minutos = calendario.get(Calendar.MINUTE)>9?""+calendario.get(Calendar.MINUTE):"0"+calendario.get(Calendar.MINUTE);
+		segundos = calendario.get(Calendar.SECOND)>9?""+calendario.get(Calendar.SECOND):"0"+calendario.get(Calendar.SECOND);
+	}
+	
+	
 }
