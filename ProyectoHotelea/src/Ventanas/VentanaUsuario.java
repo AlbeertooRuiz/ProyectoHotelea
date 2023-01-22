@@ -148,6 +148,7 @@ public class VentanaUsuario extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				VentanaCombinaciones r = new VentanaCombinaciones();
 				ventanaActual.dispose();
+				r.setVisible(true);
 				
 			}
 		});

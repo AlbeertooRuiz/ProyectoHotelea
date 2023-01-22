@@ -58,6 +58,13 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		lblNewLabel_1.setBounds(25, 13, 194, 36);
 		contentPane.add(lblNewLabel_1);
 		
+		JComboBox<String> comboTipo = new JComboBox<String>();
+		comboTipo.setBounds(224, 45, 199, 20);
+		comboTipo.addItem("Motel");
+		comboTipo.addItem("Hotel");
+		comboTipo.addItem("Hostel");
+		
+		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(282, 74, 82, 21);
 		contentPane.add(btnAceptar);
@@ -83,7 +90,7 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 			}
 		}});
 		
-		tabla = new JTable();
+		tabla = new JTable(modeloTablaHotel);
 		tabla.setBounds(10, 99, 666, 282);
 		contentPane.add(tabla);
 		
@@ -92,12 +99,6 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		lblNewLabel.setBounds(229, 11, 247, 41);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox<String> comboTipo = new JComboBox<String>();
-		comboTipo.setToolTipText("");
-		comboTipo.setBounds(224, 45, 199, 20);
-		comboTipo.addItem("Motel");
-		comboTipo.addItem("Hotel");
-		comboTipo.addItem("Hostel");
 		
 		contentPane.add(comboTipo);
 		
