@@ -14,8 +14,20 @@ public class Reserva {
 	public Reserva() {
 		super();
 	}
-
+	
+	
 	//Constructor de Reserva
+	/**
+	 * 
+	 * @param codH codigo de hotel
+	 * @param dni dni de la persona que reserva
+	 * @param fechaE fecha de entreda
+	 * @param fechaS fecha de salida
+	 * @param numHab numero de habitaciones que se reservan
+	 * @param reservas numero de reservas
+	 * @param fechahoy numero del dia de la semana de la reserva
+	 * @param mes numero del mes de la reserva
+	 */
 	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab, int reservas, int fechahoy, int mes) {
 		super();
 		this.codH = codH;
@@ -27,7 +39,14 @@ public class Reserva {
 		this.fechahoy = fechahoy;
 		this.mes=mes;
 	}
-	
+	/**
+	 * 
+	 * @param codH codigo de hotel
+	 * @param fechaE fecha de entreda
+	 * @param reservas numero de reservas
+	 * @param fechahoy numero del dia de la semana de la reserva
+	 * @param mes numero del mes de la reserva
+	 */
 	public Reserva(String codH,String fechaE,int reservas,int fechahoy, int mes) {
 		super();
 		this.codH=codH;

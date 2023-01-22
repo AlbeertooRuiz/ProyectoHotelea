@@ -67,25 +67,7 @@ public class TestBD {
 		assertEquals(hoteles.get(0).getNombre(),"Barcelo");
 	}
 	
-//	@Test
-//	public void testInsertarHotel() {
-//		assertTrue(bd.insertarHotel(con, "Barcelo", "Cuenca", 4, 9, 140, 300));
-//	}
-	
-	//@Test
-	//public void testObtenerListaHoteles() {
-	//	ArrayList<Hotel> hoteles=bd.obtenerListaHoteles(con);
-	//	assertEquals(25,hoteles.size());
-	//}
-	
-	
-	//@Test
-	//public void testInsertarBD() {
-	//	List<Hotel> hoteles= new ArrayList<Hotel>();
-	//	hoteles.add(new Hotel("Barcelo", "Cuenca", 3, 9, 340, 300));
-	//	hoteles.add(new Hotel("Barcelo2", "bilbao", 4, 5, 100, 100));
- 	//	assertFalse(bd.insertarBD(hoteles));
-	//}
+
 	
 	@Test
 	public void testModificarReserva() {

@@ -7,14 +7,27 @@ public class Cliente {
 	private String email;			//email del cliente
 	private String tlfn;			//telefono del cliente
 	private String usuario;			//usuario del cliente
-	private String contrasenia;		//contraseña del cliente
+	private String contrasenia;		//contraseï¿½a del cliente
 	
 	//Constructor vacio de cliente
+	/**
+	 * 
+	 */
 	public Cliente() {
 		super();
 	}
 
 	//Constructor de cliente
+	/**
+	 * 
+	 * @param dni dni del cliente
+	 * @param nom nombre del clente
+	 * @param dir direccion del cliente
+	 * @param email email del cliente
+	 * @param tlfn telefono del cliente
+	 * @param usuario nombre de usuario del cliente
+	 * @param contrasenia contrasenia del cliente
+	 */
 	public Cliente(String dni, String nom, String dir, String email, String tlfn, String usuario, String contrasenia) {
 		super();
 		this.dni = dni;
@@ -25,7 +38,11 @@ public class Cliente {
 		this.usuario = usuario;
 		this.contrasenia = contrasenia;
 	}
-
+	/**
+	 * 
+	 * @param usuario nombre de usuario del cliente
+	 * @param contrasenia contrasenia del cliente
+	 */
 	public Cliente(String usuario, String contrasenia) {
 		super();
 		this.usuario = usuario;
