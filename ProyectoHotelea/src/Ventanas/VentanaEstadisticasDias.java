@@ -78,26 +78,26 @@ public class VentanaEstadisticasDias extends JFrame{
 		getContentPane().add(btnvolver);
 		
 		ArrayList<Reserva> reservas= BD.getReservas();
-		Map<Integer, Reserva> mapafechareserva= new HashMap<>();
-		
+		ArrayList<Integer> dias=new ArrayList<>();
 		for(Reserva r:reservas) {
-			mapafechareserva.put(r.getFechahoy(), r);
+			dias.add(r.getFechahoy());
 		}
 		
-		for(Entry<Integer, Reserva> e:mapafechareserva.entrySet()) {
-			if(e.getKey()==0) {
+		
+		for(Integer i:dias) {
+			if(i==0) {
 				domingo++;
-			}else if(e.getKey()==1) {
+			}else if(i==1) {
 				lunes++;
-			}else if(e.getKey()==2) {
+			}else if(i==2) {
 				martes++;
-			}else if(e.getKey()==3) {
+			}else if(i==3) {
 				miercoles++;
-			}else if(e.getKey()==4) {
+			}else if(i==4) {
 				jueves++;
-			}else if(e.getKey()==5) {
+			}else if(i==5) {
 				viernes++;
-			}else if(e.getKey()==6) {
+			}else if(i==6) {
 				sabado++;
 			}
 			
