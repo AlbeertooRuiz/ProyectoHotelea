@@ -71,7 +71,7 @@ public class VentanaAdministrador extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				VentanaAdministrador vi=new VentanaAdministrador() ;
+				VentanaInicio vi=new VentanaInicio() ;
 				vi.setVisible(true);
 				dispose();
 			}
