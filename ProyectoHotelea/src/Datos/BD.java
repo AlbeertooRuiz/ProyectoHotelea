@@ -33,8 +33,8 @@ public class BD {
 	// Metodo que realiza la conexion con la base de datos
 	/**
 	 * 
-	 * @param nombreBD El nombre de la Base de Datos
-	 * @return
+	 * @param nombreBD El nombre de la Base de Datos a la quue queremos acceder
+	 * @return Returna la conexión con la BD idicada anteriormente
 	 */
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
@@ -53,6 +53,10 @@ public class BD {
 	}
 
 	// Metodo que cierra la conexion con la base de datos
+	/**
+	 * 
+	 * @param con Conexión con la Base de Datos
+	 */
 	public static void closeBD(Connection con) {
 		if (con != null) {
 			try {
@@ -67,6 +71,11 @@ public class BD {
 	}
 
 	// Metodo que crea la tabla Cliente
+	/**
+	 * 
+	 * @param con Recibe la conexion con la base de datos
+	 * @return devuelve true o false en funcion de si la tabla esta creada con anterioridad
+	 */
 	public static boolean crearTablaCliente(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Cliente (DNI String, nombre String, apellidos String, usuario String, contrasenia String)";
 		try {
@@ -84,6 +93,16 @@ public class BD {
 	}
 
 	// Metodo que inserta un cliente dentro de la tabla Cliente
+	/**
+	 * 
+	 * @param con Recibe la conexion con la base de datos
+	 * @param DNI El DNI del cliente
+	 * @param nombre El nombre del cliente
+	 * @param apellidos Apellidos del cliente
+	 * @param usuario Usuario
+	 * @param contrasenia Contraseña del cliente
+	 * @return devuelve true o false en funcion de si se ha podido insertar el cliente o no
+	 */
 	public static boolean insertarCliente(Connection con, String DNI, String nombre, String apellidos, String usuario,
 			String contrasenia) {
 		String sql = "INSERT INTO Cliente VALUES('" + DNI + "','" + nombre + "','" + apellidos + "','" + usuario + "','"
@@ -103,6 +122,12 @@ public class BD {
 
 	// Metodo que devuelve usuario y contraseÃ¯Â¿Â½a de un cliente de la tabla Cliente
 	// mediante la busqueda por usuario
+	/**
+	 * 
+	 * @param con Recibe la conexion con la base de datos
+	 * @param usuario Nombre del usuario
+	 * @return devuelve  el cliente con esos datos
+	 */
 	public static Cliente obtenerDatosCliente(Connection con, String usuario) {
 		String sql = "SELECT * FROM Cliente WHERE usuario='" + usuario + "'";
 		Cliente cliente = null;
@@ -125,6 +150,11 @@ public class BD {
 	}
 
 	// Metodo que crea la tabla Hotel
+	/**
+	 * 
+	 * @param con Conexion con la base de datos
+	 * @return devuelve true si se ha podido crear
+	 */
 	public static boolean crearTablaHotel(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int, tipo String)";
 		try {
@@ -143,6 +173,10 @@ public class BD {
 	}
 	//Metodo que carga los datos de hoteles de prueba que hemos puesto en nuestro csv 
 	//y nos devuelve una lista con ellos para luego meterlos en la BD
+	/**
+	 * 
+	 * @return devuelve una lista de hoteles
+	 */
 	public static ArrayList<Hotel> cargarHotelesTablaCsv() {
 		ArrayList<Hotel> hoteles = new ArrayList<>();
 		String input = "Hoteles.csv";
@@ -180,6 +214,11 @@ public class BD {
 
 
 	// Metodo que crea la tabla Reservas
+	/**
+	 * 
+	 * @param con Conexion con la base de datos
+	 * @return devuelve true si se ha podido crear
+	 */
 	public static boolean crearTablaReservas(Connection con) {
 		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int, fechahoy int, mes int)";
 		try {
@@ -197,6 +236,12 @@ public class BD {
 	
 	//Metodo que nos dice si existe una reserva dandole un nombre de hotel
 	//y una fecha y devuelve true si existe y false si no
+	/**
+	 * 
+	 * @param nom nombre del hotrl
+	 * @param fecha fecha de la reserva
+	 * @return devuelve true si la reserva esta hecha ya
+	 */
 	public static boolean existeReserva(String nom, String fecha) {
 		boolean resul = false;
 		String sql = "SELECT * FROM Reservas WHERE hotel='" + nom + "' AND fecha='" + fecha + "'";
@@ -220,6 +265,12 @@ public class BD {
 	
 	//Metodo para modificar una reserva de la base de datos utilizando
 	//el nombre del hotel y la fecha de la reserva
+	/**
+	 * 
+	 * @param nom nombre del hotel 
+	 * @param fecha fecha en la que se ha efectuado la reserva
+	 * @return devuelve tru o false en funcion de si se ha podido modificar
+	 */
 	public static boolean modificarReserva(String nom, String fecha) {
 		String sql = "UPDATE Reservas SET reservas=reservas+1 WHERE hotel='" + nom + "' AND fecha='" + fecha + "'";
 		Connection con = initBD("Hotelea.db");
@@ -239,6 +290,15 @@ public class BD {
 	}
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
+	/**
+	 * 
+	 * @param hotel nombre del hotel
+	 * @param fecha fecha de la reserva
+	 * @param reservas número de reservas
+	 * @param day dia de la semana en el que se ha hecho la reserva
+	 * @param mes mes en el que se ha hecho la reserva
+	 * @return devuleve true si se ha podidp insertar la reserva
+	 */
 	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day, int mes) {
 		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "," + day + "," + mes + ")";
 		Connection con = initBD("Hotelea.db");
@@ -258,6 +318,10 @@ public class BD {
 		return true;
 	}
 	//Metodo que devuelve todas las reservas almacenadas en la base de datos
+	/**^
+	 * 
+	 * @return devuelve todas las reservas
+	 */
 	public static ArrayList<Reserva> getReservas() {
 		Connection con = initBD("Hotelea.db");
 		ArrayList<Reserva> ret = new ArrayList<>();
@@ -283,6 +347,11 @@ public class BD {
 	}
 	
 	//Metodo que devuelve una lista de precios dependiendo del tipo de hotel que estemos buscando
+	/**
+	 * 
+	 * @param tipo tipo de hotel
+	 * @return devuelve una lista con los precios de los hoteles de ese tiopo
+	 */
 	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
 		Connection con = initBD("Hotelea.db");
 		try (Statement statement = con.createStatement()) {
@@ -305,6 +374,9 @@ public class BD {
 	
 	//Metodo que carga los datos de reservas de prueba que hemos puesto en nuestro csv 
 	//y los carga en la BD utilizando el metodo insertarreserva creado anteriormente
+	/**
+	 * 
+	 */
 	public static void cargarreservasTablaCsv() {
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String input = "Reservas.csv";
@@ -339,6 +411,17 @@ public class BD {
 	
 	//Metodo para que los administradores puedan aÃ±adir un hotel a la BD proporcionando
 	//los datos del hotel que quieren insertar
+	/**
+	 * 
+	 * @param nombre nombre del hotel
+	 * @param ciudad ciudad del hotel
+	 * @param estrellas estrellas del hotel
+	 * @param valoracion valoracion del hotel
+	 * @param precio precio de la habitacion por noche
+	 * @param numHab numero de habitaciones disponible
+	 * @param tipo tipo de hotl
+	 * @return devuelve true o false en funcion de si hemos podido insertar el hotel
+	 */
 	public static boolean insertarHotelAdmin(String nombre,String ciudad, int estrellas,int valoracion, int precio, int numHab, String tipo) {
 		Connection con = initBD("Hotelea.db");
 		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"',"+estrellas+","+valoracion+","+precio+","+numHab+",'"+tipo+"')";
@@ -358,6 +441,11 @@ public class BD {
 		
 	//Metodo que recibe una lista de listas en la que cada sublista esta rellena de precio
 	//a partir de eso crea una lista de listas donde cada sublista es una lista de hoteles
+	/**
+	 * 
+	 * @param Combinaciones Recibe todas las combiaciones posibles de precios en funcion de un presupuesto establecido anteriormente
+	 * @return devuelve  una lista de listas donde cada sublista es una lista de hoteles
+	 */
 		public static ArrayList<ArrayList<Hotel>> getHotelesEnFuncionDePrecios(List<List<Integer>> Combinaciones) {
 			Connection con = initBD("Hotelea.db");
 			try (Statement statement = con.createStatement()) {
