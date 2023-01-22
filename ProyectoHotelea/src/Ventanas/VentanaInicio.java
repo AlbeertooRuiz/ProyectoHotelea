@@ -104,8 +104,7 @@ public class VentanaInicio extends JFrame implements Runnable {
 					JOptionPane.showMessageDialog(null, "Bienvenido/a!!");
 					VentanaUsuario vu= new VentanaUsuario(ventanaActual);
 					vu.setVisible(true);
-					ventanaActual.setVisible(false);
-					
+					ventanaActual.dispose();
 				}
 			}
 		});

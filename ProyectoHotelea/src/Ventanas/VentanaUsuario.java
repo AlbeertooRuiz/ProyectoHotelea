@@ -133,7 +133,8 @@ public class VentanaUsuario extends JFrame {
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaActual.dispose();
-				ventanaAnterior.setVisible(true);
+				VentanaInicio vi = new VentanaInicio();
+				vi.setVisible(true);
 			}
 		});
 		
