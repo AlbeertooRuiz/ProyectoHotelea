@@ -143,6 +143,7 @@ public class VentanaReserva extends JFrame {
 									} catch (ParseException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();
+										JOptionPane.showMessageDialog(null, "El formato de la fecha es incorrecto");
 									}
 								}
 							}
