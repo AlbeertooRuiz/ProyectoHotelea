@@ -10,10 +10,12 @@ public class Reserva {
 	private int fechahoy;		//numero del dia de la semana de la reserva
 	private int mes;			//numero del mes de la reserva
 	
+	//Constructor vacio de Reserva
 	public Reserva() {
 		super();
 	}
 
+	//Constructor de Reserva
 	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab, int reservas, int fechahoy, int mes) {
 		super();
 		this.codH = codH;

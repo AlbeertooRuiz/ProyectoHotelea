@@ -16,10 +16,12 @@ public class Hotel implements Combinaciones{
 	private int valoracion; //valoracion del hotel
 	private String tipo;
 	
+	//Constructor de Hotel
 	public Hotel() {
 		super();
 	}
-
+	
+	//Constructor de Hotel
 	public Hotel(String nombre, String codH, String dir, String ciudad, int estrellas, String tlfn, int numHab,
 			int precio, int valoracion, String tipo) {
 		super();
