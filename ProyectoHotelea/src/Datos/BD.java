@@ -186,35 +186,35 @@ public class BD {
 		}
 	}
 
-	public static ArrayList<Hotel> obtenerListaHoteles(Connection con) {
-		ArrayList<Hotel> hoteles = new ArrayList<>();
-
-		try {
-			Statement st = con.createStatement();
-			String sql = "SELECT * FROM Hotel";
-			logger.log( Level.INFO, "Statement:", sql );
-			ResultSet rs = st.executeQuery(sql);
-			while (rs.next()) {
-				String nombre = rs.getString("nombre");
-				String ciudad = rs.getString("ciudad");
-				int estrellas = rs.getInt("estrellas");
-				int valoracion = rs.getInt("valoracion");
-				int precio = rs.getInt("precio");
-				int numHab = rs.getInt("numHab");
-				String tipo = rs.getString("tipo");
-				
-				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
-				hoteles.add(h);
-			}
-			rs.close();
-			st.close();
-			
-		} catch (SQLException e) {
-			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
-		}
-		return hoteles;
-
-	}
+//	public static ArrayList<Hotel> obtenerListaHoteles(Connection con) {
+//		ArrayList<Hotel> hoteles = new ArrayList<>();
+//
+//		try {
+//			Statement st = con.createStatement();
+//			String sql = "SELECT * FROM Hotel";
+//			logger.log( Level.INFO, "Statement:", sql );
+//			ResultSet rs = st.executeQuery(sql);
+//			while (rs.next()) {
+//				String nombre = rs.getString("nombre");
+//				String ciudad = rs.getString("ciudad");
+//				int estrellas = rs.getInt("estrellas");
+//				int valoracion = rs.getInt("valoracion");
+//				int precio = rs.getInt("precio");
+//				int numHab = rs.getInt("numHab");
+//				String tipo = rs.getString("tipo");
+//				
+//				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
+//				hoteles.add(h);
+//			}
+//			rs.close();
+//			st.close();
+//			
+//		} catch (SQLException e) {
+//			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
+//		}
+//		return hoteles;
+//
+//	}
 
 	// Metodo que crea la tabla Reservas
 	public static boolean crearTablaReservas(Connection con) {

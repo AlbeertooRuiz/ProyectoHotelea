@@ -130,6 +130,27 @@ public class VentanaReserva extends JFrame {
 											BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
 										}
 										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+										JButton btnRealizarOtraReserva = new JButton("Realizar otra reserva");
+										btnRealizarOtraReserva.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												ventanaActual.dispose();
+												VentanaInicio vi = new VentanaInicio();
+												VentanaUsuario vu = new VentanaUsuario(vi);
+												vu.setVisible(true);
+												dispose();
+											}
+										});
+										JOptionPane.showMessageDialog(null, btnRealizarOtraReserva);
+										JButton btnCerrarSesion = new JButton("Cerrar sesi\u00F3n");
+										btnCerrarSesion.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												ventanaActual.dispose();
+												VentanaInicio vi = new VentanaInicio();
+												vi.setVisible(true);
+												dispose();
+											}
+										});
+										JOptionPane.showMessageDialog(null, btnCerrarSesion);
 										
 									} catch (ParseException e1) {
 										// TODO Auto-generated catch block

@@ -263,7 +263,6 @@ public class VentanaUsuario extends JFrame {
 				// TODO Auto-generated method stub
 				if(e.getClickCount() == 2) {
 					int fila = tablaHotel.rowAtPoint(e.getPoint());
-					System.out.println(fila);
 					String nombre = (String)modeloTablaHotel.getValueAt(fila, 0);
 					VentanaReserva vr = new VentanaReserva(nombre, ventanaActual);
 					vr.setVisible(true);
