@@ -67,10 +67,10 @@ public class TestBD {
 		assertEquals(hoteles.get(0).getNombre(),"Barcelo");
 	}
 	
-	@Test
-	public void testInsertarHotel() {
-		assertTrue(bd.insertarHotel(con, "Barcelo", "Cuenca", 4, 9, 140, 300));
-	}
+//	@Test
+//	public void testInsertarHotel() {
+//		assertTrue(bd.insertarHotel(con, "Barcelo", "Cuenca", 4, 9, 140, 300));
+//	}
 	
 	//@Test
 	//public void testObtenerListaHoteles() {

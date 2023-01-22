@@ -34,14 +34,14 @@ public class BD {
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
 		try {
-			logger.log( Level.INFO, "Abriendo conexión con " + nombreBD );
+			logger.log( Level.INFO, "Abriendo conexiÃ³n con " + nombreBD );
 			Class.forName("org.sqlite.JDBC");
 			con = DriverManager.getConnection("jdbc:sqlite:" + nombreBD);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		} 
 
 		return con;
@@ -51,12 +51,12 @@ public class BD {
 	public static void closeBD(Connection con) {
 		if (con != null) {
 			try {
-				logger.log( Level.INFO, "Cerrando conexión" );
+				logger.log( Level.INFO, "Cerrando conexiÃ³n" );
 				con.close();
 				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				logger.log( Level.SEVERE, "Excepción", e );
+				logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			}
 		}
 	}
@@ -72,7 +72,7 @@ public class BD {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 			
 		}
@@ -91,12 +91,12 @@ public class BD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 		}
 	}
 
-	// Metodo que devuelve usuario y contrase�a de un cliente de la tabla Cliente
+	// Metodo que devuelve usuario y contraseï¿½a de un cliente de la tabla Cliente
 	// mediante la busqueda por usuario
 	public static Cliente obtenerDatosCliente(Connection con, String usuario) {
 		String sql = "SELECT * FROM Cliente WHERE usuario='" + usuario + "'";
@@ -114,14 +114,14 @@ public class BD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		}
 		return cliente;
 	}
 
 	// Metodo que crea la tabla Hotel
 	public static boolean crearTablaHotel(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Hotel (nombre String, ciudad String, estrellas int, valoracion int, precio int, numHab int, tipo String)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement: " + sql );
@@ -131,7 +131,7 @@ public class BD {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 		}
 
@@ -150,8 +150,9 @@ public class BD {
 				int valoracion = Integer.valueOf(datos[3]);
 				int precio = Integer.valueOf(datos[4]);
 				int numHab = Integer.valueOf(datos[5]);
-
-				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				String tipo = datos[6];
+				
+				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
 				hoteles.add(h);
 			}
 			br.close();
@@ -159,61 +160,14 @@ public class BD {
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			fail("No se han podido cargar los datos de el fichero" + input);
 			return null;
 		}
 
 	}
 
-	// Metodo que inserta un hotel dentro de la tabla Hotel
-	public static boolean insertarHotel(Connection con, String nombre, String ciudad, int estrellas, int valoracion,
-			int precio, int numHab) {
 
-		String sql = "INSERT INTO Hotel VALUES('" + nombre + "','" + ciudad + "','" + estrellas + "','" + valoracion
-				+ "','" + precio + "'" + numHab + "')";
-		
-		try {
-			Statement st = con.createStatement();
-			logger.log( Level.INFO, "Statement: " + sql );
-			st.executeUpdate(sql);
-			return true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
-
-	public void insertarCSV(ActionEvent e) {
-		ArrayList<Hotel> hoteles = new ArrayList<>();
-		Connection con = BD.initBD("Hotelea.db");
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
-			String linea = br.readLine();
-			while (linea != br.readLine()) {
-				linea = br.readLine();
-				String[] elementos = linea.split(",");
-				// Hotel hotel = new Hotel(elementos[0], elementos[1],
-				// Integer.parseInt(elementos[2]),Integer.parseInt(elementos[3]),
-				// Integer.parseInt(elementos[4]));
-
-				String Nombre = elementos[0];
-				String Ciudad = elementos[1];
-				int Estrellas = Integer.parseInt(elementos[2]);
-				int Valoracion = Integer.parseInt(elementos[3]);
-				int Precio = Integer.parseInt(elementos[4]);
-
-				// hoteles.add(hotel);
-				// insertarHotel( con, Nombre, Ciudad, Estrellas, Valoracion, Precio);
-			}
-		} catch (IOException e1) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			System.out.println("Falla fichero");
-
-		}
-	}
 
 	public void cargarBD(ActionEvent e) {
 		String texto = "";
@@ -247,14 +201,16 @@ public class BD {
 				int valoracion = rs.getInt("valoracion");
 				int precio = rs.getInt("precio");
 				int numHab = rs.getInt("numHab");
-				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab);
+				String tipo = rs.getString("tipo");
+				
+				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
 				hoteles.add(h);
 			}
 			rs.close();
 			st.close();
 			
 		} catch (SQLException e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		}
 		return hoteles;
 
@@ -271,62 +227,11 @@ public class BD {
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 		}
 	}
-
-	public static boolean reservaHotel(Connection con) {
-		String sql = "UPDATE Hotel SET ";
-		try {
-			Statement st = con.createStatement();
-			logger.log( Level.INFO, "Statement:", sql );
-			st.executeUpdate(sql);
-			st.close();
-			return true;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
-
 	
-	
-
-	public static boolean insertarBD(List<Hotel> Hoteles) {
-		System.out.println("\nSE VAN A INSERTA: " + Hoteles.size() + " REGISTROS\n");
-
-		Connection con = initBD("Hotelea.db");
-
-		String query = "INSERT INTO Hoteles(nombre, ciudad, estrellas, valoracion, precio, numHab) VALUES(?,?,?,?,?,?)";
-
-		try {
-			
-			PreparedStatement ps = (PreparedStatement) con.prepareStatement(query);
-			logger.log( Level.INFO, "Statement:", query );
-
-			for (int i = 0; i < Hoteles.size(); i++) {
-				ps.setString(1, Hoteles.get(i).getNombre());
-				ps.setString(2, Hoteles.get(i).getCiudad());
-				ps.setInt(3, Hoteles.get(i).getEstrellas());
-				ps.setInt(4, Hoteles.get(i).getValoracion());
-				ps.setInt(5, Hoteles.get(i).getPrecio());
-				ps.setInt(6, Hoteles.get(i).getNumHab());
-
-				ps.executeUpdate();
-
-				System.out.println("Se ha insertado el elemento: " + (i + 1) + "/" + Hoteles.size());
-			}
-			ps.close();
-			closeBD(con);
-			return true;
-		} catch (SQLException e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			return false;
-		}
-	}
 
 	public static boolean existeReserva(String nom, String fecha) {
 		boolean resul = false;
@@ -343,7 +248,7 @@ public class BD {
 			st.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		}
 		closeBD(con);
 		return resul;
@@ -360,7 +265,7 @@ public class BD {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 		}
 		closeBD(con);
@@ -369,7 +274,7 @@ public class BD {
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
 	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day) {
-		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "'," + day + ")";
+		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "," + day + ")";
 		Connection con = initBD("Hotelea.db");
 		
 		try {
@@ -380,7 +285,7 @@ public class BD {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			return false;
 		}
 		closeBD(con);
@@ -403,11 +308,34 @@ public class BD {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
+		}
+		return null;
+		
+	}
+	
+	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
+		Connection con = initBD("Hotelea.db");
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Integer> pre = new ArrayList<>();
+			String sent = "select precio from Hotel where tipo = '"+tipo+"';";
+			logger.log( Level.INFO, "Statement:", sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while(rs.next()) {
+				int precio=rs.getInt("precio");
+				pre.add(precio);
+			}
+			return pre;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		}
 		return null;
 		
 	}
 	
 	
+	
+	
 }
+
