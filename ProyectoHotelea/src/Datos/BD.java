@@ -31,6 +31,11 @@ public class BD {
 	SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
 
 	// Metodo que realiza la conexion con la base de datos
+	/**
+	 * 
+	 * @param nombreBD El nombre de la Base de Datos
+	 * @return
+	 */
 	public static Connection initBD(String nombreBD) {
 		Connection con = null;
 		try {
