@@ -11,10 +11,13 @@ import javax.swing.table.DefaultTableModel;
 
 import Datos.BD;
 import Datos.Combinaciones;
+import Datos.Hotel;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +35,8 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 	private JTextField textPresupuesto;
 	private JTable tabla;
 	private DefaultTableModel modeloTablaHotel;
-
+	private JComboBox<String> comboTipo;
+	private JButton btnAceptar;
 
 	public VentanaCombinaciones() {
 		setBackground(Color.WHITE);
@@ -54,9 +58,30 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		lblNewLabel_1.setBounds(25, 13, 194, 36);
 		contentPane.add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Aceptar");
-		btnNewButton.setBounds(282, 74, 82, 21);
-		contentPane.add(btnNewButton);
+		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(282, 74, 82, 21);
+		contentPane.add(btnAceptar);
+		btnAceptar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				List<List<Integer>> combinaciones = combinacionesRecursivas(BD.getPreciosEnFuncionDelTipo(String.valueOf(comboTipo.getSelectedItem())), Integer.parseInt(textPresupuesto.getText()));
+				List<ArrayList<Hotel>> listaHoteles = BD.getHotelesEnFuncionDePrecios(combinaciones);{
+				
+				for (ArrayList<Hotel> hoteles : listaHoteles) {
+					
+					for(Hotel h : hoteles) {
+						Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio(), h.getTipo()};
+						modeloTablaHotel.addRow(datos);
+					}
+					Object [] datos2 = {};
+					modeloTablaHotel.addRow(datos2);
+					
+				};
+				
+			}
+		}});
 		
 		tabla = new JTable();
 		tabla.setBounds(10, 99, 666, 282);
@@ -67,7 +92,7 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		lblNewLabel.setBounds(229, 11, 247, 41);
 		contentPane.add(lblNewLabel);
 		
-		JComboBox<String> comboTipo = new JComboBox();
+		JComboBox<String> comboTipo = new JComboBox<String>();
 		comboTipo.setToolTipText("");
 		comboTipo.setBounds(224, 45, 199, 20);
 		comboTipo.addItem("Motel");
@@ -106,9 +131,12 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
-		};}
-	
+		};
 		
+	
+	
+	}
+	
 		
 		@Override
 		public List<List<Integer>> combinacionesRecursivas(ArrayList<Integer> precios, int i) {
@@ -132,6 +160,9 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 	        return combinaciones;
 	    
 		};
-	}
+		
+		
+}
+		
 	
 
