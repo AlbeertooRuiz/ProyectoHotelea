@@ -15,6 +15,19 @@ public class Hostel extends Hotel{
 		super();
 		this.camasPorHab=camasPorHab;
 	}
+
+	public int getCamasPorHab() {
+		return camasPorHab;
+	}
+
+	public void setCamasPorHab(int camasPorHab) {
+		this.camasPorHab = camasPorHab;
+	}
+
+	@Override
+	public String toString() {
+		return "Hostel [camasPorHab=" + camasPorHab + "]";
+	}
 	
 
 }
