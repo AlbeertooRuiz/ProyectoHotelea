@@ -1,9 +1,13 @@
 package Datos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface Combinaciones {
 
-	 public List<List<Integer>> combinacionesRecursivas();
+
+	List<List<Integer>> combinacionesRecursivas(ArrayList<Integer> precios, int i);
+
+
 	 
 }

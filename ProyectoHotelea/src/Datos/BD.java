@@ -402,8 +402,41 @@ public class BD {
 			return false;
 			
 		}
-	
-
+		}
+		
+		public static ArrayList<ArrayList<Hotel>> getHotelesEnFuncionDePrecios(List<List<Integer>> Combinaciones) {
+			Connection con = initBD("Hotelea.db");
+			try (Statement statement = con.createStatement()) {
+				ArrayList<ArrayList<Hotel>> listaHoteles = new ArrayList<>();
+				for(List<Integer> precios : Combinaciones) {
+					
+					ArrayList<Hotel> hoteles = new ArrayList<>();
+					for (int precio : precios) {
+						String sent = "select * from Hotel where precio = '"+precio+"';";
+						logger.log( Level.INFO, "Statement:", sent );
+						ResultSet rs = statement.executeQuery( sent );
+						while(rs.next()) {
+							String nombre=rs.getString("nombre");
+							String ciudad=rs.getString("ciudad");
+							int estrellas=rs.getInt("estrellas");
+							int valoracion=rs.getInt("valoracion");
+							int precioH = rs.getInt("precio");
+							int numHab = rs.getInt("numHab");		
+							String tipo= rs.getString("tipo");
+							hoteles.add(new Hotel(nombre, ciudad, estrellas, valoracion, precioH, numHab, tipo));
+							
+						}
+						listaHoteles.add(hoteles);
+					}
+					
+			}
+					
+				return listaHoteles;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				logger.log( Level.SEVERE, "Excepción", e );
+			}
+			return null;
 	
 
 	}
