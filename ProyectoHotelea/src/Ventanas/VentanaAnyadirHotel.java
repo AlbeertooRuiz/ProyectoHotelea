@@ -239,7 +239,16 @@ public class VentanaAnyadirHotel extends JFrame{
 										if(Pattern.matches(ernumHab, numHab)) {
 											BD.insertarHotelAdmin(textFieldNombre.getText(),textFieldCiudad.getText(),Integer.parseInt(textFieldEstrellas.getText()),0,Integer.parseInt(textFieldPrecio.getText()),Integer.parseInt(textFieldNumHab.getText()),comboBox.getSelectedItem().toString());
 											JOptionPane.showMessageDialog(null, "Su hotel ha sido añadido a la base de datos correctamente!!!");
-											
+											int result=JOptionPane.showConfirmDialog(null, "Quiere añadir un nuevo hotel?");
+											if(result==0) {
+												VentanaAnyadirHotel va=new VentanaAnyadirHotel() ;
+												va.setVisible(true);
+												dispose();
+											}else {
+												VentanaAdministrador va=new VentanaAdministrador() ;
+												va.setVisible(true);
+												dispose();
+											}
 										}else {
 											JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Numero de habitaciones - Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
 										}
