@@ -72,14 +72,14 @@ public class VentanaReserva extends JFrame {
 		panelCentro.add(textFieldNumPer);
 		textFieldNumPer.setColumns(10);
 		
-		JLabel lblCheckin = new JLabel("Check-in");
+		JLabel lblCheckin = new JLabel("Check-in (dd/mm/yyyy)");
 		panelCentro.add(lblCheckin);
 		
 		textFieldCheckin = new JTextField();
 		panelCentro.add(textFieldCheckin);
 		textFieldCheckin.setColumns(10);
 		
-		JLabel lblCheckout = new JLabel("Check-out");
+		JLabel lblCheckout = new JLabel("Check-out (dd/mm/yyyy)");
 		panelCentro.add(lblCheckout);
 		
 		textFieldCheckout = new JTextField();
