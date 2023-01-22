@@ -33,9 +33,15 @@ public class VentanaEstadisticasDias extends JFrame{
 	int viernes=0;
 	int sabado=0;
 	int domingo=0;
+	private JFrame ventanaActual;
 	
 	
 	public VentanaEstadisticasDias() {
+		ventanaActual = this;
+		ventanaActual.setSize(550, 550);
+		ventanaActual.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("ESTADISTICAS POR DIA\n");
@@ -50,27 +56,30 @@ public class VentanaEstadisticasDias extends JFrame{
 		lblNewLabel_2.setBounds(6, 71, 295, 16);
 		getContentPane().add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(299, 43, 61, 16);
-		getContentPane().add(lblNewLabel_3);
+		JLabel lblmas = new JLabel("mayor");
+		lblmas.setBounds(299, 43, 61, 16);
+		getContentPane().add(lblmas);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(313, 71, 61, 16);
-		getContentPane().add(lblNewLabel_4);
+		JLabel lblmenos = new JLabel("menor");
+		lblmenos.setBounds(313, 71, 61, 16);
+		getContentPane().add(lblmenos);
 		
 		JButton btnNewButton = new JButton("Mostrar gráfico");
 		btnNewButton.setBounds(142, 111, 159, 21);
 		getContentPane().add(btnNewButton);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(103, 151, 250, 115);
+		panel.setBounds(24, 144, 490, 338);
 		getContentPane().add(panel);
+		
+		JButton btnvolver = new JButton("Volver");
+		btnvolver.setBounds(147, 487, 117, 29);
+		getContentPane().add(btnvolver);
 		
 		ArrayList<Reserva> reservas= BD.getReservas();
 		Map<Integer, Reserva> mapafechareserva= new HashMap<>();
 		
 		for(Reserva r:reservas) {
-			mapafechareserva.putIfAbsent(r.getFechahoy(), null);
 			mapafechareserva.put(r.getFechahoy(), r);
 		}
 		
@@ -90,7 +99,82 @@ public class VentanaEstadisticasDias extends JFrame{
 			}else if(e.getKey()==6) {
 				sabado++;
 			}
+			
 		}
+		List<Integer>listadias= new ArrayList<>();
+		listadias.add(lunes);
+		listadias.add(martes);
+		listadias.add(miercoles);
+		listadias.add(jueves);
+		listadias.add(viernes);
+		listadias.add(sabado);
+		listadias.add(domingo);
+		
+		int max=0;
+		for(int i:listadias) {
+			if(i>max) {
+				max=i;
+			}
+		}
+		if(lunes==max) {
+			lblmas.setText("Lunes");
+		}else if(martes==max) {
+			lblmas.setText("Martes");
+		}else if(miercoles==max) {
+			lblmas.setText("Miercoles");
+		}else if(jueves==max) {
+			lblmas.setText("Jueves");
+		}else if(viernes==max) {
+			lblmas.setText("Viernes");
+		}else if(sabado==max) {
+			lblmas.setText("Sabado");
+		}else if(domingo==max) {
+			lblmas.setText("Domingo");
+		}
+		
+		int min=lunes;
+		if(martes<min) {
+			min=martes;
+		}else if(miercoles<min) {
+			min=miercoles;
+		}else if(jueves<min) {
+			min=jueves;
+		}else if(viernes<min) {
+			min=viernes;
+		}else if(sabado<min) {
+			min=sabado;
+		}else if(domingo<min) {
+			min=domingo;
+		}
+		
+		if(lunes==min) {
+			lblmenos.setText("Lunes");
+		}else if(martes==min) {
+			lblmenos.setText("Martes");
+		}else if(miercoles==min) {
+			lblmenos.setText("Miercoles");
+		}else if(jueves==min) {
+			lblmenos.setText("Jueves");
+		}else if(viernes==min) {
+			lblmenos.setText("Viernes");
+		}else if(sabado==min) {
+			lblmenos.setText("Sabado");
+		}else if(domingo==min) {
+			lblmenos.setText("Domingo");
+		}
+		
+		
+		btnvolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticas vi=new VentanaEstadisticas() ;
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		
 		
@@ -101,22 +185,22 @@ public class VentanaEstadisticasDias extends JFrame{
 				// TODO Auto-generated method stub
 				DefaultCategoryDataset datos=new DefaultCategoryDataset();
 				
-				datos.setValue(lunes, "Dias", "Lunes");
-				datos.setValue(martes, "Dias", "Martes");
-				datos.setValue(miercoles, "Dias", "Miercoles");
-				datos.setValue(jueves, "Dias", "Jueves");
-				datos.setValue(viernes, "Dias", "Viernes");
-				datos.setValue(sabado, "Dias", "Sabado");
-				datos.setValue(domingo, "Dias", "Domingo");
+				datos.addValue(lunes, "Dias", "Lunes");
+				datos.addValue(martes, "Dias", "Martes");
+				datos.addValue(miercoles, "Dias", "Miercoles");
+				datos.addValue(jueves, "Dias", "Jueves");
+				datos.addValue(viernes, "Dias", "Viernes");
+				datos.addValue(sabado, "Dias", "Sabado");
+				datos.addValue(domingo, "Dias", "Domingo");
 				
 				
 				JFreeChart grafico_barras=ChartFactory.createBarChart3D("Estadisticas por dia","Dias","Numero reservas",datos,PlotOrientation.VERTICAL,true,true,false);
 				ChartPanel panel2= new ChartPanel(grafico_barras);
 				panel2.setMouseWheelEnabled(true);
-				panel2.setPreferredSize(new Dimension(400,200));
+				panel2.setPreferredSize(new Dimension(300,100));
 				
 				panel.setLayout(new BorderLayout());
-				panel.add(panel,BorderLayout.NORTH);
+				panel.add(panel2,BorderLayout.NORTH);
 				
 				pack();
 				repaint();

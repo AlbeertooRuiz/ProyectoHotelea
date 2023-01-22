@@ -2,10 +2,23 @@ package Ventanas;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 
 public class VentanaEstadisticas extends JFrame{
+	private JFrame ventanaActual;
 	public VentanaEstadisticas() {
+		
+		
+		ventanaActual = this;
+		ventanaActual.setSize(550, 550);
+		ventanaActual.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
+		
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("DATOS/ESTADISTICAS");
@@ -39,6 +52,58 @@ public class VentanaEstadisticas extends JFrame{
 		JButton btnNewButton_2 = new JButton("Dias de la semana con mas reservas");
 		btnNewButton_2.setBounds(45, 185, 264, 29);
 		getContentPane().add(btnNewButton_2);
+		
+		JButton btnvolver = new JButton("Volver");
+		btnvolver.setBounds(145, 376, 117, 29);
+		getContentPane().add(btnvolver);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticasCiudades va=new VentanaEstadisticasCiudades() ;
+				va.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
+		btnvolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaAdministrador vi=new VentanaAdministrador() ;
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticasMes va=new VentanaEstadisticasMes() ;
+				va.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
+		btnNewButton_2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticasDias va=new VentanaEstadisticasDias() ;
+				va.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		
 	}

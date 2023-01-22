@@ -50,6 +50,7 @@ public class VentanaInicio extends JFrame {
 		ventanaActual.getContentPane().setLayout(new BorderLayout());
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		//Conexion con la base de datos
 		con = BD.initBD("Hotelea.db");

@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,6 +22,7 @@ public class VentanaBienvenida extends JFrame{
 		ventanaActual.setSize(550, 550);
 		ventanaActual.setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		getContentPane().setLayout(null);
 		getContentPane().setLayout(null);
@@ -44,6 +47,8 @@ public class VentanaBienvenida extends JFrame{
 			}
 			
 		});
+		
+		
 	}
 
 }

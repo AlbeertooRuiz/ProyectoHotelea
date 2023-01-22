@@ -67,10 +67,10 @@ public class TestBD {
 		assertEquals(hoteles.get(0).getNombre(),"Barcelo");
 	}
 	
-	//@Test
-	//public void testInsertarHotel() {
-	//	assertFalse(bd.insertarHotel(con, "Barcelo", "Cuenca", 4, 9, 140, 300));
-	//}
+	@Test
+	public void testInsertarHotel() {
+		assertTrue(bd.insertarHotel(con, "Barcelo", "Cuenca", 4, 9, 140, 300));
+	}
 	
 	//@Test
 	//public void testObtenerListaHoteles() {
@@ -78,10 +78,6 @@ public class TestBD {
 	//	assertEquals(25,hoteles.size());
 	//}
 	
-	//@Test
-	//public void testReservahotel() {
-	//	assertFalse(bd.reservaHotel(con));
-	//}
 	
 	//@Test
 	//public void testInsertarBD() {
@@ -106,6 +102,11 @@ public class TestBD {
 	public void testExistereserva() {
 		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay());
 		assertTrue(bd.existeReserva("Barcleo", "12/02/03"));
+	}
+	
+	@Test
+	public void testgetReservas() {
+		
 	}
 
 }

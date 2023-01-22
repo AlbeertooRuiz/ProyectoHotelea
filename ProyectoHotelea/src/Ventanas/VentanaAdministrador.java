@@ -21,34 +21,37 @@ import javax.swing.JButton;
 public class VentanaAdministrador extends JFrame {
 
 	private JPanel contentPane;
+	private JFrame ventanaActual;
 	
 	/**
 	 * Create the frame.
 	 */
 	public VentanaAdministrador() {		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		int anchoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getWidth();
-		int altoP = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDisplayMode().getHeight();
-		setSize(anchoP, altoP);
-		setExtendedState(MAXIMIZED_BOTH);
+		ventanaActual = this;
+		ventanaActual.setSize(550, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
+		
+		
+		
 		
 		
 		
 		JLabel lblNewLabel = new JLabel("BIENVENIDO A LA VENTANA DE ADMINISTRADORES");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblNewLabel.setBounds(6, 35, 438, 16);
+		lblNewLabel.setBounds(83, 33, 438, 16);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("La empresa Hotelea proporciona a sus administradores una serie de ");
-		lblNewLabel_1.setBounds(6, 119, 438, 16);
+		lblNewLabel_1.setBounds(83, 109, 438, 16);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("opciones que espera que puedan aprovechar. ¿Qué desea hacer?");
-		lblNewLabel_2.setBounds(6, 137, 438, 16);
+		lblNewLabel_2.setBounds(83, 130, 438, 16);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnNewButton = new JButton("<<Ver Estadisticas");
@@ -56,8 +59,24 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Añadir nuevo hotel>>");
-		btnNewButton_1.setBounds(271, 237, 173, 29);
+		btnNewButton_1.setBounds(371, 237, 173, 29);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnvolver = new JButton("Volver");
+		btnvolver.setBounds(224, 367, 117, 29);
+		contentPane.add(btnvolver);
+		
+		btnvolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaAdministrador vi=new VentanaAdministrador() ;
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		btnNewButton_1.addActionListener(new ActionListener() {
 
@@ -65,6 +84,18 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				VentanaAnyadirHotel va=new VentanaAnyadirHotel() ;
+				va.setVisible(true);
+				dispose();
+			}
+			
+		});
+		
+		btnNewButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticas va=new VentanaEstadisticas() ;
 				va.setVisible(true);
 				dispose();
 			}

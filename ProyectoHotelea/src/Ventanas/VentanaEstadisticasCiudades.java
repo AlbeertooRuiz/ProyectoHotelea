@@ -13,10 +13,16 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import Datos.BD;
+import Datos.Reserva;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,9 +30,13 @@ import javax.swing.JPanel;
 
 
 public class VentanaEstadisticasCiudades extends JFrame{
-	private JTextField textField;
+	private JFrame ventanaActual;
 	public VentanaEstadisticasCiudades() {
-		
+		ventanaActual = this;
+		ventanaActual.setSize(550, 550);
+		ventanaActual.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		
 		
 		getContentPane().setLayout(null);
@@ -35,13 +45,8 @@ public class VentanaEstadisticasCiudades extends JFrame{
 		lblNewLabel.setBounds(116, 6, 247, 16);
 		getContentPane().add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(131, 108, 130, 26);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Buscar");
-		btnNewButton.setBounds(151, 146, 96, 26);
+		JButton btnNewButton = new JButton("Mostrar grafico");
+		btnNewButton.setBounds(116, 146, 158, 26);
 		getContentPane().add(btnNewButton);
 		
 		JPanel panela = new JPanel();
@@ -64,9 +69,33 @@ public class VentanaEstadisticasCiudades extends JFrame{
 		lblNewLabel_4.setBounds(235, 62, 61, 16);
 		getContentPane().add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Introduzca nombre de ciudad");
-		lblNewLabel_5.setBounds(102, 90, 196, 16);
-		getContentPane().add(lblNewLabel_5);
+		JButton btnvolver = new JButton("Volver");
+		btnvolver.setBounds(157, 446, 117, 29);
+		getContentPane().add(btnvolver);
+		
+		
+		HashMap<String,Reserva> mapaciudadreserva= new HashMap<>();
+		List<Reserva> reservas=BD.getReservas();
+		
+		for(Reserva r:reservas) {
+			mapaciudadreserva.put(r.getCodH(), r);
+		}
+		
+		for(Entry<String,Reserva> e:mapaciudadreserva.entrySet()) {
+			
+		}
+		
+		btnvolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticas vi=new VentanaEstadisticas() ;
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		btnNewButton.addActionListener(new ActionListener() {
 

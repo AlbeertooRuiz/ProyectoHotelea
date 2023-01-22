@@ -20,12 +20,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class VentanaEstadisticasMes extends JFrame{
-	private JTextField textField;
+	private JFrame ventanaActual;
 	public VentanaEstadisticasMes() {
+		ventanaActual = this;
+		ventanaActual.setSize(550, 550);
+		ventanaActual.setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("ESTADISTICAS POR MES");
-		lblNewLabel.setBounds(128, 6, 176, 16);
+		lblNewLabel.setBounds(208, 6, 176, 16);
 		getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("El mes en el que mas reservas hay es:");
@@ -44,22 +49,29 @@ public class VentanaEstadisticasMes extends JFrame{
 		lblNewLabel_4.setBounds(272, 62, 61, 16);
 		getContentPane().add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Introduzca mes del año:\n");
-		lblNewLabel_5.setBounds(138, 100, 166, 16);
-		getContentPane().add(lblNewLabel_5);
-		
-		textField = new JTextField();
-		textField.setBounds(169, 118, 110, 16);
-		getContentPane().add(textField);
-		textField.setColumns(10);
-		
 		JPanel panel = new JPanel();
-		panel.setBounds(128, 168, 205, 104);
+		panel.setBounds(191, 166, 205, 104);
 		getContentPane().add(panel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(184, 146, 84, 16);
+		JButton btnNewButton = new JButton("Mostrar grafico");
+		btnNewButton.setBounds(226, 132, 126, 24);
 		getContentPane().add(btnNewButton);
+		
+		JButton btnvolver = new JButton("Volver");
+		btnvolver.setBounds(235, 458, 117, 29);
+		getContentPane().add(btnvolver);
+		
+		btnvolver.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				VentanaEstadisticas vi=new VentanaEstadisticas() ;
+				vi.setVisible(true);
+				dispose();
+			}
+			
+		});
 		
 		btnNewButton.addActionListener(new ActionListener() {
 
