@@ -250,6 +250,7 @@ public class VentanaRegistro extends JFrame {
 									Connection con = BD.initBD("Hotelea.db");
 									BD.insertarCliente(con, dni, nombre, apellidos, usuario, contrasenia);
 									BD.closeBD(con);
+									JOptionPane.showMessageDialog(null, "Te has registrado correctamente!!!");
 									VentanaInicio vi= new VentanaInicio();
 									vi.setVisible(true);
 									dispose();

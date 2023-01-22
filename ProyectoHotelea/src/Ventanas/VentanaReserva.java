@@ -31,12 +31,15 @@ public class VentanaReserva extends JFrame {
 	private JTextField textFieldCheckin;
 	private JTextField textFieldCheckout;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	JFrame ventanaActual, ventanaAnterior;
 	Connection con;
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaReserva(String nombre) {
+	public VentanaReserva(String nombre, JFrame va) {
+		ventanaActual = this;
+		ventanaAnterior = va;
 		this.nombreHotel = nombre;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(550, 550);
@@ -103,31 +106,35 @@ public class VentanaReserva extends JFrame {
 							if(textFieldCheckout.getText().equals("")) {
 								JOptionPane.showMessageDialog(null, "Debe introducir la fecha de check-out");
 							} else {
-								String hotel = nombreHotel;
-								SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-								try {
-									Date fe = sdf.parse(fechaE);
-									Date fs = sdf.parse(fechaS);
-									do{
+								if(fechaE.equals(fechaS)) {
+									JOptionPane.showMessageDialog(null, "La fecha de check-in no puede ser igual a la de check-out");
+								} else {
+									String hotel = nombreHotel;
+									SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+									try {
+										Date fe = sdf.parse(fechaE);
+										Date fs = sdf.parse(fechaS);
+										do{
+											String fecha = sdf.format(fe);
+											if(BD.existeReserva(hotel, fecha)) {
+												BD.modificarReserva(hotel, fecha);
+											}else {
+												BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
+											}
+											fe.setTime(fe.getTime()+24*60*60*1000);
+										}while(!fe.equals(fs));
 										String fecha = sdf.format(fe);
 										if(BD.existeReserva(hotel, fecha)) {
 											BD.modificarReserva(hotel, fecha);
 										}else {
-											BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
+											BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
 										}
-										fe.setTime(fe.getTime()+24*60*60*1000);
-									}while(!fe.equals(fs));
-									String fecha = sdf.format(fe);
-									if(BD.existeReserva(hotel, fecha)) {
-										BD.modificarReserva(hotel, fecha);
-									}else {
-										BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
+										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
+										
+									} catch (ParseException e1) {
+										// TODO Auto-generated catch block
+										e1.printStackTrace();
 									}
-									JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
-									
-								} catch (ParseException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
 								}
 							}
 						}
@@ -136,6 +143,16 @@ public class VentanaReserva extends JFrame {
 			}
 		});
 		panelSur.add(btnConfirmarReserva);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventanaActual.dispose();
+				ventanaAnterior.setVisible(true);
+				
+			}
+		});
+		panelSur.add(btnVolver);
 		
 		JPanel panelOeste = new JPanel();
 		contentPane.add(panelOeste, BorderLayout.WEST);

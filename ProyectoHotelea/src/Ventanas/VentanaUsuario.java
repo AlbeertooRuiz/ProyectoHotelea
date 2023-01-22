@@ -265,7 +265,7 @@ public class VentanaUsuario extends JFrame {
 					int fila = tablaHotel.rowAtPoint(e.getPoint());
 					System.out.println(fila);
 					String nombre = (String)modeloTablaHotel.getValueAt(fila, 0);
-					VentanaReserva vr = new VentanaReserva(nombre);
+					VentanaReserva vr = new VentanaReserva(nombre, ventanaActual);
 					vr.setVisible(true);
 					ventanaActual.dispose();
 				}
