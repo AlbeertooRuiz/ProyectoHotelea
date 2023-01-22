@@ -189,11 +189,7 @@ public class VentanaUsuario extends JFrame {
 		String [] titulos = {"Nombre", "Ciudad", "Estrella(s)", "Valoracion", "Precio", "Tipo"};
 		modeloTablaHotel.setColumnIdentifiers(titulos);
 		
-		tablaHotel.getTableHeader().setReorderingAllowed(false);
-		
-		//tablaHotel.setAutoCreateRowSorter(true);
-		//sorter = new TableRowSorter<>(modeloTablaHotel);
-		//tablaHotel.setRowSorter(sorter);			
+		tablaHotel.getTableHeader().setReorderingAllowed(false);		
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("Hoteles.csv"));
@@ -273,16 +269,10 @@ public class VentanaUsuario extends JFrame {
 	}
 
 	private void filtrar() {
-		/*try {
-			sorter.setRowFilter(RowFilter.regexFilter(textFieldCiudad.getText()));
-		} catch (Exception e) {
-			
-		}*/
 		while(modeloTablaHotel.getRowCount()>0) {
 			modeloTablaHotel.removeRow(0);
 		}
 		for(Hotel h: hoteles) {
-			//if(h.getCiudad().equals(textFieldCiudad.getText())) {
 			int numEstr;
 			int valoracion;
 			if(textFieldEstrellas.getText().equals("")) {
@@ -298,11 +288,6 @@ public class VentanaUsuario extends JFrame {
 			if(h.getCiudad().startsWith(textFieldCiudad.getText()) && h.getEstrellas()>=numEstr && h.getValoracion()>=valoracion) {
 				Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
 				modeloTablaHotel.addRow(datos);
-//				if( || h.getEstrellas()==ne) {
-//					int ne = Integer.parseInt(textFieldEstrellas.getText());
-//					Object [] datos = {h.getNombre(), h.getCiudad(), h.getEstrellas(),h.getValoracion(), h.getPrecio()};
-//					modeloTablaHotel.addRow(datos);
-//				}
 			}
 		}
 	}

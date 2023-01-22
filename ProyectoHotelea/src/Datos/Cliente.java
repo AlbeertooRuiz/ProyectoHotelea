@@ -9,11 +9,12 @@ public class Cliente {
 	private String usuario;			//usuario del cliente
 	private String contrasenia;		//contraseña del cliente
 	
-	
+	//Constructor vacio de cliente
 	public Cliente() {
 		super();
 	}
 
+	//Constructor de cliente
 	public Cliente(String dni, String nom, String dir, String email, String tlfn, String usuario, String contrasenia) {
 		super();
 		this.dni = dni;
