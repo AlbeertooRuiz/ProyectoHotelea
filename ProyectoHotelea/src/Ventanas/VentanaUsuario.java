@@ -137,7 +137,7 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 		
-		JButton btnCombinaciones = new JButton("COMBINACIONES");
+		JButton btnCombinaciones = new JButton("Combinaciones");
 		panelSur.add(btnCombinaciones);
 		panelSur.add(btnCerrarSesion);
 		
