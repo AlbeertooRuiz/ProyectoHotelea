@@ -35,6 +35,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.awt.Font;
 
 public class VentanaInicio extends JFrame implements Runnable {
 
@@ -85,6 +86,7 @@ public class VentanaInicio extends JFrame implements Runnable {
 		panelSur.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JButton btnIniciarSesion = new JButton("Iniciar Sesion");
+		btnIniciarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String u = textFieldUsuario.getText();
@@ -110,8 +112,10 @@ public class VentanaInicio extends JFrame implements Runnable {
 		});
 		
 		JLabel lblRegistro = new JLabel("\u00BFNo tienes cuenta?");
+		lblRegistro.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JButton btnNewButton = new JButton("\u00A1Registrate!");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new VentanaRegistro(ventanaActual);
@@ -146,8 +150,9 @@ public class VentanaInicio extends JFrame implements Runnable {
 		panelCentro.setLayout(gbl_panelCentro);
 		
 		JLabel lblUsuario = new JLabel("Usuario:");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
-		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
+		gbc_lblUsuario.anchor = GridBagConstraints.WEST;
 		gbc_lblUsuario.fill = GridBagConstraints.VERTICAL;
 		gbc_lblUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUsuario.gridx = 1;
@@ -155,6 +160,7 @@ public class VentanaInicio extends JFrame implements Runnable {
 		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
+		textFieldUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -173,8 +179,9 @@ public class VentanaInicio extends JFrame implements Runnable {
 		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a:");
+		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblContrasenia = new GridBagConstraints();
-		gbc_lblContrasenia.anchor = GridBagConstraints.EAST;
+		gbc_lblContrasenia.anchor = GridBagConstraints.WEST;
 		gbc_lblContrasenia.fill = GridBagConstraints.VERTICAL;
 		gbc_lblContrasenia.insets = new Insets(0, 0, 0, 5);
 		gbc_lblContrasenia.gridx = 1;
@@ -182,6 +189,7 @@ public class VentanaInicio extends JFrame implements Runnable {
 		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JPasswordField();
+		textFieldContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldContrasenia.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -207,12 +215,14 @@ public class VentanaInicio extends JFrame implements Runnable {
 		panelNorte.add(panelReloj);
 		
 		lblReloj = new JLabel("Reloj");
+		lblReloj.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelReloj.add(lblReloj);
 		
 		panelBienvenido = new JPanel();
 		panelNorte.add(panelBienvenido);
 		
 		lblBienvenido = new JLabel("\u00A1Bienvenido a Hotelea!");
+		lblBienvenido.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelBienvenido.add(lblBienvenido);
 		
 		h1 = new Thread(this);

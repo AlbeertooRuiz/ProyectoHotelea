@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Font;
 
 public class VentanaRegistro extends JFrame {
 
@@ -59,9 +60,11 @@ public class VentanaRegistro extends JFrame {
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
 		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelSur.add(btnRegistrarse);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaAnterior.setVisible(true);
@@ -74,6 +77,7 @@ public class VentanaRegistro extends JFrame {
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
 		JLabel lblTitulo = new JLabel("Introduce tus datos");
+		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelNorte.add(lblTitulo);
 		
 		JPanel panelCentro = new JPanel();
@@ -86,6 +90,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.setLayout(gbl_panelCentro);
 		
 		JLabel lblDNI = new JLabel("DNI (sin letra)");
+		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblDNI = new GridBagConstraints();
 		gbc_lblDNI.anchor = GridBagConstraints.EAST;
 		gbc_lblDNI.fill = GridBagConstraints.VERTICAL;
@@ -95,6 +100,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblDNI, gbc_lblDNI);
 		
 		textFieldDNI = new JTextField();
+		textFieldDNI.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldDNI.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
@@ -113,6 +119,7 @@ public class VentanaRegistro extends JFrame {
 		textFieldDNI.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNombre = new GridBagConstraints();
 		gbc_lblNombre.anchor = GridBagConstraints.EAST;
 		gbc_lblNombre.fill = GridBagConstraints.VERTICAL;
@@ -122,6 +129,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblNombre, gbc_lblNombre);
 		
 		textFieldNombre = new JTextField();
+		textFieldNombre.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -140,6 +148,7 @@ public class VentanaRegistro extends JFrame {
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblApellidos = new JLabel("Apellidos");
+		lblApellidos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblApellidos = new GridBagConstraints();
 		gbc_lblApellidos.anchor = GridBagConstraints.EAST;
 		gbc_lblApellidos.fill = GridBagConstraints.VERTICAL;
@@ -149,6 +158,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblApellidos, gbc_lblApellidos);
 		
 		textFieldApellidos = new JTextField();
+		textFieldApellidos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldApellidos.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -167,6 +177,7 @@ public class VentanaRegistro extends JFrame {
 		textFieldApellidos.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuario");
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblUsuario = new GridBagConstraints();
 		gbc_lblUsuario.anchor = GridBagConstraints.EAST;
 		gbc_lblUsuario.fill = GridBagConstraints.VERTICAL;
@@ -176,6 +187,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblUsuario, gbc_lblUsuario);
 		
 		textFieldUsuario = new JTextField();
+		textFieldUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldUsuario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -194,6 +206,7 @@ public class VentanaRegistro extends JFrame {
 		textFieldUsuario.setColumns(10);
 		
 		JLabel lblContrasenia = new JLabel("Contrase\u00F1a");
+		lblContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblContrasenia = new GridBagConstraints();
 		gbc_lblContrasenia.anchor = GridBagConstraints.EAST;
 		gbc_lblContrasenia.fill = GridBagConstraints.VERTICAL;
@@ -203,6 +216,7 @@ public class VentanaRegistro extends JFrame {
 		panelCentro.add(lblContrasenia, gbc_lblContrasenia);
 		
 		textFieldContrasenia = new JTextField();
+		textFieldContrasenia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		textFieldContrasenia.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
