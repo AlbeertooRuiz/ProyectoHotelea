@@ -334,25 +334,25 @@ public class BD {
 		
 	}
 	
-	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
-		Connection con = initBD("Hotelea.db");
-		try (Statement statement = con.createStatement()) {
-			ArrayList<Integer> pre = new ArrayList<>();
-			String sent = "select precio from Hotel where tipo = '"+tipo+"';";
-			logger.log( Level.INFO, "Statement:", sent );
-			ResultSet rs = statement.executeQuery( sent );
-			while(rs.next()) {
-				int precio=rs.getInt("precio");
-				pre.add(precio);
-			}
-			return pre;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
-		}
-		return null;
-		
-	}
+//	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
+//		Connection con = initBD("Hotelea.db");
+//		try (Statement statement = con.createStatement()) {
+//			ArrayList<Integer> pre = new ArrayList<>();
+//			String sent = "select precio from Hotel where tipo = '"+tipo+"';";
+//			logger.log( Level.INFO, "Statement:", sent );
+//			ResultSet rs = statement.executeQuery( sent );
+//			while(rs.next()) {
+//				int precio=rs.getInt("precio");
+//				pre.add(precio);
+//			}
+//			return pre;
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			logger.log( Level.SEVERE, "Excepción", e );
+//		}
+//		return null;
+//		
+//	}
 	
 	
 	
