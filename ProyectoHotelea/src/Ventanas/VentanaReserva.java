@@ -10,6 +10,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import Datos.BD;
 
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -119,7 +120,7 @@ public class VentanaReserva extends JFrame {
 											if(BD.existeReserva(hotel, fecha)) {
 												BD.modificarReserva(hotel, fecha);
 											}else {
-												BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
+												BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
 											}
 											fe.setTime(fe.getTime()+24*60*60*1000);
 										}while(!fe.equals(fs));
@@ -130,28 +131,15 @@ public class VentanaReserva extends JFrame {
 											BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
 										}
 										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
-										JButton btnRealizarOtraReserva = new JButton("Realizar otra reserva");
-										btnRealizarOtraReserva.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												ventanaActual.dispose();
-												VentanaInicio vi = new VentanaInicio();
-												VentanaUsuario vu = new VentanaUsuario(vi);
-												vu.setVisible(true);
-												dispose();
-											}
-										});
-										JOptionPane.showMessageDialog(null, btnRealizarOtraReserva);
-										JButton btnCerrarSesion = new JButton("Cerrar sesi\u00F3n");
-										btnCerrarSesion.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												ventanaActual.dispose();
-												VentanaInicio vi = new VentanaInicio();
-												vi.setVisible(true);
-												dispose();
-											}
-										});
-										JOptionPane.showMessageDialog(null, btnCerrarSesion);
-										
+										int resul = JOptionPane.showConfirmDialog(null, "¿Quiere realizar otra reserva?"); 
+										if( resul == 0) {
+											ventanaActual.dispose();
+											ventanaAnterior.setVisible(true);
+										}else {
+											ventanaActual.dispose();
+											VentanaInicio vi = new VentanaInicio();
+											vi.setVisible(true);
+										}
 									} catch (ParseException e1) {
 										// TODO Auto-generated catch block
 										e1.printStackTrace();

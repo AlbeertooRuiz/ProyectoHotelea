@@ -267,7 +267,8 @@ public class VentanaUsuario extends JFrame {
 			}
 		});
 	}
-
+	
+	//Metodo que filtra los hoteles de la tabla mediante los cammpos numEstr(numero de estrellas), valoracion y ciudad 
 	private void filtrar() {
 		while(modeloTablaHotel.getRowCount()>0) {
 			modeloTablaHotel.removeRow(0);
