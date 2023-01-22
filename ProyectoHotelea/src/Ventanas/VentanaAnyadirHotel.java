@@ -15,10 +15,13 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JComboBox;
 
 public class VentanaAnyadirHotel extends JFrame{
 	private static JTextField textFieldNombre;
@@ -30,7 +33,8 @@ public class VentanaAnyadirHotel extends JFrame{
 	private static JTextField textFieldNumHab;
 	private static JButton botonanyadir;
 	private JFrame ventanaActual;
-	private Connection con;
+
+	private static Logger logger = Logger.getLogger( "BD" );
 	public VentanaAnyadirHotel() {
 		ventanaActual = this;
 		ventanaActual.setSize(550, 550);
@@ -180,11 +184,24 @@ public class VentanaAnyadirHotel extends JFrame{
 		btnvolver.setBounds(196, 447, 117, 29);
 		getContentPane().add(btnvolver);
 		
+		JLabel lblNewLabel_8 = new JLabel("Tipo:");
+		lblNewLabel_8.setBounds(236, 131, 61, 16);
+		getContentPane().add(lblNewLabel_8);
+		
+		JComboBox comboBox = new JComboBox<String>();
+		comboBox.addItem("Hotel");
+		comboBox.addItem("Hostel");
+		comboBox.addItem("Motel");
+		comboBox.setBounds(309, 127, 121, 27);
+		getContentPane().add(comboBox);
+		
 		btnvolver.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				
+				
 				VentanaAdministrador vi=new VentanaAdministrador() ;
 				vi.setVisible(true);
 				dispose();
@@ -197,28 +214,52 @@ public class VentanaAnyadirHotel extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				insertarHotelAdmin(con);
+				String erNombre="[A-Za-z]{1,}";
+				String nombre=textFieldNombre.getText();
+				String erEstrellas="[0-6]{1}";
+				String estrellas=textFieldEstrellas.getText();
+				String erPrecio="[0-9]{3}";
+				String precio=textFieldPrecio.getText();
+				String erciudad="[A-Za-z]{1,}";
+				String ciudad=textFieldCiudad.getText();
+				String erdireccion="[A-Za-z]{1,}";
+				String direccion=textFieldDireccion.getText();
+				String ertelefono="[0-9]{9}";
+				String telefono=textFieldTelefono.getText();
+				String ernumHab="[0-9]{4}";
+				String numHab=textFieldNumHab.getText();
+				if(Pattern.matches(erNombre, nombre)) {
+					if(Pattern.matches(erEstrellas, estrellas)) {
+						if(Pattern.matches(erPrecio, precio)) {
+							if(Pattern.matches(erciudad, ciudad)) {
+								if(Pattern.matches(erdireccion, direccion)) {
+									if(Pattern.matches(ertelefono, telefono)) {
+										if(Pattern.matches(ernumHab, numHab)) {
+											BD.insertarHotelAdmin(textFieldNombre.getText(),textFieldCiudad.getText(),Integer.parseInt(textFieldEstrellas.getText()),0,Integer.parseInt(textFieldPrecio.getText()),Integer.parseInt(textFieldNumHab.getText()),comboBox.getSelectedItem().toString());
+											JOptionPane.showMessageDialog(null, "Su hotel ha sido añadido a la base de datos correctamente!!!");
+										}else {
+											JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Numero de habitaciones - Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+										}
+									}else {
+										JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Numero de telefono - 9 Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+									}
+								} else {
+									JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Direccion - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+								}
+						}else {
+							JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Ciudad - Letras y numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Precio - Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Numero de estrellas - Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Nombre - Letras)", "ERROR", JOptionPane.ERROR_MESSAGE);
 			}
-			
+			}
 		});
 	}
-	public static void insertarHotelAdmin(Connection con) {
-		String nombre= textFieldNombre.getText();
-		int estrellas=Integer.parseInt(textFieldEstrellas.getText());
-		String ciudad= textFieldCiudad.getText();
-		int precio=Integer.parseInt(textFieldPrecio.getText());
-		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+estrellas+"','"+ciudad+"','"+precio+"')";
-		try {
-			Statement st = con.createStatement();
-			st.executeUpdate(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
-		}
-	
-	
-	
-
-	}
 }
+

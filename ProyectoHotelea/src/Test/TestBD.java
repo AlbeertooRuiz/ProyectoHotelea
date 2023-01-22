@@ -89,18 +89,18 @@ public class TestBD {
 	
 	@Test
 	public void testModificarReserva() {
-		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay());
+		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay(), new Date(System.currentTimeMillis()).getMonth());
 		assertTrue(bd.modificarReserva("Barcleo", "12/02/03"));
 	}
 	
 	@Test
 	public void testInsertarReserva() {
-		assertTrue(bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay()));
+		assertTrue(bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth()));
 	}
 	
 	@Test
 	public void testExistereserva() {
-		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay());
+		bd.insertarReserva("Barcleo", "12/02/03", 1,new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
 		assertTrue(bd.existeReserva("Barcleo", "12/02/03"));
 	}
 	

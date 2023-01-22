@@ -8,7 +8,7 @@ import Datos.Reserva;
 
 public class TestReserva {
 	
-	Reserva r= new Reserva("111", "12345678", "01/01/2023", "04/01/2023", 1, 2, 4);
+	Reserva r= new Reserva("111", "12345678", "01/01/2023", "04/01/2023", 1, 2, 4,3);
 	Reserva r2= new Reserva();
 	
 	@Test
@@ -86,6 +86,17 @@ public class TestReserva {
 	public void testsetfechahoy() {
 		r2.setFechahoy(2);
 		assertEquals(r2.getFechahoy(),2);
+	}
+	
+	@Test
+	public void testgetmes() {
+		assertEquals(r.getMes(),3);
+	}
+	
+	@Test
+	public void testsetmes() {
+		r2.setMes(1);
+		assertEquals(r2.getMes(),1);
 	}
 	
 	@Test

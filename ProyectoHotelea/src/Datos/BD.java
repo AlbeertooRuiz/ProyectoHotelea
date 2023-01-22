@@ -273,8 +273,8 @@ public class BD {
 	}
 
 	// Metodo que inserta una reserva dentro de la tabla Reservas
-	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day) {
-		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "," + day + ")";
+	public static boolean insertarReserva(String hotel, String fecha, int reservas, int day, int mes) {
+		String sql = "INSERT INTO Reservas VALUES('" + hotel + "','" + fecha + "'," + reservas + "," + day + "," + mes + ")";
 		Connection con = initBD("Hotelea.db");
 		
 		try {
@@ -294,8 +294,9 @@ public class BD {
 	
 	public static ArrayList<Reserva> getReservas() {
 		Connection con = initBD("Hotelea.db");
+		ArrayList<Reserva> ret = new ArrayList<>();
 		try (Statement statement = con.createStatement()) {
-			ArrayList<Reserva> ret = new ArrayList<>();
+			
 			String sent = "select * from Reservas;";
 			logger.log( Level.INFO, "Statement:", sent );
 			ResultSet rs = statement.executeQuery( sent );
@@ -304,13 +305,14 @@ public class BD {
 				String fecha=rs.getString("fecha");
 				int reservas=rs.getInt("reservas");
 				int fechahoy=rs.getInt("fechahoy");
-				ret.add(new Reserva(hotel, fecha, reservas, fechahoy));
+				int mes=rs.getInt("mes");
+				ret.add(new Reserva(hotel, fecha, reservas, fechahoy,mes));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 		}
-		return null;
+		return ret;
 		
 	}
 	
@@ -353,6 +355,59 @@ public class BD {
 //		return null;
 //		
 //	}
+	public static void cargarreservasTablaCsv() {
+		ArrayList<Reserva> reservas = new ArrayList<>();
+		String input = "Reservas.csv";
+		try (BufferedReader br = new BufferedReader(new FileReader(input))) {
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				String[] datos = line.split(",");
+				String hotel = datos[0];
+				String fecha = datos[1];
+				int reserva = Integer.valueOf(datos[2]);
+				int dia = Integer.valueOf(datos[3]);
+				int mes = Integer.valueOf(datos[4]);
+				
+				
+				Reserva r = new Reserva(hotel,fecha,reserva,dia,mes);
+				reservas.add(r);
+			}
+			br.close();
+			
+			for(Reserva r:reservas) {
+				insertarReserva(r.getCodH(),r.getFechaE(),r.getReservas(),r.getFechahoy(),r.getMes());
+			}
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
+			fail("No se han podido cargar los datos de el fichero" + input);
+			
+		}
+
+	}
+	
+	public static boolean insertarHotelAdmin(String nombre,String ciudad, int estrellas,int valoracion, int precio, int numHab, String tipo) {
+		Connection con = initBD("Hotelea.db");
+		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"',"+estrellas+","+valoracion+","+precio+","+numHab+",'"+tipo+"')";
+		
+		try {
+			Statement st = con.createStatement();
+			logger.log( Level.INFO, "Statement:", sql );
+			st.executeUpdate(sql);
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepcion:", e );
+			return false;
+			
+		}
+	
+
+	
+
+	}
+
 	
 	
 	

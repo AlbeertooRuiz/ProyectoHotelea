@@ -8,12 +8,13 @@ public class Reserva {
 	private int numHab;			//numero de habitaciones que se reservan
 	private int reservas;		//numero de reservas
 	private int fechahoy;		//numero del dia de la semana de la reserva
+	private int mes;			//numero del mes de la reserva
 	
 	public Reserva() {
 		super();
 	}
 
-	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab, int reservas, int fechahoy) {
+	public Reserva(String codH, String dni, String fechaE, String fechaS, int numHab, int reservas, int fechahoy, int mes) {
 		super();
 		this.codH = codH;
 		this.dni = dni;
@@ -22,14 +23,16 @@ public class Reserva {
 		this.numHab = numHab;
 		this.reservas = reservas;
 		this.fechahoy = fechahoy;
+		this.mes=mes;
 	}
 	
-	public Reserva(String codH,String fechaE,int reservas,int fechahoy) {
+	public Reserva(String codH,String fechaE,int reservas,int fechahoy, int mes) {
 		super();
 		this.codH=codH;
 		this.fechaE = fechaE;
 		this.reservas = reservas;
 		this.fechahoy = fechahoy;
+		this.mes= mes;
 	}
 
 	public String getCodH() {
@@ -88,6 +91,15 @@ public class Reserva {
 
 	public void setFechahoy(int fechahoy) {
 		this.fechahoy = fechahoy;
+	}
+	
+	
+	public int getMes() {
+		return mes;
+	}
+
+	public void setMes(int mes) {
+		this.mes = mes;
 	}
 
 	@Override

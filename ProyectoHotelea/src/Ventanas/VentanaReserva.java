@@ -119,7 +119,7 @@ public class VentanaReserva extends JFrame {
 											if(BD.existeReserva(hotel, fecha)) {
 												BD.modificarReserva(hotel, fecha);
 											}else {
-												BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay());
+												BD.insertarReserva(hotel, fecha, 1, new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
 											}
 											fe.setTime(fe.getTime()+24*60*60*1000);
 										}while(!fe.equals(fs));
@@ -127,7 +127,7 @@ public class VentanaReserva extends JFrame {
 										if(BD.existeReserva(hotel, fecha)) {
 											BD.modificarReserva(hotel, fecha);
 										}else {
-											BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay());
+											BD.insertarReserva(hotel, fecha, 1,new Date(System.currentTimeMillis()).getDay(),new Date(System.currentTimeMillis()).getMonth());
 										}
 										JOptionPane.showMessageDialog(null, "Su reserva se ha realizado correctamente");
 										JButton btnRealizarOtraReserva = new JButton("Realizar otra reserva");

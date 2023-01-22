@@ -72,6 +72,7 @@ public class VentanaEstadisticasDias extends JFrame{
 		panel.setBounds(24, 144, 490, 338);
 		getContentPane().add(panel);
 		
+		
 		JButton btnvolver = new JButton("Volver");
 		btnvolver.setBounds(147, 487, 117, 29);
 		getContentPane().add(btnvolver);
@@ -176,39 +177,45 @@ public class VentanaEstadisticasDias extends JFrame{
 			
 		});
 		
-		
-		
 		btnNewButton.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				DefaultCategoryDataset datos=new DefaultCategoryDataset();
 				
-				datos.addValue(lunes, "Dias", "Lunes");
-				datos.addValue(martes, "Dias", "Martes");
-				datos.addValue(miercoles, "Dias", "Miercoles");
-				datos.addValue(jueves, "Dias", "Jueves");
-				datos.addValue(viernes, "Dias", "Viernes");
-				datos.addValue(sabado, "Dias", "Sabado");
-				datos.addValue(domingo, "Dias", "Domingo");
+				datos.setValue(lunes, "Dias", "Lunes");
+				datos.setValue(martes, "Dias", "Martes");
+				datos.setValue(miercoles, "Dias", "Miercoles");
+				datos.setValue(jueves, "Dias", "Jueves");
+				datos.setValue(viernes, "Dias", "Viernes");
+				datos.setValue(sabado, "Dias", "Sabado");
+				datos.setValue(domingo, "Dias", "Domingo");
 				
 				
 				JFreeChart grafico_barras=ChartFactory.createBarChart3D("Estadisticas por dia","Dias","Numero reservas",datos,PlotOrientation.VERTICAL,true,true,false);
 				ChartPanel panel2= new ChartPanel(grafico_barras);
 				panel2.setMouseWheelEnabled(true);
-				panel2.setPreferredSize(new Dimension(300,100));
+				panel2.setPreferredSize(panel.getSize());
 				
-				panel.setLayout(new BorderLayout());
-				panel.add(panel2,BorderLayout.NORTH);
 				
+				panel.add(panel2);
+				panel.setVisible(true);
 				pack();
+				setBounds(100,100,600,650);
+				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				repaint();
-			}
-			
+			};
 		});
+			
+		
+				
+			
+		
+		
 		
 	}
 	
 
 }
+
