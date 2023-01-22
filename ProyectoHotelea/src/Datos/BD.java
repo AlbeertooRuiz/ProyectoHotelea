@@ -136,7 +136,8 @@ public class BD {
 		}
 
 	}
-
+	//Metodo que carga los datos de hoteles de prueba que hemos puesto en nuestro csv 
+	//y nos devuelve una lista con ellos para luego meterlos en la BD
 	public static ArrayList<Hotel> cargarHotelesTablaCsv() {
 		ArrayList<Hotel> hoteles = new ArrayList<>();
 		String input = "Hoteles.csv";
@@ -169,52 +170,9 @@ public class BD {
 
 
 
-	public void cargarBD(ActionEvent e) {
-		String texto = "";
-		ArrayList<String> lista = new ArrayList<>();
-		try {
-			BufferedReader br = new BufferedReader(new FileReader("Hoteles"));
-			String linea = br.readLine();
-			while (linea != br.readLine()) {
-				texto = texto + linea + "\n";
-				lista.add(linea);
-				linea = br.readLine();
 
-			}
-		} catch (IOException e1) {
-			System.out.println("Falla fichero");
-		}
-	}
 
-//	public static ArrayList<Hotel> obtenerListaHoteles(Connection con) {
-//		ArrayList<Hotel> hoteles = new ArrayList<>();
-//
-//		try {
-//			Statement st = con.createStatement();
-//			String sql = "SELECT * FROM Hotel";
-//			logger.log( Level.INFO, "Statement:", sql );
-//			ResultSet rs = st.executeQuery(sql);
-//			while (rs.next()) {
-//				String nombre = rs.getString("nombre");
-//				String ciudad = rs.getString("ciudad");
-//				int estrellas = rs.getInt("estrellas");
-//				int valoracion = rs.getInt("valoracion");
-//				int precio = rs.getInt("precio");
-//				int numHab = rs.getInt("numHab");
-//				String tipo = rs.getString("tipo");
-//				
-//				Hotel h = new Hotel(nombre, ciudad, estrellas, valoracion, precio, numHab, tipo);
-//				hoteles.add(h);
-//			}
-//			rs.close();
-//			st.close();
-//			
-//		} catch (SQLException e) {
-//			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
-//		}
-//		return hoteles;
-//
-//	}
+
 
 	// Metodo que crea la tabla Reservas
 	public static boolean crearTablaReservas(Connection con) {
@@ -232,7 +190,8 @@ public class BD {
 		}
 	}
 	
-
+	//Metodo que nos dice si existe una reserva dandole un nombre de hotel
+	//y una fecha y devuelve true si existe y false si no
 	public static boolean existeReserva(String nom, String fecha) {
 		boolean resul = false;
 		String sql = "SELECT * FROM Reservas WHERE hotel='" + nom + "' AND fecha='" + fecha + "'";
@@ -253,7 +212,9 @@ public class BD {
 		closeBD(con);
 		return resul;
 	}
-
+	
+	//Metodo para modificar una reserva de la base de datos utilizando
+	//el nombre del hotel y la fecha de la reserva
 	public static boolean modificarReserva(String nom, String fecha) {
 		String sql = "UPDATE Reservas SET reservas=reservas+1 WHERE hotel='" + nom + "' AND fecha='" + fecha + "'";
 		Connection con = initBD("Hotelea.db");
@@ -291,7 +252,7 @@ public class BD {
 		closeBD(con);
 		return true;
 	}
-	
+	//Metodo que devuelve todas las reservas almacenadas en la base de datos
 	public static ArrayList<Reserva> getReservas() {
 		Connection con = initBD("Hotelea.db");
 		ArrayList<Reserva> ret = new ArrayList<>();
@@ -316,6 +277,7 @@ public class BD {
 		
 	}
 	
+	//Metodo que devuelve una lista de precios dependiendo del tipo de hotel que estemos buscando
 	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
 		Connection con = initBD("Hotelea.db");
 		try (Statement statement = con.createStatement()) {
@@ -336,25 +298,8 @@ public class BD {
 		
 	}
 	
-//	public static ArrayList<Integer> getPreciosEnFuncionDelTipo(String tipo) {
-//		Connection con = initBD("Hotelea.db");
-//		try (Statement statement = con.createStatement()) {
-//			ArrayList<Integer> pre = new ArrayList<>();
-//			String sent = "select precio from Hotel where tipo = '"+tipo+"';";
-//			logger.log( Level.INFO, "Statement:", sent );
-//			ResultSet rs = statement.executeQuery( sent );
-//			while(rs.next()) {
-//				int precio=rs.getInt("precio");
-//				pre.add(precio);
-//			}
-//			return pre;
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			logger.log( Level.SEVERE, "Excepción", e );
-//		}
-//		return null;
-//		
-//	}
+	//Metodo que carga los datos de reservas de prueba que hemos puesto en nuestro csv 
+	//y los carga en la BD utilizando el metodo insertarreserva creado anteriormente
 	public static void cargarreservasTablaCsv() {
 		ArrayList<Reserva> reservas = new ArrayList<>();
 		String input = "Reservas.csv";
@@ -387,6 +332,8 @@ public class BD {
 
 	}
 	
+	//Metodo para que los administradores puedan añadir un hotel a la BD proporcionando
+	//los datos del hotel que quieren insertar
 	public static boolean insertarHotelAdmin(String nombre,String ciudad, int estrellas,int valoracion, int precio, int numHab, String tipo) {
 		Connection con = initBD("Hotelea.db");
 		String sql = "INSERT INTO Hotel VALUES('"+nombre+"','"+ciudad+"',"+estrellas+","+valoracion+","+precio+","+numHab+",'"+tipo+"')";
@@ -404,6 +351,8 @@ public class BD {
 		}
 		}
 		
+	//Metodo que recibe una lista de listas en la que cada sublista esta rellena de precio
+	//a partir de eso crea una lista de listas donde cada sublista es una lista de hoteles
 		public static ArrayList<ArrayList<Hotel>> getHotelesEnFuncionDePrecios(List<List<Integer>> Combinaciones) {
 			Connection con = initBD("Hotelea.db");
 			try (Statement statement = con.createStatement()) {
