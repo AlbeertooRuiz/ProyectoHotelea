@@ -139,11 +139,6 @@ public class Hotel implements Combinaciones{
 	}
 	String a = "Hotel";
 
-	@Override
-	public List<List<Integer>> combinacionesRecursivas() {
-		
-		return null;
-	}
 
 	@Override
 	public List<List<Integer>> combinacionesRecursivas(ArrayList<Integer> precios, int i) {
