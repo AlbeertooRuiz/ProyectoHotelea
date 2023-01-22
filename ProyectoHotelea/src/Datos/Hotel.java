@@ -23,6 +23,19 @@ public class Hotel implements Combinaciones{
 	}
 	
 	//Constructor de Hotel
+	/**
+	 * 
+	 * @param nombre Nombre del hotel
+	 * @param codH Codigo del hotel(Será único para cada hotel)
+	 * @param dir Direccion del hotel
+	 * @param ciudad Ciudad donde esta situado el hotel
+	 * @param estrellas Estrellas del hotel
+	 * @param tlfn Teléfono de comntacto del hotel
+	 * @param numHab Número de habitaciones del hotel
+	 * @param precio Precio de la habitación por noche
+	 * @param valoracion Valoracion del hotel
+	 * @param tipo Tipo de hotel
+	 */
 	public Hotel(String nombre, String codH, String dir, String ciudad, int estrellas, String tlfn, int numHab,
 			int precio, int valoracion, String tipo) {
 		super();
@@ -48,7 +61,7 @@ public class Hotel implements Combinaciones{
 		this.tipo = tipo;
 	}
 	
-
+	
 	public String getNombre() {
 		return nombre;
 	}
