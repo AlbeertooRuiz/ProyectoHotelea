@@ -84,12 +84,14 @@ public class VentanaUsuario extends JFrame {
 		
 		JLabel lblTitulo = new JLabel("Encuentra el hotel que mas se adapte a ti");
 		panelArriba.add(lblTitulo);
-		lblTitulo.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblTitulo.setFont(new Font("Dialog", Font.PLAIN, 16));
 		
 		JLabel lblCiudad = new JLabel("Ciudad");
+		lblCiudad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelAbajo.add(lblCiudad);
 		
 		textFieldCiudad = new JTextField();
+		textFieldCiudad.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		panelAbajo.add(textFieldCiudad);
 		textFieldCiudad.setColumns(10);
@@ -102,17 +104,21 @@ public class VentanaUsuario extends JFrame {
 		});
 		
 		JLabel lblNewLabel = new JLabel("Estrellas(min)");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelAbajo.add(lblNewLabel);
 		
 		textFieldEstrellas = new JTextField();
+		textFieldEstrellas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		panelAbajo.add(textFieldEstrellas);
 		textFieldEstrellas.setColumns(10);
 		
 		JLabel lblValoracion = new JLabel("Valoracion(min)");
+		lblValoracion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelAbajo.add(lblValoracion);
 		
 		textFieldValoracion = new JTextField();
+		textFieldValoracion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelAbajo.add(textFieldValoracion);
 		textFieldValoracion.setColumns(10);
 		
@@ -130,6 +136,7 @@ public class VentanaUsuario extends JFrame {
 		panelCentro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnCerrarSesion = new JButton("Cerrar Sesion");
+		btnCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaActual.dispose();
@@ -139,6 +146,7 @@ public class VentanaUsuario extends JFrame {
 		});
 		
 		JButton btnCombinaciones = new JButton("Combinaciones");
+		btnCombinaciones.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelSur.add(btnCombinaciones);
 		panelSur.add(btnCerrarSesion);
 		

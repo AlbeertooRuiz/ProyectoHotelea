@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class VentanaReserva extends JFrame {
 
@@ -59,6 +60,7 @@ public class VentanaReserva extends JFrame {
 		contentPane.add(panelNorte, BorderLayout.NORTH);
 		
 		JLabel lblTexto = new JLabel("Introduce tus datos");
+		lblTexto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelNorte.add(lblTexto);
 		
 		JPanel panelCentro = new JPanel();
@@ -66,23 +68,29 @@ public class VentanaReserva extends JFrame {
 		panelCentro.setLayout(new GridLayout(3, 2, 0, 0));
 		
 		JLabel lblNumPer = new JLabel("Numero de personas");
+		lblNumPer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(lblNumPer);
 		
 		textFieldNumPer = new JTextField();
+		textFieldNumPer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(textFieldNumPer);
 		textFieldNumPer.setColumns(10);
 		
 		JLabel lblCheckin = new JLabel("Check-in (dd/mm/yyyy)");
+		lblCheckin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(lblCheckin);
 		
 		textFieldCheckin = new JTextField();
+		textFieldCheckin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(textFieldCheckin);
 		textFieldCheckin.setColumns(10);
 		
 		JLabel lblCheckout = new JLabel("Check-out (dd/mm/yyyy)");
+		lblCheckout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(lblCheckout);
 		
 		textFieldCheckout = new JTextField();
+		textFieldCheckout.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		panelCentro.add(textFieldCheckout);
 		textFieldCheckout.setColumns(10);
 		
@@ -90,6 +98,7 @@ public class VentanaReserva extends JFrame {
 		contentPane.add(panelSur, BorderLayout.SOUTH);
 		
 		JButton btnConfirmarReserva = new JButton("Confirmar Reserva");
+		btnConfirmarReserva.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnConfirmarReserva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(textFieldNumPer.getText().equals("")) {
@@ -155,6 +164,7 @@ public class VentanaReserva extends JFrame {
 		panelSur.add(btnConfirmarReserva);
 		
 		JButton btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventanaActual.dispose();
