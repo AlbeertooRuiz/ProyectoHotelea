@@ -1,5 +1,6 @@
 package Datos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import Ventanas.VentanaCombinaciones;
@@ -141,6 +142,12 @@ public class Hotel implements Combinaciones{
 	@Override
 	public List<List<Integer>> combinacionesRecursivas() {
 		
+		return null;
+	}
+
+	@Override
+	public List<List<Integer>> combinacionesRecursivas(ArrayList<Integer> precios, int i) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

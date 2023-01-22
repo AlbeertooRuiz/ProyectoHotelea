@@ -195,6 +195,7 @@ public class VentanaAnyadirHotel extends JFrame{
 		comboBox.setBounds(309, 127, 121, 27);
 		getContentPane().add(comboBox);
 		
+		//metodo para volver a ventana anterior
 		btnvolver.addActionListener(new ActionListener() {
 
 			@Override
@@ -209,6 +210,7 @@ public class VentanaAnyadirHotel extends JFrame{
 			
 		});
 		
+		//metodo para añadir un hotel con los datos de los textfields con sus restricciones dependiendo del tipo de dato
 		botonanyadir.addActionListener(new ActionListener() {
 
 			@Override
@@ -218,7 +220,7 @@ public class VentanaAnyadirHotel extends JFrame{
 				String nombre=textFieldNombre.getText();
 				String erEstrellas="[0-6]{1}";
 				String estrellas=textFieldEstrellas.getText();
-				String erPrecio="[0-9]{3}";
+				String erPrecio="[0-9]{1,}";
 				String precio=textFieldPrecio.getText();
 				String erciudad="[A-Za-z]{1,}";
 				String ciudad=textFieldCiudad.getText();
@@ -226,7 +228,7 @@ public class VentanaAnyadirHotel extends JFrame{
 				String direccion=textFieldDireccion.getText();
 				String ertelefono="[0-9]{9}";
 				String telefono=textFieldTelefono.getText();
-				String ernumHab="[0-9]{4}";
+				String ernumHab="[0-9]{1,}";
 				String numHab=textFieldNumHab.getText();
 				if(Pattern.matches(erNombre, nombre)) {
 					if(Pattern.matches(erEstrellas, estrellas)) {
@@ -237,6 +239,7 @@ public class VentanaAnyadirHotel extends JFrame{
 										if(Pattern.matches(ernumHab, numHab)) {
 											BD.insertarHotelAdmin(textFieldNombre.getText(),textFieldCiudad.getText(),Integer.parseInt(textFieldEstrellas.getText()),0,Integer.parseInt(textFieldPrecio.getText()),Integer.parseInt(textFieldNumHab.getText()),comboBox.getSelectedItem().toString());
 											JOptionPane.showMessageDialog(null, "Su hotel ha sido añadido a la base de datos correctamente!!!");
+											
 										}else {
 											JOptionPane.showMessageDialog(null, "Los datos no cumplen los requisitos(Numero de habitaciones - Numeros)", "ERROR", JOptionPane.ERROR_MESSAGE);
 										}

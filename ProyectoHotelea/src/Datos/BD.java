@@ -218,7 +218,7 @@ public class BD {
 
 	// Metodo que crea la tabla Reservas
 	public static boolean crearTablaReservas(Connection con) {
-		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int, fechahoy int)";
+		String sql = "CREATE TABLE IF NOT EXISTS Reservas (hotel String, fecha String, reservas int, fechahoy int, mes int)";
 		try {
 			Statement st = con.createStatement();
 			logger.log( Level.INFO, "Statement:", sql );
