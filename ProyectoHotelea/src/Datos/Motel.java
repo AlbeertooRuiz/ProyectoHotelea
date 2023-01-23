@@ -23,4 +23,13 @@ public class Motel extends Hotel{
 		super();
 		
 	}
+	@Override
+	public String toString() {
+		return "Motel [getNombre()=" + getNombre() + ", getCodH()=" + getCodH() + ", getDir()=" + getDir()
+				+ ", getCiudad()=" + getCiudad() + ", getEstrellas()=" + getEstrellas() + ", getTlfn()=" + getTlfn()
+				+ ", getNumHab()=" + getNumHab() + ", getPrecio()=" + getPrecio() + ", getValoracion()="
+				+ getValoracion() + "]";
+	}
+	
+	
 }
