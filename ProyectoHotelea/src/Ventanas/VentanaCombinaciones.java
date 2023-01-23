@@ -47,6 +47,7 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setResizable(false);
+		this.setLocationRelativeTo(null);
 		
 		textPresupuesto = new JTextField();
 		textPresupuesto.setBounds(35, 45, 96, 20);
@@ -102,15 +103,9 @@ public class VentanaCombinaciones extends JFrame implements Combinaciones{
 		
 		contentPane.add(comboTipo);
 		
-		JCheckBox chckbxPrecio = new JCheckBox("");
-		chckbxPrecio.setFont(new Font("Viner Hand ITC", Font.PLAIN, 11));
-		chckbxPrecio.setBounds(587, 42, 29, 23);
-		contentPane.add(chckbxPrecio);
+	
 		
-		JLabel lblNewLabel_2 = new JLabel("ORDENAR POR PRECIO");
-		lblNewLabel_2.setFont(new Font("Viner Hand ITC", Font.PLAIN, 11));
-		lblNewLabel_2.setBounds(527, 24, 125, 14);
-		contentPane.add(lblNewLabel_2);
+	
 		
 
 
