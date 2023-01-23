@@ -30,6 +30,7 @@ public class VentanaAdministrador extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ventanaActual = this;
 		ventanaActual.setSize(550, 550);
+		ventanaActual.setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
